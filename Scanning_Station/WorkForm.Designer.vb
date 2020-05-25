@@ -29,6 +29,8 @@ Partial Class WorkForm
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
+        Me.BT_Fail = New System.Windows.Forms.Button()
+        Me.BT_Pass = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
         Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -60,15 +62,16 @@ Partial Class WorkForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GB_UserData = New System.Windows.Forms.GroupBox()
+        Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TB_RFIDIn = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.BT_LOGInClose = New System.Windows.Forms.Button()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
+        Me.DG_StepList = New System.Windows.Forms.DataGridView()
         Me.GB_WorkAria.SuspendLayout()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
@@ -76,10 +79,13 @@ Partial Class WorkForm
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GB_UserData.SuspendLayout()
+        CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GB_WorkAria
         '
+        Me.GB_WorkAria.Controls.Add(Me.BT_Fail)
+        Me.GB_WorkAria.Controls.Add(Me.BT_Pass)
         Me.GB_WorkAria.Controls.Add(Me.DG_UpLog)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox5)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
@@ -95,6 +101,30 @@ Partial Class WorkForm
         Me.GB_WorkAria.TabIndex = 24
         Me.GB_WorkAria.TabStop = False
         Me.GB_WorkAria.Visible = False
+        '
+        'BT_Fail
+        '
+        Me.BT_Fail.Enabled = False
+        Me.BT_Fail.FlatAppearance.BorderSize = 0
+        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Location = New System.Drawing.Point(438, 363)
+        Me.BT_Fail.Name = "BT_Fail"
+        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
+        Me.BT_Fail.TabIndex = 27
+        Me.BT_Fail.UseVisualStyleBackColor = True
+        '
+        'BT_Pass
+        '
+        Me.BT_Pass.Enabled = False
+        Me.BT_Pass.FlatAppearance.BorderSize = 0
+        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
+        Me.BT_Pass.Location = New System.Drawing.Point(17, 363)
+        Me.BT_Pass.Name = "BT_Pass"
+        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
+        Me.BT_Pass.TabIndex = 26
+        Me.BT_Pass.UseVisualStyleBackColor = True
         '
         'DG_UpLog
         '
@@ -122,7 +152,7 @@ Partial Class WorkForm
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DG_UpLog.DefaultCellStyle = DataGridViewCellStyle3
-        Me.DG_UpLog.Location = New System.Drawing.Point(17, 372)
+        Me.DG_UpLog.Location = New System.Drawing.Point(17, 460)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -135,7 +165,7 @@ Partial Class WorkForm
         Me.DG_UpLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.DG_UpLog.Size = New System.Drawing.Size(1342, 381)
+        Me.DG_UpLog.Size = New System.Drawing.Size(1342, 299)
         Me.DG_UpLog.TabIndex = 25
         '
         'Num
@@ -446,6 +476,17 @@ Partial Class WorkForm
         Me.SerialTextBox.Size = New System.Drawing.Size(508, 31)
         Me.SerialTextBox.TabIndex = 1
         '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.settings__1_
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1298, 241)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(61, 56)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        '
         'GB_UserData
         '
         Me.GB_UserData.BackColor = System.Drawing.Color.NavajoWhite
@@ -460,6 +501,19 @@ Partial Class WorkForm
         Me.GB_UserData.TabIndex = 30
         Me.GB_UserData.TabStop = False
         Me.GB_UserData.Text = "Регистрация пользователя"
+        '
+        'BT_LOGInClose
+        '
+        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
+        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
+        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
+        Me.BT_LOGInClose.Name = "BT_LOGInClose"
+        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
+        Me.BT_LOGInClose.TabIndex = 2
+        Me.BT_LOGInClose.UseVisualStyleBackColor = False
         '
         'Label13
         '
@@ -510,35 +564,23 @@ Partial Class WorkForm
         Me.TextBox3.Size = New System.Drawing.Size(197, 141)
         Me.TextBox3.TabIndex = 31
         '
-        'BT_LOGInClose
+        'DG_StepList
         '
-        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
-        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
-        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
-        Me.BT_LOGInClose.Name = "BT_LOGInClose"
-        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
-        Me.BT_LOGInClose.TabIndex = 2
-        Me.BT_LOGInClose.UseVisualStyleBackColor = False
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.settings__1_
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1298, 241)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(61, 56)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        Me.DG_StepList.AllowUserToAddRows = False
+        Me.DG_StepList.AllowUserToDeleteRows = False
+        Me.DG_StepList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_StepList.Location = New System.Drawing.Point(1742, 411)
+        Me.DG_StepList.Name = "DG_StepList"
+        Me.DG_StepList.ReadOnly = True
+        Me.DG_StepList.Size = New System.Drawing.Size(197, 141)
+        Me.DG_StepList.TabIndex = 32
         '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1981, 841)
+        Me.Controls.Add(Me.DG_StepList)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
@@ -560,6 +602,7 @@ Partial Class WorkForm
         Me.GroupBox4.PerformLayout()
         Me.GB_UserData.ResumeLayout(False)
         Me.GB_UserData.PerformLayout()
+        CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -606,4 +649,7 @@ Partial Class WorkForm
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents CurrentTimeTimer As Timer
     Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents BT_Fail As Button
+    Friend WithEvents BT_Pass As Button
+    Friend WithEvents DG_StepList As DataGridView
 End Class

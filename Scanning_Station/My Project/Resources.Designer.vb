@@ -73,6 +73,26 @@ Namespace My.Resources
         '''<summary>
         '''  Поиск локализованного ресурса типа System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property agt_action_fail__1_() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("agt_action_fail (1)", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property agt_action_success__1_() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("agt_action_success (1)", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property close() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("close", resourceCulture)

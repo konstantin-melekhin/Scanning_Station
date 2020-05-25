@@ -99,6 +99,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TestForm1.Designer.vb">
+      <DependentUpon>TestForm1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestForm1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WorkForm.Designer.vb">
       <DependentUpon>WorkForm.vb</DependentUpon>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm1.resx">
+      <DependentUpon>TestForm1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkForm.resx">
       <DependentUpon>WorkForm.vb</DependentUpon>
@@ -149,6 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agt_action_success %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agt_action_fail %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

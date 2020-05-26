@@ -23,11 +23,11 @@ Partial Class WorkForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.BT_Fail = New System.Windows.Forms.Button()
         Me.BT_Pass = New System.Windows.Forms.Button()
@@ -72,6 +72,16 @@ Partial Class WorkForm
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.DG_StepList = New System.Windows.Forms.DataGridView()
+        Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
+        Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
+        Me.BT_SeveErCode = New System.Windows.Forms.Button()
+        Me.TB_Description = New System.Windows.Forms.TextBox()
+        Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.FASDataSet = New Scanning_Station.FASDataSet()
+        Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
         Me.GB_WorkAria.SuspendLayout()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
@@ -80,6 +90,10 @@ Partial Class WorkForm
         Me.GroupBox4.SuspendLayout()
         Me.GB_UserData.SuspendLayout()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GB_ErrorCode.SuspendLayout()
+        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GB_WorkAria
@@ -130,41 +144,41 @@ Partial Class WorkForm
         '
         Me.DG_UpLog.AllowUserToAddRows = False
         Me.DG_UpLog.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.DG_UpLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_UpLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber, Me.SCIDTab, Me.CASIDTab, Me.HDCP, Me.CERT})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DG_UpLog.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_UpLog.DefaultCellStyle = DataGridViewCellStyle8
         Me.DG_UpLog.Location = New System.Drawing.Point(17, 460)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_UpLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_UpLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.DG_UpLog.Size = New System.Drawing.Size(1342, 299)
         Me.DG_UpLog.TabIndex = 25
         '
@@ -575,11 +589,102 @@ Partial Class WorkForm
         Me.DG_StepList.Size = New System.Drawing.Size(197, 141)
         Me.DG_StepList.TabIndex = 32
         '
+        'GB_ErrorCode
+        '
+        Me.GB_ErrorCode.Controls.Add(Me.DG_ErrorCodes)
+        Me.GB_ErrorCode.Controls.Add(Me.BT_SeveErCode)
+        Me.GB_ErrorCode.Controls.Add(Me.TB_Description)
+        Me.GB_ErrorCode.Controls.Add(Me.CB_ErrorCode)
+        Me.GB_ErrorCode.Controls.Add(Me.Label8)
+        Me.GB_ErrorCode.Controls.Add(Me.Label4)
+        Me.GB_ErrorCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GB_ErrorCode.Location = New System.Drawing.Point(1491, 478)
+        Me.GB_ErrorCode.Name = "GB_ErrorCode"
+        Me.GB_ErrorCode.Size = New System.Drawing.Size(419, 335)
+        Me.GB_ErrorCode.TabIndex = 33
+        Me.GB_ErrorCode.TabStop = False
+        Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
+        Me.GB_ErrorCode.Visible = False
+        '
+        'DG_ErrorCodes
+        '
+        Me.DG_ErrorCodes.AllowUserToAddRows = False
+        Me.DG_ErrorCodes.AllowUserToDeleteRows = False
+        Me.DG_ErrorCodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_ErrorCodes.Location = New System.Drawing.Point(299, 37)
+        Me.DG_ErrorCodes.Name = "DG_ErrorCodes"
+        Me.DG_ErrorCodes.ReadOnly = True
+        Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
+        Me.DG_ErrorCodes.TabIndex = 34
+        Me.DG_ErrorCodes.Visible = False
+        '
+        'BT_SeveErCode
+        '
+        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
+        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(341, 250)
+        Me.BT_SeveErCode.Name = "BT_SeveErCode"
+        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
+        Me.BT_SeveErCode.TabIndex = 3
+        Me.BT_SeveErCode.UseVisualStyleBackColor = True
+        '
+        'TB_Description
+        '
+        Me.TB_Description.Location = New System.Drawing.Point(16, 189)
+        Me.TB_Description.Multiline = True
+        Me.TB_Description.Name = "TB_Description"
+        Me.TB_Description.Size = New System.Drawing.Size(304, 140)
+        Me.TB_Description.TabIndex = 2
+        '
+        'CB_ErrorCode
+        '
+        Me.CB_ErrorCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.CB_ErrorCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.CB_ErrorCode.FormattingEnabled = True
+        Me.CB_ErrorCode.Location = New System.Drawing.Point(16, 97)
+        Me.CB_ErrorCode.Name = "CB_ErrorCode"
+        Me.CB_ErrorCode.Size = New System.Drawing.Size(266, 39)
+        Me.CB_ErrorCode.TabIndex = 1
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(6, 155)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(314, 31)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "Введите комментарий"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(10, 62)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(283, 31)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Укажите код отказа"
+        '
+        'FASDataSet
+        '
+        Me.FASDataSet.DataSetName = "FASDataSet"
+        Me.FASDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'FASErrorCodeBindingSource
+        '
+        Me.FASErrorCodeBindingSource.DataMember = "FAS_ErrorCode"
+        Me.FASErrorCodeBindingSource.DataSource = Me.FASDataSet
+        '
+        'FAS_ErrorCodeTableAdapter
+        '
+        Me.FAS_ErrorCodeTableAdapter.ClearBeforeFill = True
+        '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1981, 841)
+        Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.DG_StepList)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
@@ -603,6 +708,11 @@ Partial Class WorkForm
         Me.GB_UserData.ResumeLayout(False)
         Me.GB_UserData.PerformLayout()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GB_ErrorCode.ResumeLayout(False)
+        Me.GB_ErrorCode.PerformLayout()
+        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -652,4 +762,14 @@ Partial Class WorkForm
     Friend WithEvents BT_Fail As Button
     Friend WithEvents BT_Pass As Button
     Friend WithEvents DG_StepList As DataGridView
+    Friend WithEvents GB_ErrorCode As GroupBox
+    Friend WithEvents BT_SeveErCode As Button
+    Friend WithEvents TB_Description As TextBox
+    Friend WithEvents CB_ErrorCode As ComboBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents DG_ErrorCodes As DataGridView
+    Friend WithEvents FASDataSet As FASDataSet
+    Friend WithEvents FASErrorCodeBindingSource As BindingSource
+    Friend WithEvents FAS_ErrorCodeTableAdapter As FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter
 End Class

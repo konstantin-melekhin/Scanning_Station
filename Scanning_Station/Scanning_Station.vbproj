@@ -76,6 +76,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FASDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FASDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +135,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FASDataSet.xsc">
+      <DependentUpon>FASDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FASDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FASDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FASDataSet.xss">
+      <DependentUpon>FASDataSet.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -164,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\agt_action_fail %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3floppy_mount.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

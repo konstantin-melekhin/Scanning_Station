@@ -12,13 +12,13 @@ Public Class WorkForm
     Dim CloseForm As Boolean
     'Загрузка рабочей формы
     Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: данная строка кода позволяет загрузить данные в таблицу "FASDataSet.FAS_ErrorCode". При необходимости она может быть перемещена или удалена.
+        Me.FAS_ErrorCodeTableAdapter.Fill(Me.FASDataSet.FAS_ErrorCode)
         LOTID = SettingsForm.LOTID
         If LOTID = 0 Then
             CloseForm = True
             SettingsForm.Show()
-
             SettingsForm.L_Result.Visible = True
-            PrintLabel(SettingsForm.L_Result, "Выберите ЛОТ повторно и снова запустите программу!", 26, 155, Color.Red, New Font("Microsoft Sans Serif", 20, FontStyle.Bold))
             Me.Close()
             MsgBox("Выберите ЛОТ повторно и снова запустите программу!")
             Exit Sub
@@ -80,9 +80,17 @@ Public Class WorkForm
                 Exit For
             End If
         Next
-
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
+        'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
+        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode]")
+        'Записываем коды ошибок в рабочий комбобокс
+        If DG_ErrorCodes.Rows.Count <> 0 Then
+            For J = 0 To DG_ErrorCodes.Rows.Count - 1
+                CB_ErrorCode.Items.Add(DG_ErrorCodes.Rows(J).Cells(1).Value)
+            Next
+        End If
+
         'Запуск программы
         '___________________________________________________________
         GB_UserData.Location = New Point(10, 12)
@@ -134,7 +142,6 @@ Public Class WorkForm
             OpenSettings = False
         End If
     End Sub ' условия для возврата в окно настроек
-
     '_________________________________________________________________________________________________________________
     'начало работы приложения FAS Scanning Station
     '________________________________________________________________________________________________________________
@@ -181,60 +188,141 @@ Public Class WorkForm
         ' В аргументах PCBID = PCBCheckRes(1) и PCBSN = PCBCheckRes(2), CurrentStepID = PCInfo(6) и CurrentStep = PCInfo(7)
         Dim PCBStepRes As New ArrayList(SelectListString("USE FAS SELECT [StepID],[TestResult],[ScanDate],[SNID]
                             FROM [FAS].[dbo].[ATestTable_Ct_StepResult] where [PCBID] = " & PCBCheckRes(1)))
-        If PCBStepRes.Count = 0 And PreStepID = 0 Then
+        If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
             RunCommand("USE FAS insert into [FAS].[dbo].[ATestTable_Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
                         values (" & PCBCheckRes(1) & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP)")
+            RunCommand("Use Fas insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID])values
+                    (" & PCBCheckRes(1) & "," & LOTID & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP,
+                    " & UserInfo(0) & "," & PCInfo(2) & ")")
             PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", 26, 155, Color.Orange)
-            SerialTextBox.Clear()
-        ElseIf PCBStepRes.Count = 0 And PreStepID <> 0 Then 'нужно проверить почему
+            CleareSn()
+        ElseIf PCBStepRes.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
             PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " не прошла этап " & PreStep & "!" &
-                      vbCrLf & "Передайте плату на этап " & PreStep & "!", 26, 155, Color.Red)
-            SerialTextBox.Clear()
-            'ElseIf 
-
+                      vbCrLf & "Передайте плату на этап " & StartStep & "!", 26, 155, Color.Red)
+            CleareSn()
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 1 Then 'Плата имеет статус 1/1
             BT_Pass.Enabled = True
             BT_Fail.Enabled = True
             SerialTextBox.Enabled = False
+            Controllabel.Text = "Подтвердите результат теста!"
+            CurrrentTimeLabel.Focus()
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
             PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
                        vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", 26, 155, Color.DarkGreen)
-            SerialTextBox.Clear()
+            CleareSn()
         ElseIf PCBStepRes(1) = 3 Then 'Плата имеет статус x/3, то проверить опер лог и определить откуда плата
-            PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " не прошла этап " & PCInfo(7) & "!" &
+            PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " находится в карантине!" &
                        vbCrLf & "Передайте плату в ремонт!", 26, 155, Color.Red)
-            SerialTextBox.Clear()
-        ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2
-            RunCommand("USE FAS Update [FAS].[dbo].[ATestTable_Ct_StepResult] 
-                    set StepID = " & PCInfo(6) & ", TestResult = 1, ScanDate = CURRENT_TIMESTAMP
-                    where PCBID = " & PCBCheckRes(1))
-            PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", 26, 155, Color.Orange)
-            SerialTextBox.Clear()
-
-            'ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(7) = StartStep Then 'Плата имеет статус Prestep/2
-            '    RunCommand("USE FAS Update [FAS].[dbo].[ATestTable_Ct_StepResult] 
-            '            set StepID = " & PCInfo(6) & ", TestResult = 1, ScanDate = CURRENT_TIMESTAMP
-            '            where PCBID = " & PCBCheckRes(1))
-            '    PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", 26, 155, Color.Orange)
-            '    SerialTextBox.Clear()
-
-
+            CleareSn()
+        ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2 (проверка предыдущего шага)
+            UpdateStepRes(PCInfo(6), 1, PCBCheckRes(1))
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) = StartStepID Then 'Плата вернулась из ремонта на первый этап
+            UpdateStepRes(PCInfo(6), 1, PCBCheckRes(1))
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) <> StartStepID Then 'Плата вернулась из ремонта не на первый этап
+            PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
+                       "передайте плату на операцию " & StartStep & "!", 26, 155, Color.Red)
+            CleareSn()
+        ElseIf PCBStepRes(0) <> PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2
+            PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
+                       "передайте плату на операцию " & StartStep & "!", 26, 155, Color.Red)
+            CleareSn()
         End If
 
 
     End Sub
+    Private Sub UpdateStepRes(StepID As Integer, StepRes As Integer, PcbID As Integer)
+        Dim Message As String
+        Dim MesColor As Color
+        Select Case StepRes
+            Case 1
+                Message = "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!"
+                MesColor = Color.Orange
+            Case 2
+                Message = "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & "!" &
+                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!"
+                MesColor = Color.Green
+            Case 3
+                Message = "Плата " & PCBCheckRes(2) & " не прошла этап " & PCInfo(7) & "!" &
+                   vbCrLf & "Передайте плату в ремонт!"
+                MesColor = Color.Red
+        End Select
+        RunCommand("USE FAS Update [FAS].[dbo].[ATestTable_Ct_StepResult] 
+                    set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
+                    where PCBID = " & PcbID)
+        RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+                    (" & PcbID & "," & LOTID & "," & StepID & "," & StepRes & ",CURRENT_TIMESTAMP,
+                    " & UserInfo(0) & "," & PCInfo(2) & "," &
+                    If(StepRes = 3, ErrorCodeID, "Null") & "," &
+                    If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+        PrintLabel(Controllabel, Message, 26, 155, MesColor)
+        CleareSn()
+    End Sub
 
+    Private Sub CurrrentTimeLabel_KeyDown(sender As Object, e As KeyEventArgs) Handles CurrrentTimeLabel.KeyDown
+        If e.KeyCode = Keys.Space Then
+            BT_Pass_Click(sender, e)
+        ElseIf e.KeyCode = Keys.F Then
+            BT_Fail_Click(sender, e)
+        End If
+    End Sub
 
     Private Sub BT_Pass_Click(sender As Object, e As EventArgs) Handles BT_Pass.Click
-        RunCommand("USE FAS Update [FAS].[dbo].[ATestTable_Ct_StepResult] 
-                    set StepID = "& PCInfo(6) &", TestResult = 2, ScanDate = CURRENT_TIMESTAMP
-                    where PCBID = " & PCBCheckRes(1))
-        PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & "!" &
-                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", 26, 155, Color.Green)
-        SerialTextBox.Clear()
-        SerialTextBox.Enabled = True
+        UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
+    End Sub
+    Private Sub BT_SeveErCode_Click(sender As Object, e As EventArgs) Handles BT_SeveErCode.Click
+        GetErrorCode()
+        UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
+        CB_ErrorCode.Text = ""
 
     End Sub
+
+    Private Sub CleareSn()
+        SerialTextBox.Clear()
+        SerialTextBox.Enabled = True
+        GB_ErrorCode.Visible = False
+        BT_Pass.Enabled = False
+        BT_Fail.Enabled = False
+        ErrorCodeID = 0
+        TB_Description.Clear()
+        SerialTextBox.Focus()
+    End Sub
+
+    Private Sub BT_Fail_Click(sender As Object, e As EventArgs) Handles BT_Fail.Click
+        GB_ErrorCode.Visible = True
+        GB_ErrorCode.Location = New Point(64, 460)
+        CB_ErrorCode.Focus()
+    End Sub
+
+    Dim ErrorCodeID As Integer
+    Dim LastErrCodeText As String
+    Private Function GetErrorCode()
+        ErrorCodeID = 0
+        'определяем errorcodID
+        For J = 0 To DG_ErrorCodes.Rows.Count - 1
+            If CB_ErrorCode.Text = DG_ErrorCodes.Rows(J).Cells(1).Value Then
+                ErrorCodeID = DG_ErrorCodes.Rows(J).Cells(0).Value
+                LastErrCodeText = CB_ErrorCode.Text
+                Exit For
+            End If
+        Next
+        Return ErrorCodeID
+    End Function
+    Private Sub CB_ErrorCode_TextChanged(sender As Object, e As EventArgs) Handles CB_ErrorCode.TextChanged
+        CB_ErrorCode.MaxLength = 2
+        If Len(CB_ErrorCode.Text) = 2 Then
+
+            BT_SeveErCode.Focus()
+        ElseIf Len(CB_ErrorCode.Text) <> 2 Then
+            Exit Sub
+        End If
+        BT_SeveErCode.Focus()
+    End Sub
+
+
+
+
 
 
 

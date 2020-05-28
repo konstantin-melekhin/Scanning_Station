@@ -26,5 +26,5 @@ left join [FAS].[dbo].[Ct_TestResult] as Sr On Sr.ID = TestResultID
 left join [FAS].[dbo].[FAS_Users] as Us On Us.UserID = [StepByID]
 left join [FAS].[dbo].[FAS_Lines] as Ln On Ln.LineID = Lg.LineID
 left join [FAS].[dbo].[FAS_ErrorCode] as Er On Er.ErrorCodeID = Lg.ErrorCodeID
-where lg.pcbid = 1086305
+where Ls.Content = 'AQ00215'
 order by StepDate desc

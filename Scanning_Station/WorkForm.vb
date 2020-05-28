@@ -10,6 +10,7 @@ Public Class WorkForm
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
     Dim CloseForm As Boolean
+    Dim Yield As Double
     'Загрузка рабочей формы
     Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'TODO: данная строка кода позволяет загрузить данные в таблицу "FASDataSet.FAS_ErrorCode". При необходимости она может быть перемещена или удалена.
@@ -100,6 +101,16 @@ Public Class WorkForm
         ShiftCounterInfo = ShiftCounterStart(PCInfo(4), IDApp, LOTID)
         Label_ShiftCounter.Text = ShiftCounterInfo(1)
         LB_LOTCounter.Text = ShiftCounterInfo(2)
+        LB_PassLotRes.Text = ShiftCounterInfo(3)
+        LB_FailLotRes.Text = ShiftCounterInfo(4)
+        If ShiftCounterInfo(2) > 0 Then
+            Yield = (ShiftCounterInfo(3) / ShiftCounterInfo(2)) * 100
+            LB_Yield.Text = Yield.ToString("00.00")
+
+        Else
+            LB_Yield.Text = ""
+            LB_Procent.Visible = False
+        End If
     End Sub 'Загрузка рабочей формы
     'Часы в программе
     Private Sub CurrentTimeTimer_Tick(sender As Object, e As EventArgs) Handles CurrentTimeTimer.Tick
@@ -155,7 +166,7 @@ Public Class WorkForm
                 Mess = GetStepResult()
                 If BT_Pass.Visible = False Then
                     CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, Mess(0), "", Mess(1))
-                    PrintLabel(Controllabel, Mess(1), 26, 155, Mess(2))
+                    PrintLabel(Controllabel, Mess(1), 12, 193, Mess(2))
                     If Mess(3) = True Then
                         CleareSn()
                     End If
@@ -165,7 +176,7 @@ Public Class WorkForm
             End If
             SerialTextBox.Focus()
         ElseIf e.KeyCode = Keys.Enter Then
-            PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 26, 155, Color.Red)
+            PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 12, 193, Color.Red)
             CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата имеет не верный номер")
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
@@ -177,7 +188,7 @@ Public Class WorkForm
         Dim PCBID As Integer = SelectInt("use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] 
                                             where Content = '" & PCBSN & "'")
         If PCBID = 0 Then
-            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 26, 155, Color.Red)
+            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
             PCBRes.Add(False)
@@ -186,12 +197,11 @@ Public Class WorkForm
         Else
             If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
                                         where PCBserial = '" & PCBSN & "' and PCBResult = 1") Then
-                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 26, 155, Color.Red)
+                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
                 SerialTextBox.Enabled = False
                 BT_Pause.Focus()
                 PCBRes.Add(False)
                 PCBRes.Add("Плата не прошла THT Start!")
-                'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не прошла THT Start!")
             Else
                 PCBRes.Add(True)
                 PCBRes.Add(PCBID)
@@ -225,7 +235,7 @@ Public Class WorkForm
             BT_Fail.Visible = True
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
-            PrintLabel(Controllabel, "Подтвердите результат теста!", 26, 155, Color.OrangeRed)
+            PrintLabel(Controllabel, "Подтвердите результат теста!", 12, 193, Color.OrangeRed)
             CurrrentTimeLabel.Focus()
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
@@ -287,7 +297,7 @@ Public Class WorkForm
                     " & UserInfo(0) & "," & PCInfo(2) & "," &
                     If(StepRes = 3, ErrCode(0), "Null") & "," &
                     If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
-        PrintLabel(Controllabel, Message, 26, 155, MesColor)
+        PrintLabel(Controllabel, Message, 12, 193, MesColor)
     End Sub
 
     Private Sub CurrrentTimeLabel_KeyDown(sender As Object, e As KeyEventArgs) Handles CurrrentTimeLabel.KeyDown
@@ -299,15 +309,19 @@ Public Class WorkForm
     End Sub
 
     Private Sub BT_Pass_Click(sender As Object, e As EventArgs) Handles BT_Pass.Click
-        ShiftCounter()
+        ShiftCounter(2)
         UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
         CleareSn()
     End Sub
     Private Sub BT_SeveErCode_Click(sender As Object, e As EventArgs) Handles BT_SeveErCode.Click
-        ShiftCounter()
-        UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
-        CB_ErrorCode.Text = ""
-        CleareSn()
+        If CB_ErrorCode.Text = "" Then
+            MsgBox("Укажите код ошибки")
+        Else
+            ShiftCounter(3)
+            UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
+            CB_ErrorCode.Text = ""
+            CleareSn()
+        End If
     End Sub
     Private Sub CleareSn()
         If GB_PCBInfoMode.Visible = False Then
@@ -330,11 +344,16 @@ Public Class WorkForm
 
     Private Sub BT_Fail_Click(sender As Object, e As EventArgs) Handles BT_Fail.Click
         GB_ErrorCode.Visible = True
-        GB_ErrorCode.Location = New Point(174, 19)
+        GB_ErrorCode.Location = New Point(180, 333)
         DG_UpLog.Visible = False
         CB_ErrorCode.Focus()
     End Sub
 
+    Private Sub BT_CloseErrMode_Click(sender As Object, e As EventArgs) Handles BT_CloseErrMode.Click
+        GB_ErrorCode.Visible = False
+        DG_UpLog.Visible = True
+        CurrrentTimeLabel.Focus()
+    End Sub
 
 
     Private Function GetErrorCode() As ArrayList
@@ -349,7 +368,6 @@ Public Class WorkForm
         Next
         Return ErrorCode
     End Function
-
 
     Private Sub CB_ErrorCode_TextChanged(sender As Object, e As EventArgs) Handles CB_ErrorCode.TextChanged
         CB_ErrorCode.MaxLength = 2
@@ -372,25 +390,34 @@ Public Class WorkForm
     End Sub
 
 
-    Private Sub ShiftCounter()
+    Private Sub ShiftCounter(StepRes As Integer)
         ShiftCounterInfo(1) += 1
         ShiftCounterInfo(2) += 1
+        If StepRes = 2 Then
+            ShiftCounterInfo(3) += 1
+        Else
+            ShiftCounterInfo(4) += 1
+        End If
         Label_ShiftCounter.Text = ShiftCounterInfo(1)
         LB_LOTCounter.Text = ShiftCounterInfo(2)
-        'SQL = "USE FAS
-        '    update M_ShiftCounter set Shift_Counter = " & ShiftCounter & " where StationID = " & StationID & " and ApplicationID = " & IDApp & " and ShiftID = " & ShiftID & " and ID = " & ShiftCounterID
-        '    GetConnect()
-        '    RunCommand(SQL)
-        '    conn.Close()
+        LB_PassLotRes.Text = ShiftCounterInfo(3)
+        LB_FailLotRes.Text = ShiftCounterInfo(4)
+        Yield = (ShiftCounterInfo(3) / ShiftCounterInfo(2)) * 100
+        LB_Yield.Text = Yield.ToString("00.00")
+        LB_Procent.Visible = True
+        ShiftCounterUpdateCT(ShiftCounterInfo(0), ShiftCounterInfo(1), ShiftCounterInfo(2),
+                             ShiftCounterInfo(3), ShiftCounterInfo(4))
     End Sub
 
     Private Sub BT_PCBInfo_Click(sender As Object, e As EventArgs) Handles BT_PCBInfo.Click
         Controllabel.Text = ""
         If GB_PCBInfoMode.Visible = False Then
             GB_PCBInfoMode.Visible = True
+            TB_GetPCPInfo.Focus()
         Else
             GB_PCBInfoMode.Visible = False
         End If
+        CleareSn()
     End Sub
 
     Private Sub TB_GetPCPInfo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_GetPCPInfo.KeyDown
@@ -418,7 +445,5 @@ Public Class WorkForm
             Next
             DG_PCB_Steps.Sort(DG_PCB_Steps.Columns(7), System.ComponentModel.ListSortDirection.Descending)
         End If
-
     End Sub
-
 End Class

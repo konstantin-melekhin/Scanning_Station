@@ -1,6 +1,12 @@
 ﻿Public Class TestForm1
     Private Sub TestForm1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Dim objlist As New ArrayList()
+        objlist.AddRange(New String() {"Hello", "world"})  'добавляем в список массив строк
+        For Each item As Object In objlist
+            MsgBox(item)
+        Next
+        MsgBox(objlist(0))
+        MsgBox(objlist(1))
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

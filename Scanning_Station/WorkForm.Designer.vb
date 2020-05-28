@@ -23,14 +23,37 @@ Partial Class WorkForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
-        Me.BT_Fail = New System.Windows.Forms.Button()
-        Me.BT_Pass = New System.Windows.Forms.Button()
+        Me.BT_PCBInfo = New System.Windows.Forms.Button()
+        Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
+        Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
+        Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
+        Me.BT_Pause = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
         Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -38,8 +61,9 @@ Partial Class WorkForm
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HDCP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CERT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
+        Me.BT_Pass = New System.Windows.Forms.Button()
+        Me.BT_Fail = New System.Windows.Forms.Button()
+        Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
@@ -60,9 +84,6 @@ Partial Class WorkForm
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Lebel_StationLine = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.SerialTextBox = New System.Windows.Forms.TextBox()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GB_UserData = New System.Windows.Forms.GroupBox()
         Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -82,9 +103,13 @@ Partial Class WorkForm
         Me.FASDataSet = New Scanning_Station.FASDataSet()
         Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
+        Me.DG_PCBInfoFromDB = New System.Windows.Forms.DataGridView()
         Me.GB_WorkAria.SuspendLayout()
-        CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GB_ScanMode.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        Me.GB_PCBInfoMode.SuspendLayout()
+        CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -94,51 +119,250 @@ Partial Class WorkForm
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GB_WorkAria
         '
-        Me.GB_WorkAria.Controls.Add(Me.BT_Fail)
-        Me.GB_WorkAria.Controls.Add(Me.BT_Pass)
-        Me.GB_WorkAria.Controls.Add(Me.DG_UpLog)
-        Me.GB_WorkAria.Controls.Add(Me.GroupBox5)
+        Me.GB_WorkAria.Controls.Add(Me.BT_PCBInfo)
+        Me.GB_WorkAria.Controls.Add(Me.GB_ScanMode)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox6)
         Me.GB_WorkAria.Controls.Add(Me.Controllabel)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox4)
-        Me.GB_WorkAria.Controls.Add(Me.Label2)
-        Me.GB_WorkAria.Controls.Add(Me.SerialTextBox)
-        Me.GB_WorkAria.Controls.Add(Me.BT_OpenSettings)
         Me.GB_WorkAria.Location = New System.Drawing.Point(12, 12)
         Me.GB_WorkAria.Name = "GB_WorkAria"
-        Me.GB_WorkAria.Size = New System.Drawing.Size(1365, 801)
+        Me.GB_WorkAria.Size = New System.Drawing.Size(1326, 705)
         Me.GB_WorkAria.TabIndex = 24
         Me.GB_WorkAria.TabStop = False
         Me.GB_WorkAria.Visible = False
         '
-        'BT_Fail
+        'BT_PCBInfo
         '
-        Me.BT_Fail.Enabled = False
-        Me.BT_Fail.FlatAppearance.BorderSize = 0
-        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
-        Me.BT_Fail.Location = New System.Drawing.Point(438, 363)
-        Me.BT_Fail.Name = "BT_Fail"
-        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
-        Me.BT_Fail.TabIndex = 27
-        Me.BT_Fail.UseVisualStyleBackColor = True
+        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
+        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(759, 8)
+        Me.BT_PCBInfo.Name = "BT_PCBInfo"
+        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
+        Me.BT_PCBInfo.TabIndex = 31
+        Me.BT_PCBInfo.UseVisualStyleBackColor = True
         '
-        'BT_Pass
+        'GB_ScanMode
         '
-        Me.BT_Pass.Enabled = False
-        Me.BT_Pass.FlatAppearance.BorderSize = 0
-        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
-        Me.BT_Pass.Location = New System.Drawing.Point(17, 363)
-        Me.BT_Pass.Name = "BT_Pass"
-        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
-        Me.BT_Pass.TabIndex = 26
-        Me.BT_Pass.UseVisualStyleBackColor = True
+        Me.GB_ScanMode.Controls.Add(Me.Label2)
+        Me.GB_ScanMode.Controls.Add(Me.BT_CleareSN)
+        Me.GB_ScanMode.Controls.Add(Me.BT_OpenSettings)
+        Me.GB_ScanMode.Controls.Add(Me.GroupBox5)
+        Me.GB_ScanMode.Controls.Add(Me.GB_PCBInfoMode)
+        Me.GB_ScanMode.Controls.Add(Me.BT_Pause)
+        Me.GB_ScanMode.Controls.Add(Me.DG_UpLog)
+        Me.GB_ScanMode.Controls.Add(Me.BT_Pass)
+        Me.GB_ScanMode.Controls.Add(Me.BT_Fail)
+        Me.GB_ScanMode.Controls.Add(Me.SerialTextBox)
+        Me.GB_ScanMode.Location = New System.Drawing.Point(17, 241)
+        Me.GB_ScanMode.Name = "GB_ScanMode"
+        Me.GB_ScanMode.Size = New System.Drawing.Size(1301, 456)
+        Me.GB_ScanMode.TabIndex = 30
+        Me.GB_ScanMode.TabStop = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label2.Location = New System.Drawing.Point(186, 16)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(367, 25)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Строка ввода серийного номера"
+        '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
+        Me.BT_CleareSN.TabIndex = 28
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
+        '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1190, 22)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox5.Location = New System.Drawing.Point(928, 44)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
+        Me.GroupBox5.TabIndex = 24
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Время"
+        '
+        'CurrrentTimeLabel
+        '
+        Me.CurrrentTimeLabel.AutoSize = True
+        Me.CurrrentTimeLabel.BackColor = System.Drawing.SystemColors.Control
+        Me.CurrrentTimeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CurrrentTimeLabel.Location = New System.Drawing.Point(25, 18)
+        Me.CurrrentTimeLabel.Name = "CurrrentTimeLabel"
+        Me.CurrrentTimeLabel.Size = New System.Drawing.Size(156, 29)
+        Me.CurrrentTimeLabel.TabIndex = 6
+        Me.CurrrentTimeLabel.Text = "Current TIME"
+        '
+        'GB_PCBInfoMode
+        '
+        Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
+        Me.GB_PCBInfoMode.Controls.Add(Me.TB_GetPCPInfo)
+        Me.GB_PCBInfoMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(0, 0)
+        Me.GB_PCBInfoMode.Name = "GB_PCBInfoMode"
+        Me.GB_PCBInfoMode.Size = New System.Drawing.Size(1301, 459)
+        Me.GB_PCBInfoMode.TabIndex = 32
+        Me.GB_PCBInfoMode.TabStop = False
+        Me.GB_PCBInfoMode.Visible = False
+        '
+        'DG_PCB_Steps
+        '
+        Me.DG_PCB_Steps.AllowUserToAddRows = False
+        Me.DG_PCB_Steps.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.DG_PCB_Steps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.DG_PCB_Steps.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.DG_PCB_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_PCB_Steps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.Column2, Me.Column3, Me.DataGridViewTextBoxColumn4})
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_PCB_Steps.DefaultCellStyle = DataGridViewCellStyle3
+        Me.DG_PCB_Steps.Location = New System.Drawing.Point(14, 109)
+        Me.DG_PCB_Steps.Name = "DG_PCB_Steps"
+        Me.DG_PCB_Steps.ReadOnly = True
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle5
+        Me.DG_PCB_Steps.Size = New System.Drawing.Size(1273, 334)
+        Me.DG_PCB_Steps.TabIndex = 26
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn1.HeaderText = "№"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 48
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Серийный номер"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 143
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Название станции"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 157
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Результат"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 112
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Код ошибки"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 108
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Примечание"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 126
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Линия"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 78
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Пользователь"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 140
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Дата"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 69
+        '
+        'TB_GetPCPInfo
+        '
+        Me.TB_GetPCPInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.TB_GetPCPInfo.Location = New System.Drawing.Point(187, 47)
+        Me.TB_GetPCPInfo.Name = "TB_GetPCPInfo"
+        Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
+        Me.TB_GetPCPInfo.TabIndex = 1
+        '
+        'BT_Pause
+        '
+        Me.BT_Pause.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.BT_Pause.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.BT_Pause.Location = New System.Drawing.Point(25, 114)
+        Me.BT_Pause.Name = "BT_Pause"
+        Me.BT_Pause.Size = New System.Drawing.Size(18, 23)
+        Me.BT_Pause.TabIndex = 29
+        Me.BT_Pause.Text = "P"
+        Me.BT_Pause.UseVisualStyleBackColor = False
         '
         'DG_UpLog
         '
@@ -166,7 +390,7 @@ Partial Class WorkForm
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DG_UpLog.DefaultCellStyle = DataGridViewCellStyle8
-        Me.DG_UpLog.Location = New System.Drawing.Point(17, 460)
+        Me.DG_UpLog.Location = New System.Drawing.Point(19, 109)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -179,7 +403,7 @@ Partial Class WorkForm
         Me.DG_UpLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle10
-        Me.DG_UpLog.Size = New System.Drawing.Size(1342, 299)
+        Me.DG_UpLog.Size = New System.Drawing.Size(1268, 334)
         Me.DG_UpLog.TabIndex = 25
         '
         'Num
@@ -230,29 +454,37 @@ Partial Class WorkForm
         Me.CERT.ReadOnly = True
         Me.CERT.Width = 126
         '
-        'GroupBox5
+        'BT_Pass
         '
-        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
-        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox5.Location = New System.Drawing.Point(610, 301)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
-        Me.GroupBox5.TabIndex = 24
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Время"
+        Me.BT_Pass.FlatAppearance.BorderSize = 0
+        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
+        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
+        Me.BT_Pass.Name = "BT_Pass"
+        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
+        Me.BT_Pass.TabIndex = 26
+        Me.BT_Pass.UseVisualStyleBackColor = True
+        Me.BT_Pass.Visible = False
         '
-        'CurrrentTimeLabel
+        'BT_Fail
         '
-        Me.CurrrentTimeLabel.AutoSize = True
-        Me.CurrrentTimeLabel.BackColor = System.Drawing.SystemColors.Control
-        Me.CurrrentTimeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.CurrrentTimeLabel.Location = New System.Drawing.Point(6, 18)
-        Me.CurrrentTimeLabel.Name = "CurrrentTimeLabel"
-        Me.CurrrentTimeLabel.Size = New System.Drawing.Size(156, 29)
-        Me.CurrrentTimeLabel.TabIndex = 6
-        Me.CurrrentTimeLabel.Text = "Current TIME"
+        Me.BT_Fail.FlatAppearance.BorderSize = 0
+        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
+        Me.BT_Fail.Name = "BT_Fail"
+        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
+        Me.BT_Fail.TabIndex = 27
+        Me.BT_Fail.UseVisualStyleBackColor = True
+        Me.BT_Fail.Visible = False
+        '
+        'SerialTextBox
+        '
+        Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.SerialTextBox.Location = New System.Drawing.Point(189, 47)
+        Me.SerialTextBox.Name = "SerialTextBox"
+        Me.SerialTextBox.Size = New System.Drawing.Size(508, 31)
+        Me.SerialTextBox.TabIndex = 1
         '
         'GroupBox1
         '
@@ -327,7 +559,7 @@ Partial Class WorkForm
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(840, 8)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(519, 227)
+        Me.GroupBox4.Size = New System.Drawing.Size(478, 227)
         Me.GroupBox4.TabIndex = 10
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
@@ -472,35 +704,6 @@ Partial Class WorkForm
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Линия:"
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label2.Location = New System.Drawing.Point(14, 297)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(161, 25)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Serial Number"
-        '
-        'SerialTextBox
-        '
-        Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.SerialTextBox.Location = New System.Drawing.Point(17, 325)
-        Me.SerialTextBox.Name = "SerialTextBox"
-        Me.SerialTextBox.Size = New System.Drawing.Size(508, 31)
-        Me.SerialTextBox.TabIndex = 1
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.settings__1_
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1298, 241)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(61, 56)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
-        '
         'GB_UserData
         '
         Me.GB_UserData.BackColor = System.Drawing.Color.NavajoWhite
@@ -553,16 +756,16 @@ Partial Class WorkForm
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(197, 141)
+        Me.TextBox1.Size = New System.Drawing.Size(180, 75)
         Me.TextBox1.TabIndex = 31
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(1742, 255)
+        Me.TextBox2.Location = New System.Drawing.Point(1720, 255)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox2.Size = New System.Drawing.Size(197, 141)
+        Me.TextBox2.Size = New System.Drawing.Size(154, 75)
         Me.TextBox2.TabIndex = 31
         '
         'CurrentTimeTimer
@@ -571,11 +774,11 @@ Partial Class WorkForm
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(1517, 411)
+        Me.TextBox3.Location = New System.Drawing.Point(1516, 336)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox3.Size = New System.Drawing.Size(197, 141)
+        Me.TextBox3.Size = New System.Drawing.Size(179, 78)
         Me.TextBox3.TabIndex = 31
         '
         'DG_StepList
@@ -583,10 +786,10 @@ Partial Class WorkForm
         Me.DG_StepList.AllowUserToAddRows = False
         Me.DG_StepList.AllowUserToDeleteRows = False
         Me.DG_StepList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_StepList.Location = New System.Drawing.Point(1742, 411)
+        Me.DG_StepList.Location = New System.Drawing.Point(1720, 336)
         Me.DG_StepList.Name = "DG_StepList"
         Me.DG_StepList.ReadOnly = True
-        Me.DG_StepList.Size = New System.Drawing.Size(197, 141)
+        Me.DG_StepList.Size = New System.Drawing.Size(158, 78)
         Me.DG_StepList.TabIndex = 32
         '
         'GB_ErrorCode
@@ -598,9 +801,9 @@ Partial Class WorkForm
         Me.GB_ErrorCode.Controls.Add(Me.Label8)
         Me.GB_ErrorCode.Controls.Add(Me.Label4)
         Me.GB_ErrorCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_ErrorCode.Location = New System.Drawing.Point(1491, 478)
+        Me.GB_ErrorCode.Location = New System.Drawing.Point(1517, 420)
         Me.GB_ErrorCode.Name = "GB_ErrorCode"
-        Me.GB_ErrorCode.Size = New System.Drawing.Size(419, 335)
+        Me.GB_ErrorCode.Size = New System.Drawing.Size(595, 335)
         Me.GB_ErrorCode.TabIndex = 33
         Me.GB_ErrorCode.TabStop = False
         Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
@@ -611,7 +814,7 @@ Partial Class WorkForm
         Me.DG_ErrorCodes.AllowUserToAddRows = False
         Me.DG_ErrorCodes.AllowUserToDeleteRows = False
         Me.DG_ErrorCodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_ErrorCodes.Location = New System.Drawing.Point(299, 37)
+        Me.DG_ErrorCodes.Location = New System.Drawing.Point(488, 37)
         Me.DG_ErrorCodes.Name = "DG_ErrorCodes"
         Me.DG_ErrorCodes.ReadOnly = True
         Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
@@ -623,7 +826,7 @@ Partial Class WorkForm
         Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
         Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
-        Me.BT_SeveErCode.Location = New System.Drawing.Point(341, 250)
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
         Me.BT_SeveErCode.Name = "BT_SeveErCode"
         Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
         Me.BT_SeveErCode.TabIndex = 3
@@ -631,10 +834,10 @@ Partial Class WorkForm
         '
         'TB_Description
         '
-        Me.TB_Description.Location = New System.Drawing.Point(16, 189)
+        Me.TB_Description.Location = New System.Drawing.Point(10, 177)
         Me.TB_Description.Multiline = True
         Me.TB_Description.Name = "TB_Description"
-        Me.TB_Description.Size = New System.Drawing.Size(304, 140)
+        Me.TB_Description.Size = New System.Drawing.Size(495, 140)
         Me.TB_Description.TabIndex = 2
         '
         'CB_ErrorCode
@@ -642,7 +845,7 @@ Partial Class WorkForm
         Me.CB_ErrorCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.CB_ErrorCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.CB_ErrorCode.FormattingEnabled = True
-        Me.CB_ErrorCode.Location = New System.Drawing.Point(16, 97)
+        Me.CB_ErrorCode.Location = New System.Drawing.Point(10, 97)
         Me.CB_ErrorCode.Name = "CB_ErrorCode"
         Me.CB_ErrorCode.Size = New System.Drawing.Size(266, 39)
         Me.CB_ErrorCode.TabIndex = 1
@@ -650,7 +853,7 @@ Partial Class WorkForm
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(6, 155)
+        Me.Label8.Location = New System.Drawing.Point(10, 143)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(314, 31)
         Me.Label8.TabIndex = 0
@@ -679,12 +882,24 @@ Partial Class WorkForm
         '
         Me.FAS_ErrorCodeTableAdapter.ClearBeforeFill = True
         '
+        'DG_PCBInfoFromDB
+        '
+        Me.DG_PCBInfoFromDB.AllowUserToAddRows = False
+        Me.DG_PCBInfoFromDB.AllowUserToDeleteRows = False
+        Me.DG_PCBInfoFromDB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_PCBInfoFromDB.Location = New System.Drawing.Point(1892, 252)
+        Me.DG_PCBInfoFromDB.Name = "DG_PCBInfoFromDB"
+        Me.DG_PCBInfoFromDB.ReadOnly = True
+        Me.DG_PCBInfoFromDB.Size = New System.Drawing.Size(158, 78)
+        Me.DG_PCBInfoFromDB.TabIndex = 32
+        '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1981, 841)
+        Me.ClientSize = New System.Drawing.Size(2984, 961)
         Me.Controls.Add(Me.GB_ErrorCode)
+        Me.Controls.Add(Me.DG_PCBInfoFromDB)
         Me.Controls.Add(Me.DG_StepList)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
@@ -696,9 +911,14 @@ Partial Class WorkForm
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GB_WorkAria.ResumeLayout(False)
         Me.GB_WorkAria.PerformLayout()
-        CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GB_ScanMode.ResumeLayout(False)
+        Me.GB_ScanMode.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        Me.GB_PCBInfoMode.ResumeLayout(False)
+        Me.GB_PCBInfoMode.PerformLayout()
+        CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
@@ -713,6 +933,7 @@ Partial Class WorkForm
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -772,4 +993,21 @@ Partial Class WorkForm
     Friend WithEvents FASDataSet As FASDataSet
     Friend WithEvents FASErrorCodeBindingSource As BindingSource
     Friend WithEvents FAS_ErrorCodeTableAdapter As FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter
+    Friend WithEvents BT_CleareSN As Button
+    Friend WithEvents BT_Pause As Button
+    Friend WithEvents GB_ScanMode As GroupBox
+    Friend WithEvents BT_PCBInfo As Button
+    Friend WithEvents GB_PCBInfoMode As GroupBox
+    Friend WithEvents DG_PCB_Steps As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
+    Friend WithEvents TB_GetPCPInfo As TextBox
+    Friend WithEvents DG_PCBInfoFromDB As DataGridView
 End Class

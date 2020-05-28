@@ -184,5 +184,20 @@
   <ItemGroup>
     <None Include="Resources\3floppy_mount.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\выход.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edittrash.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_utilities.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Symbol-Information.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1,6 +1,4 @@
 ﻿Imports Library3
-
-
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)

@@ -305,7 +305,7 @@ Public Class WorkForm
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), "Плата не прошла этап " & PCInfo(7) & "!" &
                   vbCrLf & "Передайте плату в ремонт!")
         End Select
-        RunCommand("USE FAS Update [FAS].[dbo].[_Ct_StepResult] 
+        RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
                     set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
                     where PCBID = " & PcbID)
         RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
@@ -418,7 +418,7 @@ Public Class WorkForm
         Yield = (ShiftCounterInfo(3) / ShiftCounterInfo(2)) * 100
         LB_Yield.Text = Yield.ToString("00.00")
         LB_Procent.Visible = True
-        ShiftCounterUpdateCT(ShiftCounterInfo(0), ShiftCounterInfo(1), ShiftCounterInfo(2),
+        ShiftCounterUpdateCT(PCInfo(4), ShiftCounterInfo(0), ShiftCounterInfo(1), ShiftCounterInfo(2),
                              ShiftCounterInfo(3), ShiftCounterInfo(4))
     End Sub
     'Кнопка вызова PCB Info Mode

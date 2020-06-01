@@ -2,28 +2,22 @@
 
 
 Public Class WorkForm
-    ReadOnly IDApp As Integer = 26
-    Dim LOTID As Integer, LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
+    Dim LOTID, IDApp As Integer
+    Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
     Dim StartStep As String, PreStep As String, NextStep As String
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Dim LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
-    Dim CloseForm As Boolean
     Dim Yield As Double
+    Public Sub New(LOTIDWF As Integer, IDApp As Integer)
+        InitializeComponent()
+        Me.LOTID = LOTIDWF
+        Me.IDApp = IDApp
+    End Sub
+
     'Загрузка рабочей формы
     Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LOTID = SettingsForm.LOTID
-        'перезагрузка станции при изменении номера линии или шага
-        If LOTID = 0 Then
-            CloseForm = True
-            SettingsForm.Show()
-            SettingsForm.L_Result.Visible = True
-            Me.Close()
-            MsgBox("Выберите ЛОТ повторно и снова запустите программу!")
-            Exit Sub
-        End If
-        Controllabel.Text = ""
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
         PCInfo = GetPCInfo(IDApp)
@@ -136,20 +130,18 @@ Public Class WorkForm
         Me.Close()
     End Sub
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If CloseForm = False Then
-            Dim Question As String
-            Question = If(OpenSettings = True, "Вы подтверждаете возврат в окно настроек?", "Вы подтверждаете выход из программы?")
-            Select Case MsgBox(Question, MsgBoxStyle.YesNo, "")
-                Case MsgBoxResult.Yes
-                    e.Cancel = False
-                    If OpenSettings = True Then
-                        SettingsForm.Show()
-                    End If
-                Case MsgBoxResult.No
-                    e.Cancel = True
-            End Select
-            OpenSettings = False
-        End If
+        Dim Question As String
+        Question = If(OpenSettings = True, "Вы подтверждаете возврат в окно настроек?", "Вы подтверждаете выход из программы?")
+        Select Case MsgBox(Question, MsgBoxStyle.YesNo, "")
+            Case MsgBoxResult.Yes
+                e.Cancel = False
+                If OpenSettings = True Then
+                    SettingsForm.Show()
+                End If
+            Case MsgBoxResult.No
+                e.Cancel = True
+        End Select
+        OpenSettings = False
     End Sub ' условия для возврата в окно настроек
     '_________________________________________________________________________________________________________________
     'начало работы приложения FAS Scanning Station
@@ -365,7 +357,7 @@ Public Class WorkForm
         CurrrentTimeLabel.Focus()
     End Sub
 
-        Private Function GetErrorCode() As ArrayList
+    Private Function GetErrorCode() As ArrayList
         Dim ErrorCode As New ArrayList()
         'определяем errorcodID
         For J = 0 To DG_ErrorCodes.Rows.Count - 1

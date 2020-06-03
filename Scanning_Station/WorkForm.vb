@@ -418,7 +418,7 @@ Public Class WorkForm
         Yield = (ShiftCounterInfo(3) / ShiftCounterInfo(2)) * 100
         LB_Yield.Text = Yield.ToString("00.00")
         LB_Procent.Visible = True
-        ShiftCounterUpdateCT(PCInfo(4), ShiftCounterInfo(0), ShiftCounterInfo(1), ShiftCounterInfo(2),
+        ShiftCounterUpdateCT(PCInfo(4), PCInfo(0), ShiftCounterInfo(0), ShiftCounterInfo(1), ShiftCounterInfo(2),
                              ShiftCounterInfo(3), ShiftCounterInfo(4))
     End Sub
     'Кнопка вызова PCB Info Mode

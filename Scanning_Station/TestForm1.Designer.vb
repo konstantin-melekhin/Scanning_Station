@@ -27,6 +27,7 @@ Partial Class TestForm1
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
@@ -44,6 +45,7 @@ Partial Class TestForm1
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(498, 20)
         Me.TextBox1.TabIndex = 1
+        Me.TextBox1.Text = "K01A00005040500"
         '
         'TextBox2
         '
@@ -51,12 +53,13 @@ Partial Class TestForm1
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(498, 20)
         Me.TextBox2.TabIndex = 2
+        Me.TextBox2.Text = "1C57D8136665060600"
         '
         'TextBox3
         '
         Me.TextBox3.Location = New System.Drawing.Point(109, 171)
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox3.Size = New System.Drawing.Size(309, 20)
         Me.TextBox3.TabIndex = 3
         '
         'Button2
@@ -68,11 +71,21 @@ Partial Class TestForm1
         Me.Button2.Text = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(315, 270)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Label1"
+        '
         'TestForm1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox2)
@@ -90,4 +103,5 @@ Partial Class TestForm1
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents Button2 As Button
+    Friend WithEvents Label1 As Label
 End Class

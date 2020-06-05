@@ -35,21 +35,32 @@ Public Class WorkForm
                         "CT_ScanStep = " & PCInfo(7) & vbCrLf 'PCInfo
         'получение данных о текущем лоте
         LOTInfo = GetCurrentContractLot(LOTID)
-        LenSN = GetLenSN(LOTInfo(2))
+        LenSN = GetLenSN(LOTInfo(3))
         TextBox2.Text = "Model = " & LOTInfo(0) & vbCrLf &
                         "LOT = " & LOTInfo(1) & vbCrLf &
-                        "SMTNumberFormat = " & LOTInfo(2) & vbCrLf &
-                        "SMTRangeChecked = " & LOTInfo(3) & vbCrLf &
-                        "SMTStartRange = " & LOTInfo(4) & vbCrLf &
-                        "SMTEndRange = " & LOTInfo(5) & vbCrLf &
-                        "ParseLog = " & LOTInfo(6) & vbCrLf &
-                        "StepSequence = " & LOTInfo(7) & vbCrLf &
+                        "CheckFormatSN_SMT = " & LOTInfo(2) & vbCrLf &
+                        "SMTNumberFormat = " & LOTInfo(3) & vbCrLf &
+                        "SMTRangeChecked = " & LOTInfo(4) & vbCrLf &
+                        "SMTStartRange = " & LOTInfo(5) & vbCrLf &
+                        "SMTEndRange = " & LOTInfo(6) & vbCrLf &
+                        "CheckFormatSN_FAS = " & LOTInfo(7) & vbCrLf &
+                        "FASNumberFormat = " & LOTInfo(8) & vbCrLf &
+                        "FASRangeChecked = " & LOTInfo(9) & vbCrLf &
+                        "FASStartRange = " & LOTInfo(10) & vbCrLf &
+                        "FASEndRange = " & LOTInfo(11) & vbCrLf &
+                        "SingleSN = " & LOTInfo(12) & vbCrLf &
+                        "ParseLog = " & LOTInfo(13) & vbCrLf &
+                        "StepSequence = " & LOTInfo(14) & vbCrLf &
+                        "BoxCapacity = " & LOTInfo(15) & vbCrLf &
+                        "PalletCapacity = " & LOTInfo(16) & vbCrLf &
+                        "LiterIndex = " & LOTInfo(17) & vbCrLf &
+                        "PreRackStage = " & LOTInfo(18) &
                         "LenSN = " & LenSN & vbCrLf 'LOTInfo
         'Определить стартовый шаг, текущий и последующий
-        StepSequence = New String(Len(LOTInfo(7)) / 2 - 1) {}
-        For i = 0 To Len(LOTInfo(7)) - 1 Step 2
+        StepSequence = New String(Len(LOTInfo(14)) / 2 - 1) {}
+        For i = 0 To Len(LOTInfo(14)) - 1 Step 2
             Dim J As Integer
-            StepSequence(J) = Mid(LOTInfo(7), i + 1, 2)
+            StepSequence(J) = Mid(LOTInfo(14), i + 1, 2)
             J += 1
         Next
         For i = 0 To StepSequence.Count - 1

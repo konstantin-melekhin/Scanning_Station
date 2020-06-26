@@ -1,6 +1,4 @@
 ﻿Imports Library3
-
-
 Public Class WorkForm
     Dim LOTID, IDApp As Integer
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
@@ -15,7 +13,6 @@ Public Class WorkForm
         Me.LOTID = LOTIDWF
         Me.IDApp = IDApp
     End Sub
-
     'Загрузка рабочей формы
     Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'получение данных о станции
@@ -156,7 +153,6 @@ Public Class WorkForm
     End Sub ' условия для возврата в окно настроек
     '_________________________________________________________________________________________________________________
     'начало работы приложения FAS Scanning Station
-    '________________________________________________________________________________________________________________
     'окно ввода серийного номера платы
     Dim PCBCheckRes As New ArrayList()
     Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
@@ -296,7 +292,7 @@ Public Class WorkForm
         'функция возвращает ArrayList со значениями для запись в лог
         Return Mess
     End Function
-    'вункция обноления результата тестирования для Pass/Fail
+    'функция обноления результата тестирования для Pass/Fail
     Private Sub UpdateStepRes(StepID As Integer, StepRes As Integer, PcbID As Integer)
         Dim Message As String
         Dim MesColor As Color

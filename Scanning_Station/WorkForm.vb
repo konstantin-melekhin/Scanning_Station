@@ -284,10 +284,11 @@ Public Class WorkForm
                            "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
-            'Если плата в таблице StepResult результат равен 3 и текущий шаг = 4 (станция ремонта)
-        ElseIf PCInfo(6) = 4 And PCBStepRes(1) = 3 Then
-            Mess.AddRange(New ArrayList() From {"В процессе", "Плата " & PCBCheckRes(2) & " зарегистрирована в ремонте!", Color.Orange, True})
-            UpdateStepRes(PCInfo(6), 1, PCBCheckRes(1))
+            'Если плата в таблице StepResult емеет результат 1 и текущий шаг = 4 (станция ремонта)
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 1 Then
+            Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " зарегистрирована в ремонте!", Color.Red, False})
+            SerialTextBox.Enabled = False
+            BT_Pause.Focus()
         End If
         'функция возвращает ArrayList со значениями для запись в лог
         Return Mess

@@ -1035,7 +1035,7 @@ Partial Class WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 751)
+        Me.ClientSize = New System.Drawing.Size(2270, 751)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_UserData)

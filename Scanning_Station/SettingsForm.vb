@@ -1,4 +1,5 @@
 ﻿Imports Library3
+
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
@@ -140,9 +141,16 @@ Public Class SettingsForm
         'определяем LOTCode и LOTID
         If DG_LOTListPresent.Rows.Count <> 0 Then
             LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
-            Dim WF As New WorkForm(LOTID, IDApp)
-            WF.Controllabel.Text = ""
-            WF.Show()
+            Select Case PCInfo(6)
+                Case 8
+                    Dim WF As New WF_Android(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
+                Case 1 To 2
+                    Dim WF As New WF_AquaTest(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
+            End Select
             Me.Close()
         Else
             MsgBox("Список ЛОТов отсутствует!")

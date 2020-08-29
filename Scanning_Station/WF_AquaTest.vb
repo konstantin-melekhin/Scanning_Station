@@ -229,33 +229,14 @@ Public Class WF_AquaTest
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
             ''Создаем запись о прохождении первого шага в таблице StepResult и OperLog
-
+            RunCommand("USE FAS insert into [FAS].[dbo].[Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
+                        values (" & PCBCheckRes(1) & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP)")
             SelectAction()
-
-
-            'RunCommand("USE FAS insert into [FAS].[dbo].[Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
-            '            values (" & PCBCheckRes(1) & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP)")
-            'RunCommand("Use Fas insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
-            '        [StepByID],[LineID])values
-            '        (" & PCBCheckRes(1) & "," & LOTID & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP,
-            '        " & UserInfo(0) & "," & PCInfo(2) & ")")
-            'Mess.AddRange(New ArrayList() From {"В процессе", "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", Color.Orange, True})
-            'Если плата не зарегистрирована в таблице StepResult и но номер текущей станции совпадает со стартовым этапом
-
         ElseIf PCBStepRes.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " не прошла этап " & PreStep & "!" &
                           vbCrLf & "Передайте плату на этап " & StartStep & "!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
-            'Если плата в таблице StepResult имеет шаг совпадающий с текущей станцией и результат равен 1
-            'ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 1 Then 'Плата имеет статус 1/1
-            '    BT_Pass.Visible = True
-            '    BT_Fail.Visible = True
-            '    SerialTextBox.Enabled = False
-            '    BT_Pause.Focus()
-            '    PrintLabel(Controllabel, "Подтвердите результат теста!", 12, 193, Color.OrangeRed)
-            '    CurrrentTimeLabel.Focus()
-            'Если плата в таблице StepResult имеет шаг совпадающий с текущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
                            vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", Color.DarkGreen, False})
@@ -269,15 +250,11 @@ Public Class WF_AquaTest
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет шаг совпадающий с предыдущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2 (проверка предыдущего шага)
-            'Mess.AddRange(New ArrayList() From {"В процессе", "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", Color.Orange, True})
             SelectAction()
-            'UpdateStepRes(PCInfo(6), 1, PCBCheckRes(1))
             'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
             'номер текущей станции совпадает со стартовой станцией
         ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) = StartStepID Then 'Плата вернулась из ремонта на первый этап
-            'Mess.AddRange(New ArrayList() From {"В процессе", "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!", Color.Orange, True})
             SelectAction()
-            'UpdateStepRes(PCInfo(6), 1, PCBCheckRes(1))
             'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
             'номер текущей станции не совпадает со стартовой станцией
         ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) <> StartStepID Then 'Плата вернулась из ремонта не на первый этап
@@ -292,16 +269,11 @@ Public Class WF_AquaTest
                            "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
-            'Если плата в таблице StepResult емеет результат 1 и текущий шаг = 4 (станция ремонта)
-            'ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 1 Then
-            '    Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " зарегистрирована в ремонте!", Color.Red, False})
-            '    SerialTextBox.Enabled = False
-            '    BT_Pause.Focus()
         End If
         'функция возвращает ArrayList со значениями для запись в лог
         Return Mess
     End Function
-
+    'выбрать действие Pass\Fail
     Private Sub SelectAction()
         BT_Pass.Visible = True
         BT_Fail.Visible = True
@@ -310,8 +282,6 @@ Public Class WF_AquaTest
         PrintLabel(Controllabel, "Подтвердите результат теста!", 12, 193, Color.OrangeRed)
         CurrrentTimeLabel.Focus()
     End Sub
-
-
     'функция обноления результата тестирования для Pass/Fail
     Private Sub UpdateStepRes(StepID As Integer, StepRes As Integer, PcbID As Integer)
         Dim Message As String

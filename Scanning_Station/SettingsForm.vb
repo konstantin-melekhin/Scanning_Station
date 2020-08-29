@@ -142,8 +142,8 @@ Public Class SettingsForm
         If DG_LOTListPresent.Rows.Count <> 0 Then
             LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
             Select Case PCInfo(6)
-                Case 8
-                    Dim WF As New WF_Android(LOTID, IDApp)
+                Case 25
+                    Dim WF As New WF_AquaPrint(LOTID, IDApp)
                     WF.Controllabel.Text = ""
                     WF.Show()
                 Case 1 To 2

@@ -615,7 +615,6 @@ Partial Class WF_AquaTest
         Me.Label14.Size = New System.Drawing.Size(210, 31)
         Me.Label14.TabIndex = 1
         Me.Label14.Text = "Успех по лоту:"
-        Me.Label14.Visible = False
         '
         'Label12
         '
@@ -636,7 +635,6 @@ Partial Class WF_AquaTest
         Me.Label17.Size = New System.Drawing.Size(187, 31)
         Me.Label17.TabIndex = 1
         Me.Label17.Text = "Yield по лоту"
-        Me.Label17.Visible = False
         '
         'LB_Procent
         '
@@ -647,7 +645,6 @@ Partial Class WF_AquaTest
         Me.LB_Procent.Size = New System.Drawing.Size(68, 55)
         Me.LB_Procent.TabIndex = 0
         Me.LB_Procent.Text = "%"
-        Me.LB_Procent.Visible = False
         '
         'LB_Yield
         '
@@ -658,7 +655,6 @@ Partial Class WF_AquaTest
         Me.LB_Yield.Size = New System.Drawing.Size(178, 55)
         Me.LB_Yield.TabIndex = 0
         Me.LB_Yield.Text = "100,00"
-        Me.LB_Yield.Visible = False
         '
         'Label10
         '
@@ -741,7 +737,6 @@ Partial Class WF_AquaTest
         Me.LB_PassLotRes.Size = New System.Drawing.Size(46, 31)
         Me.LB_PassLotRes.TabIndex = 0
         Me.LB_PassLotRes.Text = "99"
-        Me.LB_PassLotRes.Visible = False
         '
         'LB_LOTCounter
         '
@@ -1066,7 +1061,7 @@ Partial Class WF_AquaTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(2165, 786)
+        Me.ClientSize = New System.Drawing.Size(1924, 786)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GroupBox2)

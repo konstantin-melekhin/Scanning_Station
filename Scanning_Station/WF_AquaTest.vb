@@ -94,7 +94,7 @@ Public Class WF_AquaTest
                 CB_ErrorCode.Items.Add(DG_ErrorCodes.Rows(J).Cells(1).Value)
             Next
         End If
-
+        CB_CallLog.Checked = True
         'Запуск программы
         '___________________________________________________________
         GB_UserData.Location = New Point(10, 12)
@@ -212,9 +212,26 @@ Public Class WF_AquaTest
                 PCBRes.Add(False)
                 PCBRes.Add("Плата не прошла THT Start!")
             Else
-                PCBRes.Add(True)
-                PCBRes.Add(PCBID)
-                PCBRes.Add(PCBSN)
+                If CB_CallLog.Checked = True Then
+                    If PCInfo(6) = 1 Then
+                        Dim sql As String = "SELECT [Pass]FROM [FAS].[dbo].[CT_Aq_Calibration] where barcode = '" & PCBSN & "' and Pass = 1"
+                        If SelectString(sql) = Nothing Then
+                            PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла калибровку!", 12, 193, Color.Red)
+                            SerialTextBox.Enabled = False
+                            BT_Pause.Focus()
+                            PCBRes.Add(False)
+                            PCBRes.Add("Плата не прошла Калибровку!")
+                        Else
+                            PCBRes.Add(True)
+                            PCBRes.Add(PCBID)
+                            PCBRes.Add(PCBSN)
+                        End If
+                    Else
+                        PCBRes.Add(True)
+                        PCBRes.Add(PCBID)
+                        PCBRes.Add(PCBSN)
+                    End If
+                End If
             End If
         End If
         Return PCBRes
@@ -239,7 +256,7 @@ Public Class WF_AquaTest
             BT_Pause.Focus()
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
-                           vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", Color.DarkGreen, False})
+                           vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет  результат равен 3
@@ -267,6 +284,12 @@ Public Class WF_AquaTest
             'Проверить опер лог и изменить коментарий
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
                            "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
+            SerialTextBox.Enabled = False
+            BT_Pause.Focus()
+        Else
+            Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
+                           "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
+            UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
         End If
@@ -301,6 +324,13 @@ Public Class WF_AquaTest
                 MesColor = Color.Red
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), "Плата не прошла этап " & PCInfo(7) & "!" &
                   vbCrLf & "Передайте плату в ремонт!")
+            Case 5
+                Message = "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
+                           "Перейдите во вкладку ИНФО и опредилите принадлежность платы!"
+                MesColor = Color.Red
+                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "", "Плата имеет не верный предыдыдущий шаг!")
+                PrintLabel(Controllabel, Message, 12, 193, MesColor)
+                Exit Sub
         End Select
         RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
                     set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
@@ -366,6 +396,7 @@ Public Class WF_AquaTest
         Next
         Return ErrorCode
     End Function
+
     'Поиск введенного кода ошибки в гриде
     Private Sub CB_ErrorCode_TextChanged(sender As Object, e As EventArgs) Handles CB_ErrorCode.TextChanged
         CB_ErrorCode.MaxLength = 2

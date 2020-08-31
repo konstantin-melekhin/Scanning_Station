@@ -218,5 +218,8 @@
   <ItemGroup>
     <None Include="Resources\Symbol-Information.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CheckBox.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

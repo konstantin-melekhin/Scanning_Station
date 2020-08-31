@@ -23,14 +23,14 @@ Partial Class WF_AquaTest
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
         Me.BT_CloseErrMode = New System.Windows.Forms.Button()
         Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
@@ -59,10 +59,6 @@ Partial Class WF_AquaTest
         Me.HDCP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
-        Me.BT_CleareSN = New System.Windows.Forms.Button()
-        Me.BT_Fail = New System.Windows.Forms.Button()
-        Me.BT_PCBInfo = New System.Windows.Forms.Button()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -74,7 +70,6 @@ Partial Class WF_AquaTest
         Me.FASDataSet = New Scanning_Station.FASDataSet()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BT_Pass = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -103,9 +98,13 @@ Partial Class WF_AquaTest
         Me.Lebel_StationLine = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
+        Me.CB_CallLog = New System.Windows.Forms.CheckBox()
+        Me.BT_PCBInfo = New System.Windows.Forms.Button()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -117,6 +116,8 @@ Partial Class WF_AquaTest
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BT_Pass = New System.Windows.Forms.Button()
+        Me.BT_Fail = New System.Windows.Forms.Button()
         Me.GB_ErrorCode.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_UserData.SuspendLayout()
@@ -375,25 +376,25 @@ Partial Class WF_AquaTest
         '
         Me.DG_UpLog.AllowUserToAddRows = False
         Me.DG_UpLog.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
         Me.DG_UpLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_UpLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber, Me.SCIDTab, Me.CASIDTab, Me.HDCP, Me.CERT})
         Me.DG_UpLog.Location = New System.Drawing.Point(19, 109)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle11
         Me.DG_UpLog.Size = New System.Drawing.Size(1268, 283)
         Me.DG_UpLog.TabIndex = 25
         '
@@ -423,51 +424,6 @@ Partial Class WF_AquaTest
         Me.TB_GetPCPInfo.Name = "TB_GetPCPInfo"
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
-        '
-        'BT_CleareSN
-        '
-        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
-        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
-        Me.BT_CleareSN.Name = "BT_CleareSN"
-        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
-        Me.BT_CleareSN.TabIndex = 28
-        Me.BT_CleareSN.UseVisualStyleBackColor = True
-        '
-        'BT_Fail
-        '
-        Me.BT_Fail.FlatAppearance.BorderSize = 0
-        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
-        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
-        Me.BT_Fail.Name = "BT_Fail"
-        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
-        Me.BT_Fail.TabIndex = 27
-        Me.BT_Fail.UseVisualStyleBackColor = True
-        Me.BT_Fail.Visible = False
-        '
-        'BT_PCBInfo
-        '
-        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
-        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
-        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
-        Me.BT_PCBInfo.Name = "BT_PCBInfo"
-        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
-        Me.BT_PCBInfo.TabIndex = 31
-        Me.BT_PCBInfo.UseVisualStyleBackColor = True
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
         '
         'Label19
         '
@@ -571,18 +527,6 @@ Partial Class WF_AquaTest
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
         Me.DataGridViewTextBoxColumn4.ReadOnly = True
         Me.DataGridViewTextBoxColumn4.Width = 69
-        '
-        'BT_Pass
-        '
-        Me.BT_Pass.FlatAppearance.BorderSize = 0
-        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
-        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
-        Me.BT_Pass.Name = "BT_Pass"
-        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
-        Me.BT_Pass.TabIndex = 26
-        Me.BT_Pass.UseVisualStyleBackColor = True
-        Me.BT_Pass.Visible = False
         '
         'Label5
         '
@@ -885,6 +829,7 @@ Partial Class WF_AquaTest
         '
         'GB_WorkAria
         '
+        Me.GB_WorkAria.Controls.Add(Me.CB_CallLog)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
         Me.GB_WorkAria.Controls.Add(Me.BT_PCBInfo)
         Me.GB_WorkAria.Controls.Add(Me.BT_OpenSettings)
@@ -897,6 +842,40 @@ Partial Class WF_AquaTest
         Me.GB_WorkAria.TabIndex = 35
         Me.GB_WorkAria.TabStop = False
         Me.GB_WorkAria.Visible = False
+        '
+        'CB_CallLog
+        '
+        Me.CB_CallLog.AutoSize = True
+        Me.CB_CallLog.FlatAppearance.BorderSize = 0
+        Me.CB_CallLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_CallLog.Image = Global.Scanning_Station.My.Resources.Resources.CheckBox
+        Me.CB_CallLog.Location = New System.Drawing.Point(1263, 158)
+        Me.CB_CallLog.Name = "CB_CallLog"
+        Me.CB_CallLog.Size = New System.Drawing.Size(44, 32)
+        Me.CB_CallLog.TabIndex = 33
+        Me.CB_CallLog.UseVisualStyleBackColor = True
+        '
+        'BT_PCBInfo
+        '
+        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
+        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
+        Me.BT_PCBInfo.Name = "BT_PCBInfo"
+        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
+        Me.BT_PCBInfo.TabIndex = 31
+        Me.BT_PCBInfo.UseVisualStyleBackColor = True
+        '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
         '
         'Controllabel
         '
@@ -935,6 +914,17 @@ Partial Class WF_AquaTest
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Строка ввода серийного номера"
         '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
+        Me.BT_CleareSN.TabIndex = 28
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
+        '
         'GB_PCBInfoMode
         '
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
@@ -951,41 +941,41 @@ Partial Class WF_AquaTest
         '
         Me.DG_PCB_Steps.AllowUserToAddRows = False
         Me.DG_PCB_Steps.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_PCB_Steps.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle12
         Me.DG_PCB_Steps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_PCB_Steps.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
         Me.DG_PCB_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_PCB_Steps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn5, Me.Column4, Me.DataGridViewTextBoxColumn6, Me.Column2, Me.Column3, Me.DataGridViewTextBoxColumn4})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DG_PCB_Steps.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_PCB_Steps.DefaultCellStyle = DataGridViewCellStyle14
         Me.DG_PCB_Steps.Location = New System.Drawing.Point(14, 109)
         Me.DG_PCB_Steps.Name = "DG_PCB_Steps"
         Me.DG_PCB_Steps.ReadOnly = True
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle16
         Me.DG_PCB_Steps.Size = New System.Drawing.Size(1273, 276)
         Me.DG_PCB_Steps.TabIndex = 26
         '
@@ -1056,6 +1046,30 @@ Partial Class WF_AquaTest
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         Me.Column3.Width = 140
+        '
+        'BT_Pass
+        '
+        Me.BT_Pass.FlatAppearance.BorderSize = 0
+        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
+        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
+        Me.BT_Pass.Name = "BT_Pass"
+        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
+        Me.BT_Pass.TabIndex = 26
+        Me.BT_Pass.UseVisualStyleBackColor = True
+        Me.BT_Pass.Visible = False
+        '
+        'BT_Fail
+        '
+        Me.BT_Fail.FlatAppearance.BorderSize = 0
+        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
+        Me.BT_Fail.Name = "BT_Fail"
+        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
+        Me.BT_Fail.TabIndex = 27
+        Me.BT_Fail.UseVisualStyleBackColor = True
+        Me.BT_Fail.Visible = False
         '
         'WF_AquaTest
         '
@@ -1185,4 +1199,5 @@ Partial Class WF_AquaTest
     Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents CB_CallLog As CheckBox
 End Class

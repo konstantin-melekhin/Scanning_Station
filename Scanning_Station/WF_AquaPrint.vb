@@ -229,8 +229,8 @@ Public Class WF_AquaPrint
             PassAction(2)
             'Если плата в таблице StepResult имеет  результат равен 3
         ElseIf PCBStepRes(1) = 3 Then 'Плата имеет статус x/3, то проверить опер лог и определить откуда плата
-            Mess.AddRange(New ArrayList() From {"Карантин", "Плата " & PCBCheckRes(2) & " находится в карантине!" &
-                           vbCrLf & "Проверьте информацию о плате передайте ее в ремонт!", Color.Red, False})
+            'Mess.AddRange(New ArrayList() From {"Карантин", "Плата " & PCBCheckRes(2) & " находится в карантине!" &
+            '               vbCrLf & "Проверьте информацию о плате передайте ее в ремонт!", Color.Red, False})
             UpdateStepRes(PCInfo(6), 6, PCBCheckRes(1))
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
@@ -243,6 +243,10 @@ Public Class WF_AquaPrint
             PassAction(1)
         ElseIf PCBStepRes(0) <> PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2
             'Проверить опер лог и изменить коментарий
+            UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
+            SerialTextBox.Enabled = False
+            BT_Pause.Focus()
+        Else
             UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
             SerialTextBox.Enabled = False
             BT_Pause.Focus()

@@ -36,6 +36,8 @@ Partial Class WF_AquaPrint
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label_ShiftCounter = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
@@ -51,16 +53,23 @@ Partial Class WF_AquaPrint
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Lebel_StationLine = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BT_Pass = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
+        Me.CB_Reprint = New System.Windows.Forms.CheckBox()
         Me.BT_CleareSN = New System.Windows.Forms.Button()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.BT_Pause = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
         Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -69,7 +78,6 @@ Partial Class WF_AquaPrint
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HDCP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CERT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BT_Fail = New System.Windows.Forms.Button()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.BT_PCBInfo = New System.Windows.Forms.Button()
@@ -92,6 +100,7 @@ Partial Class WF_AquaPrint
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.DG_THT_Start = New System.Windows.Forms.DataGridView()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -100,22 +109,13 @@ Partial Class WF_AquaPrint
         Me.FASDataSet = New Scanning_Station.FASDataSet()
         Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrintSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_PCBInfoMode.SuspendLayout()
         Me.GB_ScanMode.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_WorkAria.SuspendLayout()
         Me.GB_UserData.SuspendLayout()
@@ -123,6 +123,7 @@ Partial Class WF_AquaPrint
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_ErrorCode.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.DG_THT_Start, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_THTStartFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,10 +133,10 @@ Partial Class WF_AquaPrint
         'LabelAppName
         '
         Me.LabelAppName.AutoSize = True
-        Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LabelAppName.Location = New System.Drawing.Point(208, 19)
+        Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LabelAppName.Location = New System.Drawing.Point(187, 27)
         Me.LabelAppName.Name = "LabelAppName"
-        Me.LabelAppName.Size = New System.Drawing.Size(64, 20)
+        Me.LabelAppName.Size = New System.Drawing.Size(55, 16)
         Me.LabelAppName.TabIndex = 20
         Me.LabelAppName.Text = "fasend"
         '
@@ -144,11 +145,12 @@ Partial Class WF_AquaPrint
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.Label_ShiftCounter)
+        Me.GroupBox1.Controls.Add(Me.GroupBox5)
         Me.GroupBox1.Controls.Add(Me.LB_LOTCounter)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(533, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(378, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(402, 178)
+        Me.GroupBox1.Size = New System.Drawing.Size(296, 159)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Счетчик выпуска продукции"
@@ -156,40 +158,64 @@ Partial Class WF_AquaPrint
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label12.Location = New System.Drawing.Point(28, 50)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(237, 31)
+        Me.Label12.Size = New System.Drawing.Size(176, 24)
         Me.Label12.TabIndex = 1
         Me.Label12.Text = "За день по лоту:"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label10.Location = New System.Drawing.Point(41, 19)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(224, 31)
+        Me.Label10.Size = New System.Drawing.Size(164, 24)
         Me.Label10.TabIndex = 1
         Me.Label10.Text = "За день общее:"
         '
         'Label_ShiftCounter
         '
         Me.Label_ShiftCounter.AutoSize = True
-        Me.Label_ShiftCounter.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label_ShiftCounter.Location = New System.Drawing.Point(270, 19)
+        Me.Label_ShiftCounter.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label_ShiftCounter.Location = New System.Drawing.Point(202, 19)
         Me.Label_ShiftCounter.Name = "Label_ShiftCounter"
-        Me.Label_ShiftCounter.Size = New System.Drawing.Size(46, 31)
+        Me.Label_ShiftCounter.Size = New System.Drawing.Size(32, 24)
         Me.Label_ShiftCounter.TabIndex = 0
         Me.Label_ShiftCounter.Text = "99"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox5.Location = New System.Drawing.Point(17, 88)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
+        Me.GroupBox5.TabIndex = 24
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Время"
+        '
+        'CurrrentTimeLabel
+        '
+        Me.CurrrentTimeLabel.AutoSize = True
+        Me.CurrrentTimeLabel.BackColor = System.Drawing.SystemColors.Control
+        Me.CurrrentTimeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CurrrentTimeLabel.Location = New System.Drawing.Point(25, 18)
+        Me.CurrrentTimeLabel.Name = "CurrrentTimeLabel"
+        Me.CurrrentTimeLabel.Size = New System.Drawing.Size(156, 29)
+        Me.CurrrentTimeLabel.TabIndex = 6
+        Me.CurrrentTimeLabel.Text = "Current TIME"
         '
         'LB_LOTCounter
         '
         Me.LB_LOTCounter.AutoSize = True
-        Me.LB_LOTCounter.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LB_LOTCounter.Location = New System.Drawing.Point(270, 50)
+        Me.LB_LOTCounter.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_LOTCounter.Location = New System.Drawing.Point(202, 50)
         Me.LB_LOTCounter.Name = "LB_LOTCounter"
-        Me.LB_LOTCounter.Size = New System.Drawing.Size(46, 31)
+        Me.LB_LOTCounter.Size = New System.Drawing.Size(32, 24)
         Me.LB_LOTCounter.TabIndex = 0
         Me.LB_LOTCounter.Text = "99"
         '
@@ -212,7 +238,7 @@ Partial Class WF_AquaPrint
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(17, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(496, 178)
+        Me.GroupBox4.Size = New System.Drawing.Size(344, 159)
         Me.GroupBox4.TabIndex = 10
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
@@ -220,150 +246,138 @@ Partial Class WF_AquaPrint
         'LB_CurrentStep
         '
         Me.LB_CurrentStep.AutoSize = True
-        Me.LB_CurrentStep.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LB_CurrentStep.Location = New System.Drawing.Point(208, 39)
+        Me.LB_CurrentStep.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_CurrentStep.Location = New System.Drawing.Point(187, 45)
         Me.LB_CurrentStep.Name = "LB_CurrentStep"
-        Me.LB_CurrentStep.Size = New System.Drawing.Size(64, 20)
+        Me.LB_CurrentStep.Size = New System.Drawing.Size(55, 16)
         Me.LB_CurrentStep.TabIndex = 20
         Me.LB_CurrentStep.Text = "fasend"
         '
         'L_UserName
         '
         Me.L_UserName.AutoSize = True
-        Me.L_UserName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_UserName.Location = New System.Drawing.Point(208, 59)
+        Me.L_UserName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.L_UserName.Location = New System.Drawing.Point(187, 63)
         Me.L_UserName.Name = "L_UserName"
-        Me.L_UserName.Size = New System.Drawing.Size(174, 20)
+        Me.L_UserName.Size = New System.Drawing.Size(150, 16)
         Me.L_UserName.TabIndex = 19
         Me.L_UserName.Text = "Имя пользователя:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label3.Location = New System.Drawing.Point(27, 39)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label3.Location = New System.Drawing.Point(27, 45)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(181, 20)
+        Me.Label3.Size = New System.Drawing.Size(162, 16)
         Me.Label3.TabIndex = 16
         Me.Label3.Text = "Название операции:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label5.Location = New System.Drawing.Point(34, 59)
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label5.Location = New System.Drawing.Point(39, 63)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(174, 20)
+        Me.Label5.Size = New System.Drawing.Size(150, 16)
         Me.Label5.TabIndex = 19
         Me.Label5.Text = "Имя пользователя:"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label6.Location = New System.Drawing.Point(4, 19)
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label6.Location = New System.Drawing.Point(9, 27)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(204, 20)
+        Me.Label6.Size = New System.Drawing.Size(180, 16)
         Me.Label6.TabIndex = 16
         Me.Label6.Text = "Название приложения:"
         '
         'Label_StationName
         '
         Me.Label_StationName.AutoSize = True
-        Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label_StationName.Location = New System.Drawing.Point(208, 79)
+        Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label_StationName.Location = New System.Drawing.Point(187, 81)
         Me.Label_StationName.Name = "Label_StationName"
-        Me.Label_StationName.Size = New System.Drawing.Size(33, 20)
+        Me.Label_StationName.Size = New System.Drawing.Size(28, 16)
         Me.Label_StationName.TabIndex = 16
         Me.Label_StationName.Text = "ПК"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label7.Location = New System.Drawing.Point(83, 79)
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label7.Location = New System.Drawing.Point(79, 81)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(125, 20)
+        Me.Label7.Size = New System.Drawing.Size(110, 16)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "Название ПК:"
         '
         'L_Model
         '
         Me.L_Model.AutoSize = True
-        Me.L_Model.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_Model.Location = New System.Drawing.Point(208, 139)
+        Me.L_Model.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.L_Model.Location = New System.Drawing.Point(187, 135)
         Me.L_Model.Name = "L_Model"
-        Me.L_Model.Size = New System.Drawing.Size(57, 20)
+        Me.L_Model.Size = New System.Drawing.Size(51, 16)
         Me.L_Model.TabIndex = 16
         Me.L_Model.Text = "Model"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label11.Location = New System.Drawing.Point(127, 139)
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label11.Location = New System.Drawing.Point(121, 135)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(81, 20)
+        Me.Label11.Size = New System.Drawing.Size(68, 16)
         Me.Label11.TabIndex = 16
         Me.Label11.Text = "Модель:"
         '
         'L_LOT
         '
         Me.L_LOT.AutoSize = True
-        Me.L_LOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_LOT.Location = New System.Drawing.Point(208, 119)
+        Me.L_LOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.L_LOT.Location = New System.Drawing.Point(187, 117)
         Me.L_LOT.Name = "L_LOT"
-        Me.L_LOT.Size = New System.Drawing.Size(42, 20)
+        Me.L_LOT.Size = New System.Drawing.Size(37, 16)
         Me.L_LOT.TabIndex = 16
         Me.L_LOT.Text = "LOT"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label9.Location = New System.Drawing.Point(61, 119)
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label9.Location = New System.Drawing.Point(59, 117)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(147, 20)
+        Me.Label9.Size = New System.Drawing.Size(130, 16)
         Me.Label9.TabIndex = 16
         Me.Label9.Text = "Название ЛОТа:"
         '
         'Lebel_StationLine
         '
         Me.Lebel_StationLine.AutoSize = True
-        Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Lebel_StationLine.Location = New System.Drawing.Point(208, 99)
+        Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Lebel_StationLine.Location = New System.Drawing.Point(187, 99)
         Me.Lebel_StationLine.Name = "Lebel_StationLine"
-        Me.Lebel_StationLine.Size = New System.Drawing.Size(43, 20)
+        Me.Lebel_StationLine.Size = New System.Drawing.Size(37, 16)
         Me.Lebel_StationLine.TabIndex = 16
         Me.Lebel_StationLine.Text = "Line"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label1.Location = New System.Drawing.Point(141, 99)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label1.Location = New System.Drawing.Point(132, 99)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 20)
+        Me.Label1.Size = New System.Drawing.Size(57, 16)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Линия:"
-        '
-        'BT_Pass
-        '
-        Me.BT_Pass.FlatAppearance.BorderSize = 0
-        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
-        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
-        Me.BT_Pass.Name = "BT_Pass"
-        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
-        Me.BT_Pass.TabIndex = 26
-        Me.BT_Pass.UseVisualStyleBackColor = True
-        Me.BT_Pass.Visible = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label2.Location = New System.Drawing.Point(186, 16)
+        Me.Label2.Location = New System.Drawing.Point(16, 20)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(367, 25)
         Me.Label2.TabIndex = 3
@@ -408,17 +422,85 @@ Partial Class WF_AquaPrint
         Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
         DataGridViewCellStyle21.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle21
-        Me.DG_PCB_Steps.Size = New System.Drawing.Size(1273, 276)
+        Me.DG_PCB_Steps.Size = New System.Drawing.Size(723, 276)
         Me.DG_PCB_Steps.TabIndex = 26
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn1.HeaderText = "№"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 48
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Серийный номер"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 143
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Название станции"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 157
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Результат"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 112
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "Описание ошибки"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Width = 150
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Примечание"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 126
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Линия"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 78
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Пользователь"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 140
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Дата"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 69
         '
         'GB_PCBInfoMode
         '
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
         Me.GB_PCBInfoMode.Controls.Add(Me.TB_GetPCPInfo)
         Me.GB_PCBInfoMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(0, 4)
+        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(4, 10)
         Me.GB_PCBInfoMode.Name = "GB_PCBInfoMode"
-        Me.GB_PCBInfoMode.Size = New System.Drawing.Size(1301, 394)
+        Me.GB_PCBInfoMode.Size = New System.Drawing.Size(743, 394)
         Me.GB_PCBInfoMode.TabIndex = 32
         Me.GB_PCBInfoMode.TabStop = False
         Me.GB_PCBInfoMode.Visible = False
@@ -426,7 +508,7 @@ Partial Class WF_AquaPrint
         'TB_GetPCPInfo
         '
         Me.TB_GetPCPInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.TB_GetPCPInfo.Location = New System.Drawing.Point(187, 47)
+        Me.TB_GetPCPInfo.Location = New System.Drawing.Point(14, 43)
         Me.TB_GetPCPInfo.Name = "TB_GetPCPInfo"
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
@@ -443,55 +525,40 @@ Partial Class WF_AquaPrint
         '
         'GB_ScanMode
         '
+        Me.GB_ScanMode.Controls.Add(Me.CB_Reprint)
         Me.GB_ScanMode.Controls.Add(Me.Label2)
         Me.GB_ScanMode.Controls.Add(Me.BT_CleareSN)
         Me.GB_ScanMode.Controls.Add(Me.GB_PCBInfoMode)
-        Me.GB_ScanMode.Controls.Add(Me.GroupBox5)
         Me.GB_ScanMode.Controls.Add(Me.BT_Pause)
         Me.GB_ScanMode.Controls.Add(Me.DG_UpLog)
-        Me.GB_ScanMode.Controls.Add(Me.BT_Pass)
-        Me.GB_ScanMode.Controls.Add(Me.BT_Fail)
         Me.GB_ScanMode.Controls.Add(Me.SerialTextBox)
         Me.GB_ScanMode.Location = New System.Drawing.Point(6, 311)
         Me.GB_ScanMode.Name = "GB_ScanMode"
-        Me.GB_ScanMode.Size = New System.Drawing.Size(1301, 398)
+        Me.GB_ScanMode.Size = New System.Drawing.Size(749, 398)
         Me.GB_ScanMode.TabIndex = 30
         Me.GB_ScanMode.TabStop = False
+        '
+        'CB_Reprint
+        '
+        Me.CB_Reprint.AutoSize = True
+        Me.CB_Reprint.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CB_Reprint.Location = New System.Drawing.Point(21, 86)
+        Me.CB_Reprint.Name = "CB_Reprint"
+        Me.CB_Reprint.Size = New System.Drawing.Size(199, 20)
+        Me.CB_Reprint.TabIndex = 27
+        Me.CB_Reprint.Text = "Повторно распечатать"
+        Me.CB_Reprint.UseVisualStyleBackColor = True
         '
         'BT_CleareSN
         '
         Me.BT_CleareSN.FlatAppearance.BorderSize = 0
         Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_CleareSN.Location = New System.Drawing.Point(544, 10)
         Me.BT_CleareSN.Name = "BT_CleareSN"
         Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
         Me.BT_CleareSN.TabIndex = 28
         Me.BT_CleareSN.UseVisualStyleBackColor = True
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
-        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox5.Location = New System.Drawing.Point(928, 44)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
-        Me.GroupBox5.TabIndex = 24
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Время"
-        '
-        'CurrrentTimeLabel
-        '
-        Me.CurrrentTimeLabel.AutoSize = True
-        Me.CurrrentTimeLabel.BackColor = System.Drawing.SystemColors.Control
-        Me.CurrrentTimeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.CurrrentTimeLabel.Location = New System.Drawing.Point(25, 18)
-        Me.CurrrentTimeLabel.Name = "CurrrentTimeLabel"
-        Me.CurrrentTimeLabel.Size = New System.Drawing.Size(156, 29)
-        Me.CurrrentTimeLabel.TabIndex = 6
-        Me.CurrrentTimeLabel.Text = "Current TIME"
         '
         'BT_Pause
         '
@@ -527,7 +594,7 @@ Partial Class WF_AquaPrint
         Me.DG_UpLog.ReadOnly = True
         DataGridViewCellStyle24.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle24
-        Me.DG_UpLog.Size = New System.Drawing.Size(1268, 283)
+        Me.DG_UpLog.Size = New System.Drawing.Size(724, 283)
         Me.DG_UpLog.TabIndex = 25
         '
         'Num
@@ -578,22 +645,10 @@ Partial Class WF_AquaPrint
         Me.CERT.ReadOnly = True
         Me.CERT.Width = 139
         '
-        'BT_Fail
-        '
-        Me.BT_Fail.FlatAppearance.BorderSize = 0
-        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
-        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
-        Me.BT_Fail.Name = "BT_Fail"
-        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
-        Me.BT_Fail.TabIndex = 27
-        Me.BT_Fail.UseVisualStyleBackColor = True
-        Me.BT_Fail.Visible = False
-        '
         'SerialTextBox
         '
         Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.SerialTextBox.Location = New System.Drawing.Point(189, 47)
+        Me.SerialTextBox.Location = New System.Drawing.Point(19, 51)
         Me.SerialTextBox.Name = "SerialTextBox"
         Me.SerialTextBox.Size = New System.Drawing.Size(508, 31)
         Me.SerialTextBox.TabIndex = 1
@@ -608,7 +663,7 @@ Partial Class WF_AquaPrint
         Me.GB_WorkAria.Controls.Add(Me.GB_ScanMode)
         Me.GB_WorkAria.Location = New System.Drawing.Point(12, 12)
         Me.GB_WorkAria.Name = "GB_WorkAria"
-        Me.GB_WorkAria.Size = New System.Drawing.Size(1326, 715)
+        Me.GB_WorkAria.Size = New System.Drawing.Size(771, 715)
         Me.GB_WorkAria.TabIndex = 39
         Me.GB_WorkAria.TabStop = False
         Me.GB_WorkAria.Visible = False
@@ -618,7 +673,7 @@ Partial Class WF_AquaPrint
         Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
         Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
-        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(680, 18)
         Me.BT_PCBInfo.Name = "BT_PCBInfo"
         Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
         Me.BT_PCBInfo.TabIndex = 31
@@ -629,7 +684,7 @@ Partial Class WF_AquaPrint
         Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
         Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(680, 93)
         Me.BT_OpenSettings.Name = "BT_OpenSettings"
         Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
         Me.BT_OpenSettings.TabIndex = 22
@@ -679,7 +734,6 @@ Partial Class WF_AquaPrint
         Me.TB_RFIDIn.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TB_RFIDIn.Size = New System.Drawing.Size(345, 31)
         Me.TB_RFIDIn.TabIndex = 0
-        Me.TB_RFIDIn.Text = "0000181218"
         '
         'CurrentTimeTimer
         '
@@ -709,7 +763,7 @@ Partial Class WF_AquaPrint
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(180, 75)
+        Me.TextBox1.Size = New System.Drawing.Size(180, 38)
         Me.TextBox1.TabIndex = 31
         '
         'DG_ErrorCodes
@@ -786,11 +840,11 @@ Partial Class WF_AquaPrint
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(27, 102)
+        Me.TextBox3.Location = New System.Drawing.Point(26, 64)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox3.Size = New System.Drawing.Size(179, 78)
+        Me.TextBox3.Size = New System.Drawing.Size(179, 43)
         Me.TextBox3.TabIndex = 31
         '
         'GB_ErrorCode
@@ -813,6 +867,7 @@ Partial Class WF_AquaPrint
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.DG_THT_Start)
         Me.GroupBox2.Controls.Add(Me.Label19)
         Me.GroupBox2.Controls.Add(Me.Label18)
         Me.GroupBox2.Controls.Add(Me.Label16)
@@ -829,6 +884,17 @@ Partial Class WF_AquaPrint
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "GroupBox2"
         Me.GroupBox2.Visible = False
+        '
+        'DG_THT_Start
+        '
+        Me.DG_THT_Start.AllowUserToAddRows = False
+        Me.DG_THT_Start.AllowUserToDeleteRows = False
+        Me.DG_THT_Start.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_THT_Start.Location = New System.Drawing.Point(26, 122)
+        Me.DG_THT_Start.Name = "DG_THT_Start"
+        Me.DG_THT_Start.ReadOnly = True
+        Me.DG_THT_Start.Size = New System.Drawing.Size(159, 50)
+        Me.DG_THT_Start.TabIndex = 34
         '
         'Label19
         '
@@ -893,88 +959,21 @@ Partial Class WF_AquaPrint
         '
         Me.FAS_ErrorCodeTableAdapter.ClearBeforeFill = True
         '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn1.HeaderText = "№"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 48
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Серийный номер"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 143
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Название станции"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 157
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Результат"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 112
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "Описание ошибки"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Width = 150
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Примечание"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Width = 126
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Линия"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 78
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Пользователь"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 140
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Дата"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 69
-        '
         'WF_AquaPrint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 931)
+        Me.ClientSize = New System.Drawing.Size(777, 737)
         Me.Controls.Add(Me.GB_WorkAria)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GroupBox2)
         Me.Name = "WF_AquaPrint"
         Me.Text = "WF_AquaPrint"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).EndInit()
@@ -982,8 +981,6 @@ Partial Class WF_AquaPrint
         Me.GB_PCBInfoMode.PerformLayout()
         Me.GB_ScanMode.ResumeLayout(False)
         Me.GB_ScanMode.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GB_WorkAria.ResumeLayout(False)
         Me.GB_WorkAria.PerformLayout()
@@ -995,6 +992,7 @@ Partial Class WF_AquaPrint
         Me.GB_ErrorCode.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.DG_THT_Start, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DG_THTStartFromDB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1023,7 +1021,6 @@ Partial Class WF_AquaPrint
     Friend WithEvents Label9 As Label
     Friend WithEvents Lebel_StationLine As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents BT_Pass As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents DG_PCB_Steps As DataGridView
     Friend WithEvents GB_PCBInfoMode As GroupBox
@@ -1041,7 +1038,6 @@ Partial Class WF_AquaPrint
     Friend WithEvents CASIDTab As DataGridViewTextBoxColumn
     Friend WithEvents HDCP As DataGridViewTextBoxColumn
     Friend WithEvents CERT As DataGridViewTextBoxColumn
-    Friend WithEvents BT_Fail As Button
     Friend WithEvents SerialTextBox As TextBox
     Friend WithEvents GB_WorkAria As GroupBox
     Friend WithEvents BT_PCBInfo As Button
@@ -1082,4 +1078,6 @@ Partial Class WF_AquaPrint
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents PrintSerialPort As IO.Ports.SerialPort
+    Friend WithEvents DG_THT_Start As DataGridView
+    Friend WithEvents CB_Reprint As CheckBox
 End Class

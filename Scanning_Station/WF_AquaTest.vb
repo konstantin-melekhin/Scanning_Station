@@ -173,7 +173,7 @@ Public Class WF_AquaTest
     Private Sub OperatinWithPCB(sender As Object, e As KeyEventArgs)
         Dim Mess As New ArrayList()
         'проверка регистрации платы на THT Start и на гравировщике
-        PCBCheckRes = CheckPCB(SerialTextBox.Text)
+        PCBCheckRes = CheckPCB(SerialTextBox.Text, Controllabel, SerialTextBox, BT_Pause, DG_THT_Start)
         If PCBCheckRes(0) = True Then
             'Если плата прошла этапы АОИ и ТНТ Старт
             Mess = GetStepResult()
@@ -190,52 +190,6 @@ Public Class WF_AquaTest
         End If
         SerialTextBox.Focus()
     End Sub
-    Private Function CheckPCB(PCBSN As String) As ArrayList
-        Dim PCBRes As New ArrayList()
-        'прерка таблицы лазер
-        Dim PCBID As Integer = SelectInt("use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] 
-                                            where Content = '" & PCBSN & "'")
-        If PCBID = 0 Then
-            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
-            SerialTextBox.Enabled = False
-            BT_Pause.Focus()
-            PCBRes.Add(False)
-            PCBRes.Add("Плата не зарегистрирована в базе!")
-            'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
-        Else
-            'Проверка ТНТ старт
-            If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
-                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") Then
-                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
-                SerialTextBox.Enabled = False
-                BT_Pause.Focus()
-                PCBRes.Add(False)
-                PCBRes.Add("Плата не прошла THT Start!")
-            Else
-                If CB_CallLog.Checked = True Then
-                    If PCInfo(6) = 1 Then
-                        Dim sql As String = "SELECT [Pass]FROM [FAS].[dbo].[CT_Aq_Calibration] where barcode = '" & PCBSN & "' and Pass = 1"
-                        If SelectString(sql) = Nothing Then
-                            PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла калибровку!", 12, 193, Color.Red)
-                            SerialTextBox.Enabled = False
-                            BT_Pause.Focus()
-                            PCBRes.Add(False)
-                            PCBRes.Add("Плата не прошла Калибровку!")
-                        Else
-                            PCBRes.Add(True)
-                            PCBRes.Add(PCBID)
-                            PCBRes.Add(PCBSN)
-                        End If
-                    Else
-                        PCBRes.Add(True)
-                        PCBRes.Add(PCBID)
-                        PCBRes.Add(PCBSN)
-                    End If
-                End If
-            End If
-        End If
-        Return PCBRes
-    End Function
     'функция определения результата этапа
     Private Function GetStepResult() As ArrayList
         'продолжить сдесь, добавить arraylist для месседж
@@ -270,11 +224,11 @@ Public Class WF_AquaTest
             SelectAction()
             'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
             'номер текущей станции совпадает со стартовой станцией
-        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) = StartStepID Then 'Плата вернулась из ремонта на первый этап
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта на первый этап  And PCInfo(6) = StartStepID
             SelectAction()
             'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
             'номер текущей станции не совпадает со стартовой станцией
-        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) <> StartStepID Then 'Плата вернулась из ремонта не на первый этап
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта не на первый этап And PCInfo(6) <> StartStepID
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
                            "передайте плату на операцию " & StartStep & "!", Color.Red, False})
             SerialTextBox.Enabled = False
@@ -331,18 +285,57 @@ Public Class WF_AquaTest
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "", "Плата имеет не верный предыдыдущий шаг!")
                 PrintLabel(Controllabel, Message, 12, 193, MesColor)
                 Exit Sub
+            Case 6
+                StepRes = 2
+                ErrCode = GetErrorCode()
+                Message = "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & " с ошибкой V5!" &
+                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!"
+                MesColor = Color.Green
+                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & " с ошибкой V5!" &
+                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
         End Select
         RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
                     set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
                     where PCBID = " & PcbID)
-        RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+        If If(ErrCode.Count <> 0, ErrCode(0), 0) = 514 Then
+            RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+                    (" & PcbID & "," & LOTID & "," & StepID & "," & StepRes & ",CURRENT_TIMESTAMP,
+                    " & UserInfo(0) & "," & PCInfo(2) & "," &
+                                If(StepRes = 2, ErrCode(0), "Null") & "," &
+                                If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+        Else
+            RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     (" & PcbID & "," & LOTID & "," & StepID & "," & StepRes & ",CURRENT_TIMESTAMP,
                     " & UserInfo(0) & "," & PCInfo(2) & "," &
                     If(StepRes = 3, ErrCode(0), "Null") & "," &
                     If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+        End If
         PrintLabel(Controllabel, Message, 12, 193, MesColor)
     End Sub
+
+    'проверка калибровки
+    Private Function CalibrationCheck(PCBSN As String)
+        Dim res As Boolean = False
+        If CB_CallLog.Checked = True Then
+            Dim sql As String = "SELECT [Pass]FROM [FAS].[dbo].[CT_Aq_Calibration] where barcode = '" & PCBSN & "' and Pass = 1"
+            If SelectString(sql) = Nothing Then
+                RunCommand("delete  [FAS].[dbo].[Ct_StepResult]where PCBID = " & PCBCheckRes(1))
+                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла калибровку!", 12, 193, Color.Red)
+                SerialTextBox.Enabled = False
+                BT_Pause.Focus()
+                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "", "Плата не прошла Калибровку!")
+            Else
+                res = True
+            End If
+        Else
+            res = True
+        End If
+        Return res
+    End Function
+
+
 
     'Функция для автоматизации регистрации результата (Пробел - Pass/ F - вызов окна ввода ошибки
     Private Sub CurrrentTimeLabel_KeyDown(sender As Object, e As KeyEventArgs) Handles CurrrentTimeLabel.KeyDown
@@ -354,9 +347,11 @@ Public Class WF_AquaTest
     End Sub
     'Кнопка Pass
     Private Sub BT_Pass_Click(sender As Object, e As EventArgs) Handles BT_Pass.Click
-        ShiftCounter(2)
-        UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
-        BT_CleareSN_Click(sender, e)
+        If CalibrationCheck(SerialTextBox.Text) = True Then
+            ShiftCounter(2)
+            UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
+            BT_CleareSN_Click(sender, e)
+        End If
     End Sub
     'Кнопка Сохранения кода ошибки
     Private Sub BT_SeveErCode_Click(sender As Object, e As EventArgs) Handles BT_SeveErCode.Click
@@ -364,10 +359,15 @@ Public Class WF_AquaTest
             MsgBox("Укажите код ошибки")
         Else
             ShiftCounter(3)
-            UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
+            If CB_ErrorCode.Text = "V5" Then
+                UpdateStepRes(PCInfo(6), 6, PCBCheckRes(1))
+            Else
+                UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
+            End If
+
             CB_ErrorCode.Text = ""
-            BT_CleareSN_Click(sender, e)
-        End If
+                BT_CleareSN_Click(sender, e)
+            End If
     End Sub
 
     'Кнопка Fail 
@@ -499,4 +499,7 @@ Public Class WF_AquaTest
             DG_PCB_Steps.Sort(DG_PCB_Steps.Columns(1), System.ComponentModel.ListSortDirection.Ascending)
         End If
     End Sub
+
+
+
 End Class

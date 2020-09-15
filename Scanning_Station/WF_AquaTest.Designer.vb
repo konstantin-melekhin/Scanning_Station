@@ -118,6 +118,8 @@ Partial Class WF_AquaTest
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BT_Pass = New System.Windows.Forms.Button()
         Me.BT_Fail = New System.Windows.Forms.Button()
+        Me.DG_THT_Start = New System.Windows.Forms.DataGridView()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.GB_ErrorCode.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_UserData.SuspendLayout()
@@ -135,6 +137,7 @@ Partial Class WF_AquaTest
         Me.GB_ScanMode.SuspendLayout()
         Me.GB_PCBInfoMode.SuspendLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DG_THT_Start, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GB_ErrorCode
@@ -227,11 +230,11 @@ Partial Class WF_AquaTest
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(27, 102)
+        Me.TextBox3.Location = New System.Drawing.Point(26, 59)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox3.Size = New System.Drawing.Size(179, 78)
+        Me.TextBox3.Size = New System.Drawing.Size(179, 36)
         Me.TextBox3.TabIndex = 31
         '
         'CurrentTimeTimer
@@ -253,7 +256,7 @@ Partial Class WF_AquaTest
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(180, 75)
+        Me.TextBox1.Size = New System.Drawing.Size(180, 34)
         Me.TextBox1.TabIndex = 31
         '
         'Label13
@@ -272,7 +275,6 @@ Partial Class WF_AquaTest
         Me.TB_RFIDIn.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TB_RFIDIn.Size = New System.Drawing.Size(345, 31)
         Me.TB_RFIDIn.TabIndex = 0
-        Me.TB_RFIDIn.Text = "0000181218"
         '
         'GB_UserData
         '
@@ -505,10 +507,12 @@ Partial Class WF_AquaTest
         '
         Me.GroupBox2.Controls.Add(Me.Label19)
         Me.GroupBox2.Controls.Add(Me.Label18)
+        Me.GroupBox2.Controls.Add(Me.Label20)
         Me.GroupBox2.Controls.Add(Me.Label16)
         Me.GroupBox2.Controls.Add(Me.DG_THTStartFromDB)
         Me.GroupBox2.Controls.Add(Me.DG_PCBInfoFromDB)
         Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Controls.Add(Me.DG_THT_Start)
         Me.GroupBox2.Controls.Add(Me.DG_StepList)
         Me.GroupBox2.Controls.Add(Me.TextBox1)
         Me.GroupBox2.Controls.Add(Me.TextBox3)
@@ -1071,11 +1075,31 @@ Partial Class WF_AquaTest
         Me.BT_Fail.UseVisualStyleBackColor = True
         Me.BT_Fail.Visible = False
         '
+        'DG_THT_Start
+        '
+        Me.DG_THT_Start.AllowUserToAddRows = False
+        Me.DG_THT_Start.AllowUserToDeleteRows = False
+        Me.DG_THT_Start.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_THT_Start.Location = New System.Drawing.Point(26, 125)
+        Me.DG_THT_Start.Name = "DG_THT_Start"
+        Me.DG_THT_Start.ReadOnly = True
+        Me.DG_THT_Start.Size = New System.Drawing.Size(159, 57)
+        Me.DG_THT_Start.TabIndex = 32
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(23, 107)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(90, 13)
+        Me.Label20.TabIndex = 33
+        Me.Label20.Text = "DG_THT START"
+        '
         'WF_AquaTest
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 786)
+        Me.ClientSize = New System.Drawing.Size(1924, 850)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GroupBox2)
@@ -1109,6 +1133,7 @@ Partial Class WF_AquaTest
         Me.GB_PCBInfoMode.ResumeLayout(False)
         Me.GB_PCBInfoMode.PerformLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DG_THT_Start, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1200,4 +1225,6 @@ Partial Class WF_AquaTest
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents CB_CallLog As CheckBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents DG_THT_Start As DataGridView
 End Class

@@ -160,9 +160,14 @@ Public Class WF_AquaPrint
         Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
             Dim Mess As New ArrayList()
             If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = LenSN Then
+            If CB_Reprint.Checked = False Then
                 OperatinWithPCB(sender, e)
-                'если введен не верный номер
-            ElseIf e.KeyCode = Keys.Enter Then
+            Else
+                PassAction()
+            End If
+
+            'если введен не верный номер
+        ElseIf e.KeyCode = Keys.Enter Then
                 PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 12, 193, Color.Red)
             CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "Плата имеет не верный номер")
             SerialTextBox.Enabled = False
@@ -172,9 +177,9 @@ Public Class WF_AquaPrint
         'ПОСЛЕДОВАТЕЛЬНОСТЬ ОБРАБОТКИ СЕРИЙНОГО НОМЕРА
         Private Sub OperatinWithPCB(sender As Object, e As KeyEventArgs)
             Dim Mess As New ArrayList()
-            'проверка регистрации платы на THT Start и на гравировщике
-            PCBCheckRes = CheckPCB(SerialTextBox.Text)
-            If PCBCheckRes(0) = True Then
+        'проверка регистрации платы на THT Start и на гравировщике
+        PCBCheckRes = CheckPCB(SerialTextBox.Text, Controllabel, SerialTextBox, BT_Pause, DG_THT_Start)
+        If PCBCheckRes(0) = True Then
             'Если плата прошла этапы АОИ и ТНТ Старт
             Mess = GetStepResult()
             'Если плата не прошла этапы АОИ и ТНТ Старт
@@ -183,35 +188,7 @@ Public Class WF_AquaPrint
         End If
             SerialTextBox.Focus()
         End Sub
-        Private Function CheckPCB(PCBSN As String) As ArrayList
-            Dim PCBRes As New ArrayList()
-            'прерка таблицы лазер
-            Dim PCBID As Integer = SelectInt("use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] 
-                                            where Content = '" & PCBSN & "'")
-        If PCBID = 0 Then
-            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
-            SerialTextBox.Enabled = False
-            BT_Pause.Focus()
-            PCBRes.Add(False)
-            PCBRes.Add("Плата не зарегистрирована в базе!")
-            CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "Плата не зарегистрирована в базе!")
-        Else
-            'Проверка ТНТ старт
-            If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
-                                    where PCBserial = '" & PCBSN & "' and PCBResult = 1") Then
-                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
-                SerialTextBox.Enabled = False
-                BT_Pause.Focus()
-                PCBRes.Add(False)
-                PCBRes.Add("Плата не прошла THT Start!")
-            Else
-                PCBRes.Add(True)
-                PCBRes.Add(PCBID)
-                PCBRes.Add(PCBSN)
-            End If
-        End If
-            Return PCBRes
-        End Function
+
     'функция определения результата этапа
     Private Function GetStepResult() As ArrayList
         'продолжить сдесь, добавить arraylist для месседж
@@ -226,7 +203,7 @@ Public Class WF_AquaPrint
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет шаг совпадающий с текущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
-            PassAction(2)
+            PassAction()
             'Если плата в таблице StepResult имеет  результат равен 3
         ElseIf PCBStepRes(1) = 3 Then 'Плата имеет статус x/3, то проверить опер лог и определить откуда плата
             'Mess.AddRange(New ArrayList() From {"Карантин", "Плата " & PCBCheckRes(2) & " находится в карантине!" &
@@ -236,11 +213,11 @@ Public Class WF_AquaPrint
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет шаг совпадающий с предыдущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2 (проверка предыдущего шага)
-            PassAction(1)
+            PassAction()
             'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
             'номер текущей станции совпадает со стартовой станцией
         ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) = 25 Then 'Плата вернулась из ремонта на первый этап
-            PassAction(1)
+            PassAction()
         ElseIf PCBStepRes(0) <> PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2
             'Проверить опер лог и изменить коментарий
             UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
@@ -256,18 +233,20 @@ Public Class WF_AquaPrint
     End Function
     'функция печати
 
-    Private Sub PassAction(i As Integer)
-        If PrintSN(i) = True Then
+    Private Sub PassAction()
+        If PrintSN() = True And CB_Reprint.Checked = False Then
             UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
             SerialTextBox.Clear()
+        ElseIf PrintSN() = True And CB_Reprint.Checked = True Then
+            SerialTextBox.Clear()
+            CB_Reprint.Checked = False
         Else
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
         End If
     End Sub
-
     Dim SNArray As New ArrayList
-    Private Function PrintSN(i As Integer)
+    Private Function PrintSN()
         Dim res As Boolean
         SNArray = SelectListString("use fas
         SELECT [ID],[SN],[IMEI],[MAC_BT],[MAC_WF],[IsPrinted],[PrintByID],[PrintDate]
@@ -281,7 +260,7 @@ Public Class WF_AquaPrint
                         "MAC BT " & SNArray(3), 12, 192, Color.Green)
             Dim sql = If(SNArray(5) = False, "Update [FAS].[dbo].[CT_Aquarius] set IsPrinted = 1,PrintByID = " & UserInfo(0) & ", 
                  PrintDate = CURRENT_TIMESTAMP where id = " & SNArray(0),
-                "Update [FAS].[dbo].[CT_Aquarius] set IsRePrinted = 1, RePrintByID = " & UserInfo(0) & ",RePrintDate = CURRENT_TIMESTAMP,
+            "Update [FAS].[dbo].[CT_Aquarius] set IsRePrinted = 1, RePrintByID = " & UserInfo(0) & ",RePrintDate = CURRENT_TIMESTAMP,
                  RePrintCount = " & SNArray(11) + 1 & " where id = " & SNArray(0))
             RunCommand(sql)
             res = True
@@ -289,7 +268,7 @@ Public Class WF_AquaPrint
             PrintLabel(Controllabel, "Номер не найден в базе!", 12, 192, Color.Red)
             res = False
         End If
-        Return Res
+        Return res
     End Function
 
     'функция обноления результата тестирования для Pass/Fail
@@ -298,6 +277,13 @@ Public Class WF_AquaPrint
         Dim MesColor As Color
         Dim ErrCode As New ArrayList()
         Select Case StepRes
+            Case 1
+                Message = "Планшет " & PCBCheckRes(2) & " уже прошёл этап печати!" & vbCrLf & "Передайте планшет этап тестирования!"
+                MesColor = Color.Red
+                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "Планшет  уже прошёл этап печати!" &
+               vbCrLf & "Передайте планшет на этап тестирования!")
+                PrintLabel(Controllabel, Message, 12, 193, MesColor)
+                Exit Sub
             Case 2
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "Плата прошла этап " & PCInfo(7) & "!")
                 ShiftCounter(2)
@@ -332,6 +318,10 @@ Public Class WF_AquaPrint
                     " & UserInfo(0) & "," & PCInfo(2) & "," &
                     If(StepRes = 3, ErrCode(0), "Null") & "," &
                     If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+    End Sub
+
+    Private Sub CB_Reprint_CheckedChanged(sender As Object, e As EventArgs) Handles CB_Reprint.CheckedChanged
+        SerialTextBox.Focus()
     End Sub
     'Кнопка очистки поля ввода номера
     Private Sub BT_CleareSN_Click(sender As Object, e As EventArgs) Handles BT_CleareSN.Click

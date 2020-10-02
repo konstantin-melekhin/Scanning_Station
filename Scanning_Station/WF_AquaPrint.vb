@@ -234,10 +234,11 @@ Public Class WF_AquaPrint
     'функция печати
 
     Private Sub PassAction()
-        If PrintSN() = True And CB_Reprint.Checked = False Then
+        Dim Res As Boolean = PrintSN()
+        If Res = True And CB_Reprint.Checked = False Then
             UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
             SerialTextBox.Clear()
-        ElseIf PrintSN() = True And CB_Reprint.Checked = True Then
+        ElseIf Res = True And CB_Reprint.Checked = True Then
             SerialTextBox.Clear()
             CB_Reprint.Checked = False
         Else
@@ -251,7 +252,7 @@ Public Class WF_AquaPrint
         SNArray = SelectListString("use fas
         SELECT [ID],[SN],[IMEI],[MAC_BT],[MAC_WF],[IsPrinted],[PrintByID],[PrintDate]
         ,[IsRePrinted],[RePrintByID],[RePrintDate],[RePrintCount]
-        FROM [FAS].[dbo].[CT_Aquarius] where [LOTID] = 20063 and [SN] = '" & SerialTextBox.Text & "'") 'INS220020101
+        FROM [FAS].[dbo].[CT_Aquarius] where [SN] = '" & SerialTextBox.Text & "'") 'INS220020101
         If SNArray.Count <> 0 Then
             AquaSN(SNArray)
             PrintLabel(Controllabel, "Серийный номер " & SNArray(1) & vbCrLf &

@@ -191,23 +191,25 @@ Public Class WF_AquaTest
         SerialTextBox.Focus()
     End Sub
     'функция определения результата этапа
+    Dim FirstStep As Boolean
     Private Function GetStepResult() As ArrayList
         'продолжить сдесь, добавить arraylist для месседж
+        FirstStep = New Boolean
         Dim Mess As New ArrayList()
         ' В аргументах PCBID = PCBCheckRes(1) и PCBSN = PCBCheckRes(2), CurrentStepID = PCInfo(6) и CurrentStep = PCInfo(7)
         Dim PCBStepRes As New ArrayList(SelectListString("USE FAS SELECT [StepID],[TestResult],[ScanDate],[SNID]
                             FROM [FAS].[dbo].[Ct_StepResult] where [PCBID] = " & PCBCheckRes(1)))
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
-            ''Создаем запись о прохождении первого шага в таблице StepResult и OperLog
-            RunCommand("USE FAS insert into [FAS].[dbo].[Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
-                        values (" & PCBCheckRes(1) & "," & PCInfo(6) & ",1,CURRENT_TIMESTAMP)")
+            FirstStep = True
             SelectAction()
         ElseIf PCBStepRes.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " не прошла этап " & PreStep & "!" &
                           vbCrLf & "Передайте плату на этап " & StartStep & "!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
+        ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 1 Then 'Плата имеет статус 1/1
+            SelectAction()
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
                            vbCrLf & "Передайте плату на следующий этап " & NextStep & "!", Color.Red, False})
@@ -294,9 +296,18 @@ Public Class WF_AquaTest
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & " с ошибкой V5!" &
                    vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
         End Select
-        RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
+
+
+        If FirstStep = True Then
+            ''Создаем запись о прохождении первого шага в таблице StepResult и OperLog
+            RunCommand("USE FAS insert into [FAS].[dbo].[Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
+                        values (" & PCBCheckRes(1) & "," & PCInfo(6) & "," & StepRes & ",CURRENT_TIMESTAMP)")
+        Else
+            RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
                     set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
                     where PCBID = " & PcbID)
+        End If
+
         If If(ErrCode.Count <> 0, ErrCode(0), 0) = 514 Then
             RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values

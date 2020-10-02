@@ -78,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AquaLoad.vb" />
+    <Compile Include="WF_Calibration.Designer.vb">
+      <DependentUpon>WF_Calibration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="WF_Calibration.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Work_Function.vb" />
     <Compile Include="WF_AquaPrint.Designer.vb">
       <DependentUpon>WF_AquaPrint.vb</DependentUpon>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WF_Android.resx">
       <DependentUpon>WF_Android.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WF_Calibration.resx">
+      <DependentUpon>WF_Calibration.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

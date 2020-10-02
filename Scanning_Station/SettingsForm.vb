@@ -150,6 +150,10 @@ Public Class SettingsForm
                     Dim WF As New WF_AquaTest(LOTID, IDApp)
                     WF.Controllabel.Text = ""
                     WF.Show()
+                Case 3
+                    Dim WF As New WF_Calibration(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
             End Select
             Me.Close()
         Else

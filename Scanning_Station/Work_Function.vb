@@ -16,8 +16,8 @@ Module Work_Function
             'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
         Else
             'Проверка ТНТ старт
-            LoadGridFromDB(DG_THT_Start, "use SMDCOMPONETS SELECT [PCBserial],[AOIpass],[AOIverify],[PCBResult] 
-            FROM [SMDCOMPONETS].[dbo].[THTStart]  where PCBserial = '" & PCBSN & "'")
+            LoadGridFromDB(DG_THT_Start, "use SMDCOMPONETS SELECT UPPER([PCBserial]),[AOIpass],[AOIverify],[PCBResult] 
+            FROM [SMDCOMPONETS].[dbo].[THTStart]  where PCBserial = UPPER('" & PCBSN & "')")
             Dim Lab As String
             If DG_THT_Start.RowCount <> 0 Then
                 For i = 0 To DG_THT_Start.RowCount - 1
@@ -44,11 +44,6 @@ Module Work_Function
                 PCBRes.Add(False)
                 PCBRes.Add("Плата не прошла THT Start!")
             End If
-            'If PCBSN <> UCase("a") Then 'and PCBResult = 1
-
-            'Else
-
-            'End If
         End If
         Return PCBRes
     End Function

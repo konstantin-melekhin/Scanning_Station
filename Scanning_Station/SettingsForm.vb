@@ -142,16 +142,24 @@ Public Class SettingsForm
         If DG_LOTListPresent.Rows.Count <> 0 Then
             LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
             Select Case PCInfo(6)
-                Case 25
-                    Dim WF As New WF_AquaPrint(LOTID, IDApp)
-                    WF.Controllabel.Text = ""
-                    WF.Show()
                 Case 1 To 2
                     Dim WF As New WF_AquaTest(LOTID, IDApp)
                     WF.Controllabel.Text = ""
                     WF.Show()
                 Case 3
                     Dim WF As New WF_Calibration(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
+                Case 25
+                    Dim WF As New WF_AquaPrint(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
+                Case 26
+                    Dim WF As New IP_TV_Print(LOTID, IDApp)
+                    WF.Controllabel.Text = ""
+                    WF.Show()
+                Case 27
+                    Dim WF As New ByteErg_Test(LOTID, IDApp)
                     WF.Controllabel.Text = ""
                     WF.Show()
             End Select

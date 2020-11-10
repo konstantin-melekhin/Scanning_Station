@@ -49,7 +49,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Library3">
+    <Reference Include="Library3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library3\Library3\bin\Debug\Library3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -78,6 +79,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AquaLoad.vb" />
+    <Compile Include="ByteErg_Test.Designer.vb">
+      <DependentUpon>ByteErg_Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ByteErg_Test.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IP-TV_Print.Designer.vb">
+      <DependentUpon>IP-TV_Print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="IP-TV_Print.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelsToPrint.vb" />
     <Compile Include="WF_Calibration.Designer.vb">
       <DependentUpon>WF_Calibration.vb</DependentUpon>
     </Compile>
@@ -139,6 +153,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ByteErg_Test.resx">
+      <DependentUpon>ByteErg_Test.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IP-TV_Print.resx">
+      <DependentUpon>IP-TV_Print.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WF_AquaPrint.resx">
       <DependentUpon>WF_AquaPrint.vb</DependentUpon>
     </EmbeddedResource>

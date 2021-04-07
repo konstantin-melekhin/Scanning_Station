@@ -16,6 +16,7 @@ Public Class WF_AquaPrint
     End Sub
     'Загрузка рабочей формы
     Private Sub WF_AquaPrint_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CB_Reprint.Checked = True
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
         PCInfo = GetPCInfo(IDApp)
@@ -157,9 +158,9 @@ Public Class WF_AquaPrint
         'начало работы приложения FAS Scanning Station
         'окно ввода серийного номера платы
         Dim PCBCheckRes As New ArrayList()
-        Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
-            Dim Mess As New ArrayList()
-            If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = LenSN Then
+    Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
+        Dim Mess As New ArrayList()
+        If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = LenSN Then
             If CB_Reprint.Checked = False Then
                 OperatinWithPCB(sender, e)
             Else
@@ -168,14 +169,14 @@ Public Class WF_AquaPrint
 
             'если введен не верный номер
         ElseIf e.KeyCode = Keys.Enter Then
-                PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 12, 193, Color.Red)
+            PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 12, 193, Color.Red)
             CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "Плата имеет не верный номер")
             SerialTextBox.Enabled = False
-                BT_Pause.Focus()
-            End If
-        End Sub
-        'ПОСЛЕДОВАТЕЛЬНОСТЬ ОБРАБОТКИ СЕРИЙНОГО НОМЕРА
-        Private Sub OperatinWithPCB(sender As Object, e As KeyEventArgs)
+            BT_Pause.Focus()
+        End If
+    End Sub
+    'ПОСЛЕДОВАТЕЛЬНОСТЬ ОБРАБОТКИ СЕРИЙНОГО НОМЕРА
+    Private Sub OperatinWithPCB(sender As Object, e As KeyEventArgs)
             Dim Mess As New ArrayList()
         'проверка регистрации платы на THT Start и на гравировщике
         PCBCheckRes = CheckPCB(SerialTextBox.Text, Controllabel, SerialTextBox, BT_Pause, DG_THT_Start)
@@ -240,7 +241,7 @@ Public Class WF_AquaPrint
             SerialTextBox.Clear()
         ElseIf Res = True And CB_Reprint.Checked = True Then
             SerialTextBox.Clear()
-            CB_Reprint.Checked = False
+            'CB_Reprint.Checked = False
         Else
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
@@ -324,6 +325,7 @@ Public Class WF_AquaPrint
     Private Sub CB_Reprint_CheckedChanged(sender As Object, e As EventArgs) Handles CB_Reprint.CheckedChanged
         SerialTextBox.Focus()
     End Sub
+
     'Кнопка очистки поля ввода номера
     Private Sub BT_CleareSN_Click(sender As Object, e As EventArgs) Handles BT_CleareSN.Click
         If GB_PCBInfoMode.Visible = False Then

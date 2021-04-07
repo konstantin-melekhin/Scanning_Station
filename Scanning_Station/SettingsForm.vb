@@ -1,9 +1,16 @@
 ﻿Imports Library3
+Imports System.Deployment.Application
 
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim myVersion As Version
+        If ApplicationDeployment.IsNetworkDeployed Then
+            myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
+        End If
+        LB_SW_Wers.Text = String.Concat("v", myVersion)
+
         PCInfo = GetPCInfo(IDApp)
         If PCInfo.Count = 0 Then
             DG_LOTListPresent.Visible = False
@@ -23,7 +30,7 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList)
+        GetLotList_ContractStation(DG_LotList, 4)
         GetLotList()
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
@@ -133,6 +140,7 @@ Public Class SettingsForm
     'Модуль запуска программы (переход в WorkForm)
     'Опредеяем номер выбранной строки в таблице лотов
     Public selRowNum, LOTID As Integer
+
     Private Sub DG_LOTListPresent_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DG_LOTListPresent.CellClick
         selRowNum = DG_LOTListPresent.CurrentCell.RowIndex
     End Sub

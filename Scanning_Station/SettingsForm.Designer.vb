@@ -25,9 +25,6 @@ Partial Class SettingsForm
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_NotVisibleElements = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -63,6 +60,8 @@ Partial Class SettingsForm
         Me.Label9 = New System.Windows.Forms.Label()
         Me.BT_SelectLot = New System.Windows.Forms.Button()
         Me.BT_RefreshLOT = New System.Windows.Forms.Button()
+        Me.LB_SW_Wers = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.GB_NotVisibleElements.SuspendLayout()
         CType(Me.DG_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_LineList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,6 +176,8 @@ Partial Class SettingsForm
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.LB_SW_Wers)
+        Me.GroupBox3.Controls.Add(Me.Label15)
         Me.GroupBox3.Controls.Add(Me.Lebel_StationLine)
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.LB_SelectLine)
@@ -188,7 +189,7 @@ Partial Class SettingsForm
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox3.Size = New System.Drawing.Size(287, 184)
+        Me.GroupBox3.Size = New System.Drawing.Size(287, 270)
         Me.GroupBox3.TabIndex = 42
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Информация о рабочей станции"
@@ -197,7 +198,7 @@ Partial Class SettingsForm
         '
         Me.Lebel_StationLine.AutoSize = True
         Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Lebel_StationLine.Location = New System.Drawing.Point(92, 157)
+        Me.Lebel_StationLine.Location = New System.Drawing.Point(95, 214)
         Me.Lebel_StationLine.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lebel_StationLine.Name = "Lebel_StationLine"
         Me.Lebel_StationLine.Size = New System.Drawing.Size(43, 20)
@@ -208,7 +209,7 @@ Partial Class SettingsForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label3.Location = New System.Drawing.Point(4, 17)
+        Me.Label3.Location = New System.Drawing.Point(7, 74)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(176, 16)
@@ -219,7 +220,7 @@ Partial Class SettingsForm
         '
         Me.LB_SelectLine.AutoSize = True
         Me.LB_SelectLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LB_SelectLine.Location = New System.Drawing.Point(8, 159)
+        Me.LB_SelectLine.Location = New System.Drawing.Point(11, 216)
         Me.LB_SelectLine.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LB_SelectLine.Name = "LB_SelectLine"
         Me.LB_SelectLine.Size = New System.Drawing.Size(57, 16)
@@ -230,7 +231,7 @@ Partial Class SettingsForm
         '
         Me.LabelAppName.AutoSize = True
         Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LabelAppName.Location = New System.Drawing.Point(4, 33)
+        Me.LabelAppName.Location = New System.Drawing.Point(7, 90)
         Me.LabelAppName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LabelAppName.Name = "LabelAppName"
         Me.LabelAppName.Size = New System.Drawing.Size(116, 20)
@@ -241,7 +242,7 @@ Partial Class SettingsForm
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label1.Location = New System.Drawing.Point(4, 100)
+        Me.Label1.Location = New System.Drawing.Point(7, 157)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(151, 16)
@@ -252,7 +253,7 @@ Partial Class SettingsForm
         '
         Me.LB_CurrentStep.AutoSize = True
         Me.LB_CurrentStep.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LB_CurrentStep.Location = New System.Drawing.Point(4, 53)
+        Me.LB_CurrentStep.Location = New System.Drawing.Point(7, 110)
         Me.LB_CurrentStep.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LB_CurrentStep.Name = "LB_CurrentStep"
         Me.LB_CurrentStep.Size = New System.Drawing.Size(179, 20)
@@ -263,7 +264,7 @@ Partial Class SettingsForm
         '
         Me.Label_StationName.AutoSize = True
         Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label_StationName.Location = New System.Drawing.Point(4, 116)
+        Me.Label_StationName.Location = New System.Drawing.Point(7, 173)
         Me.Label_StationName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label_StationName.Name = "Label_StationName"
         Me.Label_StationName.Size = New System.Drawing.Size(165, 20)
@@ -427,34 +428,10 @@ Partial Class SettingsForm
         Me.DG_AppList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DG_AppList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_AppList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_AppList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DG_AppList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DG_AppList.DefaultCellStyle = DataGridViewCellStyle5
         Me.DG_AppList.Location = New System.Drawing.Point(6, 385)
         Me.DG_AppList.Name = "DG_AppList"
         Me.DG_AppList.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_AppList.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.DG_AppList.Size = New System.Drawing.Size(846, 117)
         Me.DG_AppList.TabIndex = 34
         '
@@ -472,7 +449,7 @@ Partial Class SettingsForm
         Me.BT_SelectLot.FlatAppearance.BorderSize = 0
         Me.BT_SelectLot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_SelectLot.Image = Global.Scanning_Station.My.Resources.Resources.play
-        Me.BT_SelectLot.Location = New System.Drawing.Point(991, 204)
+        Me.BT_SelectLot.Location = New System.Drawing.Point(994, 281)
         Me.BT_SelectLot.Name = "BT_SelectLot"
         Me.BT_SelectLot.Size = New System.Drawing.Size(94, 79)
         Me.BT_SelectLot.TabIndex = 47
@@ -488,6 +465,26 @@ Partial Class SettingsForm
         Me.BT_RefreshLOT.Size = New System.Drawing.Size(61, 59)
         Me.BT_RefreshLOT.TabIndex = 46
         Me.BT_RefreshLOT.UseVisualStyleBackColor = True
+        '
+        'LB_SW_Wers
+        '
+        Me.LB_SW_Wers.AutoSize = True
+        Me.LB_SW_Wers.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_SW_Wers.Location = New System.Drawing.Point(165, 22)
+        Me.LB_SW_Wers.Name = "LB_SW_Wers"
+        Me.LB_SW_Wers.Size = New System.Drawing.Size(76, 16)
+        Me.LB_SW_Wers.TabIndex = 34
+        Me.LB_SW_Wers.Text = "SW_Wers"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label15.Location = New System.Drawing.Point(8, 22)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(159, 16)
+        Me.Label15.TabIndex = 33
+        Me.Label15.Text = "Версия приложения:"
         '
         'SettingsForm
         '
@@ -557,4 +554,6 @@ Partial Class SettingsForm
     Friend WithEvents DG_Steps As DataGridView
     Friend WithEvents BT_CloseLineSet As Button
     Friend WithEvents LB_CurrentStep As Label
+    Friend WithEvents LB_SW_Wers As Label
+    Friend WithEvents Label15 As Label
 End Class

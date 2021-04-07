@@ -217,10 +217,11 @@ Public Class WF_AquaTest
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет  результат равен 3
         ElseIf PCInfo(6) <> 4 And PCBStepRes(1) = 3 Then 'Плата имеет статус x/3, то проверить опер лог и определить откуда плата
-            Mess.AddRange(New ArrayList() From {"Карантин", "Плата " & PCBCheckRes(2) & " находится в карантине!" &
-                           vbCrLf & "Проверьте информацию о плате передайте ее в ремонт!", Color.Red, False})
-            SerialTextBox.Enabled = False
-            BT_Pause.Focus()
+            'Mess.AddRange(New ArrayList() From {"Карантин", "Плата " & PCBCheckRes(2) & " находится в карантине!" &
+            '               vbCrLf & "Проверьте информацию о плате передайте ее в ремонт!", Color.Red, False})
+            'SerialTextBox.Enabled = False
+            'BT_Pause.Focus()
+            SelectAction()
             'Если плата в таблице StepResult имеет шаг совпадающий с предыдущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()

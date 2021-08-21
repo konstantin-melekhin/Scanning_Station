@@ -1,8 +1,15 @@
 ﻿Imports Library3
+Imports System.Deployment.Application
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim myVersion As Version
+        If ApplicationDeployment.IsNetworkDeployed Then
+            myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
+        End If
+        LB_SW_Wers.Text = String.Concat("v", myVersion)
+
         PCInfo = GetPCInfo(IDApp)
         If PCInfo.Count = 0 Then
             DG_LOTListPresent.Visible = False

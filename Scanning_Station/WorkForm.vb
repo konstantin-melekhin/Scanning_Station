@@ -1,4 +1,5 @@
 ﻿Imports Library3
+Imports System.Deployment.Application
 Public Class WorkForm
     Dim LOTID, IDApp As Integer
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
@@ -7,7 +8,7 @@ Public Class WorkForm
     Dim LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
-    Dim Yield As Double, FirstStep As Boolean, RepeatStep As Boolean, PassOrFail As Boolean
+    Dim Yield As Double, RepeatStep As Boolean, PassOrFail As Boolean
     Dim PCBCheckRes As New ArrayList()
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
         InitializeComponent()
@@ -16,6 +17,12 @@ Public Class WorkForm
     End Sub
 #Region "Загрузка рабочей формы"
     Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim myVersion As Version
+        If ApplicationDeployment.IsNetworkDeployed Then
+            myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
+        End If
+        LB_SW_Wers.Text = String.Concat("v", myVersion)
+
         LB_CurrentErrCode.Text = ""
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
@@ -100,6 +107,13 @@ Public Class WorkForm
         If PCInfo(6) = 29 Then
             CB_User_Input.Checked = True
             CB_User_Input.Enabled = False
+            Label14.Visible = False
+            LB_PassLotRes.Visible = False
+            Label15.Visible = False
+            LB_FailLotRes.Visible = False
+            Label17.Visible = False
+            LB_Yield.Visible = False
+            LB_Procent.Visible = False
         End If
         L_UserName.Text = ""
         SerialTextBox.Focus()
@@ -251,61 +265,53 @@ Public Class WorkForm
     Private Function GetStepResult() As ArrayList
         'продолжить сдесь, добавить arraylist для месседж
         RepeatStep = New Boolean
-        FirstStep = New Boolean
         Dim Mess As New ArrayList()
         ' В аргументах PCBID = PCBCheckRes(1) и PCBSN = PCBCheckRes(2), CurrentStepID = PCInfo(6) и CurrentStep = PCInfo(7)
-        Dim PCBStepRes As New ArrayList(SelectListString("USE FAS SELECT [StepID],[TestResult],[ScanDate],[SNID]
-                            FROM [FAS].[dbo].[Ct_StepResult] where [PCBID] = " & PCBCheckRes(1)))
+        Dim PCBStepRes As New ArrayList(SelectListString($"Use FAS
+                select 
+                tt.StepID,tt.TestResultID, tt.StepDate ,tt.SNID
+                from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
+                FROM [FAS].[dbo].[Ct_OperLog] 
+                where LOTID = {LOTID} and  PCBID  ={PCBCheckRes(1)}) tt
+                where  tt.num = 1"))
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
-            FirstStep = True
             SelectAction()
         ElseIf PCBStepRes.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " не прошла этап THT END!" &
                           vbCrLf & "Передайте плату на этап THT END!", Color.Red, False})
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
-        ElseIf PCBStepRes(0) = PCInfo(6) And PCInfo(6) = 1 And PCBStepRes(1) = 1 Then 'Плата имеет статус 1/1
-            SelectAction()
-        ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус 1/2
+        ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 2 Then 'Плата имеет статус ("текущий шаг"/2)
             PrintLabel(LB_CurrentErrCode, "Плата " & PCBCheckRes(2) & " уже прошла этап " & PCInfo(7) & "!" &
                            vbCrLf & "Передайте плату на следующий этап " & NextStep & " или измените результат!", 12, 270, Color.Red)
             RepeatStep = True
             SelectAction()
             'Если плата в таблице StepResult имеет  результат равен 3
-        ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 3 Then 'Плата имеет статус x/3, то проверить опер лог и определить откуда плата
+        ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 3 Then 'Плата имеет статус ("текущий шаг"/3)
             PrintLabel(LB_CurrentErrCode, "Плата уже в карантине. Передайте плату в ремонт или обновите статус!", 12, 270, Color.Red)
             RepeatStep = True
             SelectAction()
-            'Если плата в таблице StepResult имеет шаг совпадающий с предыдущей станцией и результат равен 2
+            'Если плата в таблице OperLog имеет шаг совпадающий с предыдущей станцией и результат равен 2
         ElseIf PCBStepRes(0) = PreStepID And PCInfo(6) = 1 And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()
-            'UpdateStepRes(1, 1, PCBCheckRes(1))
-            'SerialTextBox.Text = ""
-            'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
-            'номер текущей станции совпадает со стартовой станцией
-        ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта на первый этап  And PCInfo(6) = StartStepID
+            'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 2 
+        ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта 
             RepeatStep = True
             SelectAction()
-            'Если плата в таблице StepResult имеет шаг совпадающий со станцией ремонта, результат равен 2 и 
-            'номер текущей станции не совпадает со стартовой станцией
-        ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 3 Then 'Плата вернулась из ремонта не на первый этап And PCInfo(6) <> StartStepID
-            'Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
-            '               "Плата не отремонтирована! Поместите плату в карантин!", Color.Red, False})
+            'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 3
+        ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 3 Then
             PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
                            "Плата не отремонтирована! Поместите плату в карантин!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
             'Если плата в таблице StepResult имеет шаг не совпадающий с предыдущей станцией и результат равен 2
-        ElseIf PCBStepRes(0) <> PreStepID And PCBStepRes(1) = 2 Then 'Плата имеет статус Prestep/2
-            'Проверить опер лог и изменить коментарий
-            Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
-                           "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
-            SerialTextBox.Enabled = False
-            BT_Pause.Focus()
         Else
-            Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
-                           "Перейдите во вкладку ИНФО и опредилите принадлежность платы!", Color.Red, False})
+            Dim sender As Object, e As EventArgs
+            BT_PCBInfo_Click(sender, e)
+            TB_GetPCPInfo.Text = PCBCheckRes(2)
+            GetLogInfo()
+            Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! ", Color.Red, False})
             UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
@@ -334,10 +340,6 @@ Public Class WorkForm
         Dim MesColor As Color
         Dim ErrCode As New ArrayList()
         Select Case StepRes
-            Case 1
-                Message = "Плата " & PCBCheckRes(2) & " проходит этап " & PCInfo(7) & "!"
-                MesColor = Color.Orange
-                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "В процессе", "", "Плата проходит этап " & PCInfo(7) & "!")
             Case 2
                 Message = "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & "!" &
                    vbCrLf & "Передайте плату на следующий этап " & NextStep & "!"
@@ -352,11 +354,6 @@ Public Class WorkForm
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), "Плата не прошла этап " & PCInfo(7) & "!" &
                   vbCrLf & "Передайте плату в ремонт!")
             Case 5
-                Message = "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! " & vbCrLf &
-                           "Перейдите во вкладку ИНФО и опредилите принадлежность платы!"
-                MesColor = Color.Red
-                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "", "Плата имеет не верный предыдыдущий шаг!")
-                PrintLabel(Controllabel, Message, 12, 193, MesColor)
                 Exit Sub
             Case 6
                 StepRes = 2
@@ -367,30 +364,20 @@ Public Class WorkForm
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & " с ошибкой V5!" &
                    vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
         End Select
-        If FirstStep = True Then
-            ''Создаем запись о прохождении первого шага в таблице StepResult и OperLog
-            RunCommand("USE FAS insert into [FAS].[dbo].[Ct_StepResult] ([PCBID],[StepID],[TestResult],[ScanDate])
-                        values (" & PCBCheckRes(1) & "," & PCInfo(6) & "," & StepRes & ",CURRENT_TIMESTAMP)")
-        Else
-            RunCommand("USE FAS Update [FAS].[dbo].[Ct_StepResult] 
-                    set StepID = " & StepID & ", TestResult = " & StepRes & ", ScanDate = CURRENT_TIMESTAMP
-                    where PCBID = " & PcbID)
-        End If
-
         If If(ErrCode.Count <> 0, ErrCode(0), 0) = 514 Then
-            RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
-                    (" & PcbID & "," & LOTID & "," & StepID & "," & StepRes & ",CURRENT_TIMESTAMP,
-                    " & UserInfo(0) & "," & PCInfo(2) & "," &
-                                If(StepRes = 2, ErrCode(0), "Null") & "," &
-                                If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+                    ({PcbID},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    {If(StepRes = 2, ErrCode(0), "Null")},
+                    {If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
         Else
-            RunCommand("insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
-                    (" & PcbID & "," & LOTID & "," & StepID & "," & StepRes & ",CURRENT_TIMESTAMP,
-                    " & UserInfo(0) & "," & PCInfo(2) & "," &
-                    If(StepRes = 3, ErrCode(0), "Null") & "," &
-                    If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") & ")")
+                    ({PcbID},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    {If(StepRes = 3, ErrCode(0), "Null")},
+                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
         End If
         PrintLabel(Controllabel, Message, 12, 193, MesColor)
     End Sub
@@ -555,30 +542,41 @@ Public Class WorkForm
     Private Sub TB_GetPCPInfo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_GetPCPInfo.KeyDown
         DG_PCB_Steps.Rows.Clear()
         If e.KeyCode = Keys.Enter Then
-            LoadGridFromDB(DG_PCBInfoFromDB,
-                    "use FAS SELECT ls.Content,Ss.StepName,Sr.Result,Er.ErrorCode,Er.Description,[Descriptions],Ln.LineName,Us.UserName
-        ,format([StepDate],'dd.MM.yyyy HH:mm:ss') as Date
-        FROM [FAS].[dbo].[Ct_OperLog] as Lg
-        left join SMDCOMPONETS.dbo.LazerBase as Ls On Ls.IDLaser = lg.PCBID
-        left join [FAS].[dbo].[Ct_StepScan] as Ss On Ss.ID = StepID
-        left join [FAS].[dbo].[Ct_TestResult] as Sr On Sr.ID = TestResultID
-        left join [FAS].[dbo].[FAS_Users] as Us On Us.UserID = [StepByID]
-        left join [FAS].[dbo].[FAS_Lines] as Ln On Ln.LineID = Lg.LineID
-        left join [FAS].[dbo].[FAS_ErrorCode] as Er On Er.ErrorCodeID = Lg.ErrorCodeID
-        where Ls.Content = '" & TB_GetPCPInfo.Text & "'
-        order by StepDate")
-            TB_GetPCPInfo.Enabled = False
-
-            For i = 0 To DG_PCBInfoFromDB.RowCount - 1
-                DG_PCB_Steps.Rows.Add(i + 1, DG_PCBInfoFromDB.Item(0, i).Value, DG_PCBInfoFromDB.Item(1, i).Value,
-                                      DG_PCBInfoFromDB.Item(2, i).Value, DG_PCBInfoFromDB.Item(3, i).Value,
-                                      DG_PCBInfoFromDB.Item(4, i).Value, DG_PCBInfoFromDB.Item(5, i).Value,
-                                      DG_PCBInfoFromDB.Item(6, i).Value, DG_PCBInfoFromDB.Item(7, i).Value,
-                                      DG_PCBInfoFromDB.Item(8, i).Value)
-            Next
-            DG_PCB_Steps.Sort(DG_PCB_Steps.Columns(9), System.ComponentModel.ListSortDirection.Ascending)
+            GetLogInfo()
         End If
     End Sub
+
+    Private Sub GetLogInfo()
+        DG_PCB_Steps.Rows.Clear()
+        LoadGridFromDB(DG_PCBInfoFromDB,
+                    $"Use FAS
+select 
+(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) PCBSN,
+(select StepName from  [FAS].[dbo].[Ct_StepScan] where id = tt.StepID  )StepName,
+(select Result from [FAS].[dbo].[Ct_TestResult] where id = tt.TestResultID )Result,
+(select E.ErrorCode from [FAS].[dbo].[FAS_ErrorCode] E where ErrorCodeID = tt.ErrorCodeID ) ErrorCode,
+(select E.Description from [FAS].[dbo].[FAS_ErrorCode] E where ErrorCodeID = tt.ErrorCodeID ) Err_Decr,
+tt.Descriptions,
+(select L.LineName from [FAS].[dbo].[FAS_Lines] L where L.LineID = tt.LineID) LineName,
+(select U.UserName from [FAS].[dbo].[FAS_Users] U where U.UserID = tt.StepByID) UserName,
+format([StepDate],'dd.MM.yyyy HH:mm:ss') as Date 
+from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
+FROM [FAS].[dbo].[Ct_OperLog] 
+where LOTID = {LOTID} and  
+PCBID  = (SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{TB_GetPCPInfo.Text}')) tt")
+
+        TB_GetPCPInfo.Enabled = False
+
+        For i = 0 To DG_PCBInfoFromDB.RowCount - 1
+            DG_PCB_Steps.Rows.Add(i + 1, DG_PCBInfoFromDB.Item(0, i).Value, DG_PCBInfoFromDB.Item(1, i).Value,
+                                  DG_PCBInfoFromDB.Item(2, i).Value, DG_PCBInfoFromDB.Item(3, i).Value,
+                                  DG_PCBInfoFromDB.Item(4, i).Value, DG_PCBInfoFromDB.Item(5, i).Value,
+                                  DG_PCBInfoFromDB.Item(6, i).Value, DG_PCBInfoFromDB.Item(7, i).Value,
+                                  DG_PCBInfoFromDB.Item(8, i).Value)
+        Next
+        DG_PCB_Steps.Sort(DG_PCB_Steps.Columns(9), System.ComponentModel.ListSortDirection.Ascending)
+    End Sub
+
 
 #End Region
 

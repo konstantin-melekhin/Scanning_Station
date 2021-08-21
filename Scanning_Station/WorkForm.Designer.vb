@@ -23,14 +23,14 @@ Partial Class WorkForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -44,6 +44,7 @@ Partial Class WorkForm
         Me.LB_FailLotRes = New System.Windows.Forms.Label()
         Me.LB_PassLotRes = New System.Windows.Forms.Label()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
+        Me.BT_PCBInfo = New System.Windows.Forms.Button()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -57,7 +58,9 @@ Partial Class WorkForm
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.CB_User_Input = New System.Windows.Forms.CheckBox()
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
         Me.LabelAppName = New System.Windows.Forms.Label()
         Me.L_UserName = New System.Windows.Forms.Label()
@@ -76,6 +79,7 @@ Partial Class WorkForm
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.BT_Pause = New System.Windows.Forms.Button()
@@ -86,8 +90,11 @@ Partial Class WorkForm
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HDCP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CERT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BT_Pass = New System.Windows.Forms.Button()
+        Me.BT_Fail = New System.Windows.Forms.Button()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.GB_UserData = New System.Windows.Forms.GroupBox()
+        Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TB_RFIDIn = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -96,7 +103,9 @@ Partial Class WorkForm
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.DG_StepList = New System.Windows.Forms.DataGridView()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
+        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
         Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
+        Me.BT_SeveErCode = New System.Windows.Forms.Button()
         Me.TB_Description = New System.Windows.Forms.TextBox()
         Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -108,15 +117,8 @@ Partial Class WorkForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
-        Me.BT_SeveErCode = New System.Windows.Forms.Button()
-        Me.BT_LOGInClose = New System.Windows.Forms.Button()
-        Me.CB_User_Input = New System.Windows.Forms.CheckBox()
-        Me.BT_PCBInfo = New System.Windows.Forms.Button()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
-        Me.BT_CleareSN = New System.Windows.Forms.Button()
-        Me.BT_Pass = New System.Windows.Forms.Button()
-        Me.BT_Fail = New System.Windows.Forms.Button()
+        Me.LB_SW_Wers = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.GB_WorkAria.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GB_PCBInfoMode.SuspendLayout()
@@ -139,7 +141,6 @@ Partial Class WorkForm
         '
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
         Me.GB_WorkAria.Controls.Add(Me.BT_PCBInfo)
-        Me.GB_WorkAria.Controls.Add(Me.GB_PCBInfoMode)
         Me.GB_WorkAria.Controls.Add(Me.BT_OpenSettings)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox4)
         Me.GB_WorkAria.Controls.Add(Me.LB_CurrentErrCode)
@@ -286,12 +287,23 @@ Partial Class WorkForm
         Me.LB_LOTCounter.TabIndex = 0
         Me.LB_LOTCounter.Text = "99"
         '
+        'BT_PCBInfo
+        '
+        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
+        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
+        Me.BT_PCBInfo.Name = "BT_PCBInfo"
+        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
+        Me.BT_PCBInfo.TabIndex = 31
+        Me.BT_PCBInfo.UseVisualStyleBackColor = True
+        '
         'GB_PCBInfoMode
         '
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
         Me.GB_PCBInfoMode.Controls.Add(Me.TB_GetPCPInfo)
         Me.GB_PCBInfoMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(6, 316)
+        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(0, 5)
         Me.GB_PCBInfoMode.Name = "GB_PCBInfoMode"
         Me.GB_PCBInfoMode.Size = New System.Drawing.Size(1301, 394)
         Me.GB_PCBInfoMode.TabIndex = 32
@@ -302,41 +314,41 @@ Partial Class WorkForm
         '
         Me.DG_PCB_Steps.AllowUserToAddRows = False
         Me.DG_PCB_Steps.AllowUserToDeleteRows = False
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_PCB_Steps.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
         Me.DG_PCB_Steps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_PCB_Steps.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
         Me.DG_PCB_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_PCB_Steps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn5, Me.Column4, Me.DataGridViewTextBoxColumn6, Me.Column2, Me.Column3, Me.DataGridViewTextBoxColumn4})
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DG_PCB_Steps.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_PCB_Steps.DefaultCellStyle = DataGridViewCellStyle27
         Me.DG_PCB_Steps.Location = New System.Drawing.Point(14, 109)
         Me.DG_PCB_Steps.Name = "DG_PCB_Steps"
         Me.DG_PCB_Steps.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_PCB_Steps.RowHeadersDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_PCB_Steps.RowsDefaultCellStyle = DataGridViewCellStyle29
         Me.DG_PCB_Steps.Size = New System.Drawing.Size(1273, 276)
         Me.DG_PCB_Steps.TabIndex = 26
         '
@@ -424,9 +436,22 @@ Partial Class WorkForm
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
         '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.LB_SW_Wers)
         Me.GroupBox4.Controls.Add(Me.CB_User_Input)
+        Me.GroupBox4.Controls.Add(Me.Label19)
         Me.GroupBox4.Controls.Add(Me.LB_CurrentStep)
         Me.GroupBox4.Controls.Add(Me.LabelAppName)
         Me.GroupBox4.Controls.Add(Me.L_UserName)
@@ -449,11 +474,22 @@ Partial Class WorkForm
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
         '
+        'CB_User_Input
+        '
+        Me.CB_User_Input.AutoSize = True
+        Me.CB_User_Input.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_User_Input.Image = Global.Scanning_Station.My.Resources.Resources.User
+        Me.CB_User_Input.Location = New System.Drawing.Point(6, 95)
+        Me.CB_User_Input.Name = "CB_User_Input"
+        Me.CB_User_Input.Size = New System.Drawing.Size(44, 32)
+        Me.CB_User_Input.TabIndex = 33
+        Me.CB_User_Input.UseVisualStyleBackColor = True
+        '
         'LB_CurrentStep
         '
         Me.LB_CurrentStep.AutoSize = True
         Me.LB_CurrentStep.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LB_CurrentStep.Location = New System.Drawing.Point(283, 42)
+        Me.LB_CurrentStep.Location = New System.Drawing.Point(283, 54)
         Me.LB_CurrentStep.Name = "LB_CurrentStep"
         Me.LB_CurrentStep.Size = New System.Drawing.Size(64, 20)
         Me.LB_CurrentStep.TabIndex = 20
@@ -463,7 +499,7 @@ Partial Class WorkForm
         '
         Me.LabelAppName.AutoSize = True
         Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.LabelAppName.Location = New System.Drawing.Point(283, 22)
+        Me.LabelAppName.Location = New System.Drawing.Point(283, 34)
         Me.LabelAppName.Name = "LabelAppName"
         Me.LabelAppName.Size = New System.Drawing.Size(64, 20)
         Me.LabelAppName.TabIndex = 20
@@ -473,7 +509,7 @@ Partial Class WorkForm
         '
         Me.L_UserName.AutoSize = True
         Me.L_UserName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_UserName.Location = New System.Drawing.Point(283, 62)
+        Me.L_UserName.Location = New System.Drawing.Point(283, 74)
         Me.L_UserName.Name = "L_UserName"
         Me.L_UserName.Size = New System.Drawing.Size(174, 20)
         Me.L_UserName.TabIndex = 19
@@ -483,7 +519,7 @@ Partial Class WorkForm
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label3.Location = New System.Drawing.Point(102, 42)
+        Me.Label3.Location = New System.Drawing.Point(102, 54)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(181, 20)
         Me.Label3.TabIndex = 16
@@ -493,7 +529,7 @@ Partial Class WorkForm
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label5.Location = New System.Drawing.Point(4, 60)
+        Me.Label5.Location = New System.Drawing.Point(4, 72)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(279, 20)
         Me.Label5.TabIndex = 19
@@ -503,7 +539,7 @@ Partial Class WorkForm
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label6.Location = New System.Drawing.Point(79, 22)
+        Me.Label6.Location = New System.Drawing.Point(79, 34)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(204, 20)
         Me.Label6.TabIndex = 16
@@ -513,7 +549,7 @@ Partial Class WorkForm
         '
         Me.Label_StationName.AutoSize = True
         Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label_StationName.Location = New System.Drawing.Point(283, 82)
+        Me.Label_StationName.Location = New System.Drawing.Point(283, 94)
         Me.Label_StationName.Name = "Label_StationName"
         Me.Label_StationName.Size = New System.Drawing.Size(33, 20)
         Me.Label_StationName.TabIndex = 16
@@ -523,7 +559,7 @@ Partial Class WorkForm
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label7.Location = New System.Drawing.Point(158, 82)
+        Me.Label7.Location = New System.Drawing.Point(158, 94)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(125, 20)
         Me.Label7.TabIndex = 16
@@ -533,7 +569,7 @@ Partial Class WorkForm
         '
         Me.L_Model.AutoSize = True
         Me.L_Model.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_Model.Location = New System.Drawing.Point(283, 142)
+        Me.L_Model.Location = New System.Drawing.Point(283, 154)
         Me.L_Model.Name = "L_Model"
         Me.L_Model.Size = New System.Drawing.Size(57, 20)
         Me.L_Model.TabIndex = 16
@@ -543,7 +579,7 @@ Partial Class WorkForm
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label11.Location = New System.Drawing.Point(202, 142)
+        Me.Label11.Location = New System.Drawing.Point(202, 154)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(81, 20)
         Me.Label11.TabIndex = 16
@@ -553,7 +589,7 @@ Partial Class WorkForm
         '
         Me.L_LOT.AutoSize = True
         Me.L_LOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_LOT.Location = New System.Drawing.Point(283, 122)
+        Me.L_LOT.Location = New System.Drawing.Point(283, 134)
         Me.L_LOT.Name = "L_LOT"
         Me.L_LOT.Size = New System.Drawing.Size(42, 20)
         Me.L_LOT.TabIndex = 16
@@ -563,7 +599,7 @@ Partial Class WorkForm
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label9.Location = New System.Drawing.Point(136, 122)
+        Me.Label9.Location = New System.Drawing.Point(136, 134)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(147, 20)
         Me.Label9.TabIndex = 16
@@ -573,7 +609,7 @@ Partial Class WorkForm
         '
         Me.Lebel_StationLine.AutoSize = True
         Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Lebel_StationLine.Location = New System.Drawing.Point(283, 102)
+        Me.Lebel_StationLine.Location = New System.Drawing.Point(283, 114)
         Me.Lebel_StationLine.Name = "Lebel_StationLine"
         Me.Lebel_StationLine.Size = New System.Drawing.Size(43, 20)
         Me.Lebel_StationLine.TabIndex = 16
@@ -583,7 +619,7 @@ Partial Class WorkForm
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label1.Location = New System.Drawing.Point(216, 102)
+        Me.Label1.Location = New System.Drawing.Point(216, 114)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 20)
         Me.Label1.TabIndex = 16
@@ -611,8 +647,9 @@ Partial Class WorkForm
         '
         'GB_ScanMode
         '
-        Me.GB_ScanMode.Controls.Add(Me.Label2)
         Me.GB_ScanMode.Controls.Add(Me.BT_CleareSN)
+        Me.GB_ScanMode.Controls.Add(Me.Label2)
+        Me.GB_ScanMode.Controls.Add(Me.GB_PCBInfoMode)
         Me.GB_ScanMode.Controls.Add(Me.GroupBox5)
         Me.GB_ScanMode.Controls.Add(Me.BT_Pause)
         Me.GB_ScanMode.Controls.Add(Me.DG_UpLog)
@@ -634,6 +671,17 @@ Partial Class WorkForm
         Me.Label2.Size = New System.Drawing.Size(367, 25)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Строка ввода серийного номера"
+        '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
+        Me.BT_CleareSN.TabIndex = 28
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -674,25 +722,25 @@ Partial Class WorkForm
         '
         Me.DG_UpLog.AllowUserToAddRows = False
         Me.DG_UpLog.AllowUserToDeleteRows = False
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
         Me.DG_UpLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_UpLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle31.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle31
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber, Me.SCIDTab, Me.CASIDTab, Me.HDCP, Me.CERT})
         Me.DG_UpLog.Location = New System.Drawing.Point(19, 109)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle32
         Me.DG_UpLog.Size = New System.Drawing.Size(1268, 283)
         Me.DG_UpLog.TabIndex = 25
         '
@@ -744,6 +792,30 @@ Partial Class WorkForm
         Me.CERT.ReadOnly = True
         Me.CERT.Width = 139
         '
+        'BT_Pass
+        '
+        Me.BT_Pass.FlatAppearance.BorderSize = 0
+        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
+        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
+        Me.BT_Pass.Name = "BT_Pass"
+        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
+        Me.BT_Pass.TabIndex = 26
+        Me.BT_Pass.UseVisualStyleBackColor = True
+        Me.BT_Pass.Visible = False
+        '
+        'BT_Fail
+        '
+        Me.BT_Fail.FlatAppearance.BorderSize = 0
+        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
+        Me.BT_Fail.Name = "BT_Fail"
+        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
+        Me.BT_Fail.TabIndex = 27
+        Me.BT_Fail.UseVisualStyleBackColor = True
+        Me.BT_Fail.Visible = False
+        '
         'SerialTextBox
         '
         Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
@@ -767,6 +839,19 @@ Partial Class WorkForm
         Me.GB_UserData.TabStop = False
         Me.GB_UserData.Text = "Регистрация пользователя"
         Me.GB_UserData.Visible = False
+        '
+        'BT_LOGInClose
+        '
+        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
+        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
+        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
+        Me.BT_LOGInClose.Name = "BT_LOGInClose"
+        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
+        Me.BT_LOGInClose.TabIndex = 2
+        Me.BT_LOGInClose.UseVisualStyleBackColor = False
         '
         'Label13
         '
@@ -845,6 +930,17 @@ Partial Class WorkForm
         Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
         Me.GB_ErrorCode.Visible = False
         '
+        'BT_CloseErrMode
+        '
+        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
+        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
+        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
+        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
+        Me.BT_CloseErrMode.TabIndex = 35
+        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
+        '
         'DG_ErrorCodes
         '
         Me.DG_ErrorCodes.AllowUserToAddRows = False
@@ -856,6 +952,17 @@ Partial Class WorkForm
         Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
         Me.DG_ErrorCodes.TabIndex = 34
         Me.DG_ErrorCodes.Visible = False
+        '
+        'BT_SeveErCode
+        '
+        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
+        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
+        Me.BT_SeveErCode.Name = "BT_SeveErCode"
+        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
+        Me.BT_SeveErCode.TabIndex = 3
+        Me.BT_SeveErCode.UseVisualStyleBackColor = True
         '
         'TB_Description
         '
@@ -953,108 +1060,25 @@ Partial Class WorkForm
         Me.Label16.TabIndex = 33
         Me.Label16.Text = "DG_StepList "
         '
-        'BT_CloseErrMode
+        'LB_SW_Wers
         '
-        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
-        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
-        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
-        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
-        Me.BT_CloseErrMode.TabIndex = 35
-        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
+        Me.LB_SW_Wers.AutoSize = True
+        Me.LB_SW_Wers.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_SW_Wers.Location = New System.Drawing.Point(281, 18)
+        Me.LB_SW_Wers.Name = "LB_SW_Wers"
+        Me.LB_SW_Wers.Size = New System.Drawing.Size(76, 16)
+        Me.LB_SW_Wers.TabIndex = 34
+        Me.LB_SW_Wers.Text = "SW_Wers"
         '
-        'BT_SeveErCode
+        'Label19
         '
-        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
-        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
-        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
-        Me.BT_SeveErCode.Name = "BT_SeveErCode"
-        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
-        Me.BT_SeveErCode.TabIndex = 3
-        Me.BT_SeveErCode.UseVisualStyleBackColor = True
-        '
-        'BT_LOGInClose
-        '
-        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
-        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
-        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
-        Me.BT_LOGInClose.Name = "BT_LOGInClose"
-        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
-        Me.BT_LOGInClose.TabIndex = 2
-        Me.BT_LOGInClose.UseVisualStyleBackColor = False
-        '
-        'CB_User_Input
-        '
-        Me.CB_User_Input.AutoSize = True
-        Me.CB_User_Input.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_User_Input.Image = Global.Scanning_Station.My.Resources.Resources.User
-        Me.CB_User_Input.Location = New System.Drawing.Point(6, 83)
-        Me.CB_User_Input.Name = "CB_User_Input"
-        Me.CB_User_Input.Size = New System.Drawing.Size(44, 32)
-        Me.CB_User_Input.TabIndex = 33
-        Me.CB_User_Input.UseVisualStyleBackColor = True
-        '
-        'BT_PCBInfo
-        '
-        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
-        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
-        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
-        Me.BT_PCBInfo.Name = "BT_PCBInfo"
-        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
-        Me.BT_PCBInfo.TabIndex = 31
-        Me.BT_PCBInfo.UseVisualStyleBackColor = True
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
-        '
-        'BT_CleareSN
-        '
-        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
-        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
-        Me.BT_CleareSN.Name = "BT_CleareSN"
-        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
-        Me.BT_CleareSN.TabIndex = 28
-        Me.BT_CleareSN.UseVisualStyleBackColor = True
-        '
-        'BT_Pass
-        '
-        Me.BT_Pass.FlatAppearance.BorderSize = 0
-        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Pass.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_success__1_
-        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
-        Me.BT_Pass.Name = "BT_Pass"
-        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
-        Me.BT_Pass.TabIndex = 26
-        Me.BT_Pass.UseVisualStyleBackColor = True
-        Me.BT_Pass.Visible = False
-        '
-        'BT_Fail
-        '
-        Me.BT_Fail.FlatAppearance.BorderSize = 0
-        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
-        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
-        Me.BT_Fail.Name = "BT_Fail"
-        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
-        Me.BT_Fail.TabIndex = 27
-        Me.BT_Fail.UseVisualStyleBackColor = True
-        Me.BT_Fail.Visible = False
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label19.Location = New System.Drawing.Point(124, 18)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(159, 16)
+        Me.Label19.TabIndex = 33
+        Me.Label19.Text = "Версия приложения:"
         '
         'WorkForm
         '
@@ -1183,4 +1207,6 @@ Partial Class WorkForm
     Friend WithEvents Label16 As Label
     Friend WithEvents LB_CurrentErrCode As Label
     Friend WithEvents CB_User_Input As CheckBox
+    Friend WithEvents LB_SW_Wers As Label
+    Friend WithEvents Label19 As Label
 End Class

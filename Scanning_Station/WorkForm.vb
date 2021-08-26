@@ -94,7 +94,7 @@ Public Class WorkForm
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
-        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode]")
+        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 3")
         'Записываем коды ошибок в рабочий комбобокс
         If DG_ErrorCodes.Rows.Count <> 0 Then
             For J = 0 To DG_ErrorCodes.Rows.Count - 1
@@ -114,7 +114,11 @@ Public Class WorkForm
             Label17.Visible = False
             LB_Yield.Visible = False
             LB_Procent.Visible = False
+            CB_GoldSample.Visible = False
+        ElseIf PCInfo(6) = 1 Then
+            CB_GoldSample.Visible = True
         End If
+
         L_UserName.Text = ""
         SerialTextBox.Focus()
         'запуск счетчика продукции за день
@@ -137,7 +141,7 @@ Public Class WorkForm
         End If
     End Sub
 #End Region
-#Region "'Часы в программе"
+#Region "Часы в программе"
     Private Sub CurrentTimeTimer_Tick(sender As Object, e As EventArgs) Handles CurrentTimeTimer.Tick
         CurrrentTimeLabel.Text = TimeString
     End Sub 'Часы в программе
@@ -150,10 +154,20 @@ Public Class WorkForm
             UserInfo = GetUserData(TB_RFIDIn.Text, GB_UserData, GB_WorkAria, L_UserName, TB_RFIDIn)
             If UserInfo.Count <> 0 Then
                 TextBox3.Text = "UserID = " & UserInfo(0) & vbCrLf &
-                                       "Name = " & UserInfo(1) & vbCrLf &
-                                       "User Group = " & UserInfo(2) & vbCrLf  'UserInfo
+                                "Name = " & UserInfo(1) & vbCrLf &
+                                "User Group = " & UserInfo(2) & vbCrLf  'UserInfo
                 TB_RFIDIn.Clear()
                 If SerialTextBox.Text = "" Then
+                    If (UserInfo(2) = 5 Or UserInfo(2) = 1) And PCInfo(6) = 1 Then
+                        'CB_GoldSample.Checked = True
+                        CB_User_Input.Checked = True
+                        Controllabel.Text = ""
+                    ElseIf (UserInfo(2) <> 5 Or UserInfo(2) <> 1) And PCInfo(6) = 1 Then
+                        PrintLabel(Controllabel,
+                           $"Пользователь {UserInfo(1)} не является технологом!{vbCrLf}Опция регистрации эталона отклонена!",
+                           12, 193, Color.Red)
+                        CB_GoldSample.Checked = False
+                    End If
                     SerialTextBox.Focus()
                 Else
                     ResultAction(sender, e, PassOrFail)
@@ -163,7 +177,7 @@ Public Class WorkForm
             TB_RFIDIn.Clear()
         End If
     End Sub 'регистрация пользователя
-    'Опция запроса пользователя
+    'Опция запроса пользователя / золотого образца / Quality
     Private Sub CB_User_Input_CheckedChanged(sender As Object, e As EventArgs) Handles CB_User_Input.CheckedChanged
         If CB_User_Input.Checked = True Then
             GB_UserData.Visible = True
@@ -171,6 +185,21 @@ Public Class WorkForm
             TB_RFIDIn.Focus()
         End If
     End Sub
+    Private Sub CB_GoldSample_CheckedChanged(sender As Object, e As EventArgs) Handles CB_GoldSample.CheckedChanged
+        If CB_GoldSample.Checked = True Then
+            GB_UserData.Visible = True
+            GB_WorkAria.Visible = False
+            CB_User_Input.Enabled = False
+            TB_RFIDIn.Focus()
+        ElseIf CB_GoldSample.Checked = False Then
+            CB_User_Input.Enabled = True
+            CB_User_Input.Checked = False
+        End If
+    End Sub
+    Private Sub CB_Quality_CheckedChanged(sender As Object, e As EventArgs) Handles CB_Quality.CheckedChanged
+
+    End Sub
+
 #End Region
 #Region "Условия для возврата в окно настроек"
     Dim OpenSettings As Boolean
@@ -299,6 +328,9 @@ Public Class WorkForm
         ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта 
             RepeatStep = True
             SelectAction()
+        ElseIf PCBStepRes(0) = 41 And PCBStepRes(1) = 2 Then 'Повторная проверка эталона
+            RepeatStep = True
+            SelectAction()
             'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 3
         ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 3 Then
             PrintLabel(Controllabel, "Плата " & PCBCheckRes(2) & " пришла из ремонта." & vbCrLf &
@@ -322,9 +354,9 @@ Public Class WorkForm
 #End Region
 #Region "Выбор действия Pass\Fail"
     Private Sub SelectAction()
-        If CB_User_Input.Checked = True And PCInfo(6) = 29 Then
+        If (CB_User_Input.Checked = True And PCInfo(6) = 29) Or (PCInfo(6) = 1 And CB_Quality.Checked = True) Then
             Dim sender As Object, e As EventArgs
-            ResultAction(sender, e, True)
+            ResultAction(sender, e, If(CB_Quality.Checked = False, True, False))
         Else
             PrintLabel(Controllabel, "Подтвердите результат теста!", 12, 193, Color.OrangeRed)
             BT_Pass.Visible = True
@@ -341,18 +373,38 @@ Public Class WorkForm
         Dim ErrCode As New ArrayList()
         Select Case StepRes
             Case 2
-                Message = "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & "!" &
-                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!"
-                MesColor = Color.Green
-                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & "!" &
-                   vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
+                If CB_GoldSample.Checked = False And CB_Quality.Checked = False Then
+                    Message = "Плата " & PCBCheckRes(2) & " прошла этап " & PCInfo(7) & "!" &
+                                       vbCrLf & "Передайте плату на следующий этап " & NextStep & "!"
+                    MesColor = Color.Green
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & "!" &
+                       vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
+                ElseIf CB_GoldSample.Checked = True Then
+                    Message = $"Плата {PCBCheckRes(2)} прошла этап {PCInfo(7) } со статусом ЭТАЛОН!"
+                    MesColor = Color.Green
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "",
+                                     $"Плата {PCBCheckRes(2)} прошла этап {PCInfo(7) } со статусом ЭТАЛОН!")
+
+                ElseIf CB_Quality.Checked = True Then
+                    Message = $"Плата {PCBCheckRes(2)} отправлена на согласование в ОТК!"
+                    MesColor = Color.Green
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "",
+                                     $"Плата {PCBCheckRes(2)} отправлена на согласование в ОТК!")
+                End If
             Case 3
                 ErrCode = GetErrorCode()
-                Message = "Плата " & PCBCheckRes(2) & " не прошла этап " & PCInfo(7) & "!" &
+                If CB_Quality.Checked = False Then
+                    Message = "Плата " & PCBCheckRes(2) & " не прошла этап " & PCInfo(7) & "!" &
                    vbCrLf & "Передайте плату в ремонт!"
-                MesColor = Color.Red
-                CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), "Плата не прошла этап " & PCInfo(7) & "!" &
+                    MesColor = Color.Red
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), "Плата не прошла этап " & PCInfo(7) & "!" &
                   vbCrLf & "Передайте плату в ремонт!")
+                ElseIf CB_Quality.Checked = True Then
+                    Message = $"Плата {PCBCheckRes(2)} отправлена на согласование в ОТК!"
+                    MesColor = Color.Red
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Согласование", "",
+                                     $"Плата {PCBCheckRes(2)} отправлена на согласование в ОТК!")
+                End If
             Case 5
                 Exit Sub
             Case 6
@@ -365,19 +417,28 @@ Public Class WorkForm
                    vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
         End Select
         If If(ErrCode.Count <> 0, ErrCode(0), 0) = 514 Then
-            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
-                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID], [LOTID], [StepID], [TestResultID], [StepDate],
+                    [StepByID], [LineID], [ErrorCodeID], [Descriptions])values
                     ({PcbID},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},
                     {If(StepRes = 2, ErrCode(0), "Null")},
                     {If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
-        Else
+        ElseIf CB_Quality.Checked = False Then
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
-                    ({PcbID},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
+                    ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},
                     {If(StepRes = 3, ErrCode(0), "Null")},
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
+            CB_GoldSample.Checked = False
+        ElseIf CB_Quality.Checked = True Then
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+                    ({PcbID},{LOTID},{42},{StepRes},CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    {If(StepRes = 3, ErrCode(0), "Null")},
+                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
+            CB_Quality.Checked = False
         End If
         PrintLabel(Controllabel, Message, 12, 193, MesColor)
     End Sub
@@ -418,7 +479,8 @@ Public Class WorkForm
         GB_UserData.Visible = False
         GB_WorkAria.Visible = True
         SerialTextBox.Enabled = False
-        MsgBox("Окно определения пользователя было закрыто." & vbCrLf & "Повторите выбор результата теста PASS/FAIL или нажмите кнопку очистки серийного номера.")
+        CB_User_Input.Checked = False
+        MsgBox("Окно определения пользователя было закрыто.")
     End Sub
 #End Region
 #Region "Событие при нажатии Pass/Fail"
@@ -432,6 +494,7 @@ Public Class WorkForm
             GB_ErrorCode.Visible = True
             GB_ErrorCode.Location = New Point(180, 333)
             DG_UpLog.Visible = False
+            CB_ErrorCode.Text = If(CB_Quality.Checked = True, "QT", "")
             CB_ErrorCode.Focus()
         End If
     End Sub
@@ -455,6 +518,7 @@ Public Class WorkForm
         DG_UpLog.Visible = True
         CurrrentTimeLabel.Focus()
     End Sub
+
     Private Function GetErrorCode() As ArrayList
         Dim ErrorCode As New ArrayList()
         'определяем errorcodID
@@ -579,11 +643,4 @@ PCBID  = (SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content =
 
 
 #End Region
-
-
-
-
-
-
-
 End Class

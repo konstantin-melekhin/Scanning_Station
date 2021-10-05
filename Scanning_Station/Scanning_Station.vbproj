@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -107,11 +107,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aqua_AndroidUpload.vb" />
+    <Compile Include="Bunch_S_Numbers.Designer.vb">
+      <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bunch_S_Numbers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetSNFormate.vb" />
     <Compile Include="FASDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FASDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GiftBoxLabelPrint.Designer.vb">
+      <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GiftBoxLabelPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RawPrinterHelper.vb" />
     <Compile Include="SettingsForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +163,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Bunch_S_Numbers.resx">
+      <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GiftBoxLabelPrint.resx">
+      <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

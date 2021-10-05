@@ -118,7 +118,7 @@ Public Class SettingsForm
             MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
         End If
         'загружаем список операций 
-        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
+        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%3%' or ModelType like '%6%'")
         'Выводим названия линий FAS в combobox
         If DG_Steps.Rows.Count <> 0 Then
             For i = 0 To DG_Steps.Rows.Count - 1
@@ -147,10 +147,22 @@ Public Class SettingsForm
         'определяем LOTCode и LOTID
         If DG_LOTListPresent.Rows.Count <> 0 Then
             LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
-            Dim WF As New WorkForm(LOTID, IDApp)
-            WF.Controllabel.Text = ""
-            WF.Show()
-            Me.Close()
+            If PCInfo(6) = 30 Or PCInfo(6) = 43 Then
+                Dim WF As New Bunch_S_Numbers(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
+            ElseIf PCInfo(6) = 25 Then
+                Dim WF As New GiftBoxLabelPrint(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                    WF.Show()
+                    Me.Close()
+                Else
+                    Dim WF As New WorkForm(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
+            End If
         Else
             MsgBox("Список ЛОТов отсутствует!")
             Exit Sub

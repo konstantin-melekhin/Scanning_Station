@@ -10,8 +10,8 @@ Public Class Bunch_S_Numbers
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
     Dim PCBCheckRes As New ArrayList()
-    Dim SNFormat As ArrayList
-    Dim SNBufer As New ArrayList From {0, 0, 0, "", "", ""} 'SNBufer = (Bot_Bool,Bot_SNid, Top_Bool,Top_SNid, FAS_Bool,FAS_SNid )
+    Dim SNFormat As ArrayList, SNID As Integer
+    Dim SNBufer As New ArrayList From {0, 0, 0, "", "", ""} 'SNBufer = (BOT,TOP,FAS,SNBot,SNTop,SNFAs )
 #Region "Загрузка рабочей формы"
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
         InitializeComponent()
@@ -157,6 +157,7 @@ Public Class Bunch_S_Numbers
     'начало работы приложения FAS Scanning Station
 #Region "Окно ввода серийного номера платы"
     Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
+        SNID = 0
         LB_CurrentErrCode.Text = ""
         Controllabel.Text = ""
         Dim Mess As New ArrayList()
@@ -164,25 +165,43 @@ Public Class Bunch_S_Numbers
             Dim _stepArr As ArrayList
             If GetFTSN() = True Then
                 If (SNBufer(0) <> 0 Or SNBufer(2) <> 0) And SNBufer(1) <> 0 Then
-                    'GetPreStep(SNID)
-                    WriteToDB()
+                    Dim ResStep As Boolean = GetPreStep(SNBufer, PCInfo(6))
+                    If ResStep = True Then
+                        WriteToDB()
+                    ElseIf ResStep = False And PCInfo(6) = 43 Then
+                        PrintLabel(Controllabel, $"Плата с номерами: ТОР {SNBufer(4)} и ВОТ {SNBufer(3)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
+                    ElseIf ResStep = False And PCInfo(6) = 30 Then
+                        PrintLabel(Controllabel, $"Плата с номерами: ТОР {SNBufer(4)} и ВОТ {SNBufer(5)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
+                    End If
                 End If
             End If
         End If
     End Sub
 #End Region
-#Region "очистка Серийного номера при ошибке"
+#Region "Кнопка очистки поля ввода номера"
     Private Sub BT_ClearSN_Click(sender As Object, e As EventArgs) Handles BT_ClearSN.Click
-        SerialTextBox.Clear()
-        Controllabel.Text = ""
-        SerialTextBox.Enabled = True
-        SNBufer = New ArrayList From {0, 0, 0, "", "", ""}
-        SerialTextBox.Focus()
+        If SerialTextBox.Text = "" Then
+            LB_CurrentErrCode.Text = ""
+            Controllabel.Text = ""
+        End If
+        If GB_PCBInfoMode.Visible = False Then
+            SerialTextBox.Clear()
+            Controllabel.Text = ""
+            SerialTextBox.Enabled = True
+            SNBufer = New ArrayList From {0, 0, 0, "", "", ""}
+            DG_UpLog.Visible = True
+            TB_Description.Clear()
+            SerialTextBox.Focus()
+        Else
+            TB_GetPCPInfo.Clear()
+            TB_GetPCPInfo.Enabled = True
+            TB_GetPCPInfo.Focus()
+        End If
     End Sub
 #End Region
 #Region "1. Определение формата номера"
     Public Function GetFTSN() As Boolean
-        Dim col As Color, Mess As String, Res As Boolean, SNID As Integer
+        Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
         SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
         SNID = If(SNFormat(1) = 1 Or SNFormat(1) = 2,
@@ -201,55 +220,70 @@ Public Class Bunch_S_Numbers
             Else
                 SerialTextBox.Enabled = False
             End If
+        ElseIf SNID = 0 And PCInfo(6) = 30 And SNFormat(1) = 3 Then
+            PrintLabel(Controllabel, $"Серийный номер FAS {SerialTextBox.Text} не зарегистрирован в базе!", 12, 193, Color.Red)
+            Res = False
+            SerialTextBox.Enabled = False
         End If
         Return Res
     End Function
 #End Region
 #Region "2. Проверка предыдущего шага и загрузка данных о плате"
-    Private Function GetPreStep(_snid As Integer) As ArrayList
+    Private Function GetPreStep(_snbuf As ArrayList, stepId As Integer) As Boolean
         Dim newArr As ArrayList
-        Select Case SNFormat(1)
-            Case 1
-                newArr = New ArrayList(SelectListString($"Use FAS 
+        Select Case stepId
+            Case 43
+                For i = 0 To 1
+                    newArr = New ArrayList(SelectListString($"Use FAS 
             select tt.PCBID,
             (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snid}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snbuf(i)}) tt
             where  tt.num = 1 "))
-            Case 2
-                newArr = New ArrayList(SelectListString($"Use FAS 
+                    If newArr.Count > 0 Then
+                        If newArr(4) = 42 Or newArr(4) = 1 Then
+                            Return True
+                        Else
+                            Return False
+                        End If
+                        Exit For
+                    End If
+                Next
+                If newArr.Count = 0 Then
+                    Return True
+                End If
+            Case 30
+                For i = 1 To 2
+                    newArr = New ArrayList(SelectListString($"Use FAS 
             select tt.PCBID,
             (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snid}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snbuf(i)}) tt
             where  tt.num = 1 "))
-            Case 3
-                newArr = New ArrayList(SelectListString($"Use FAS 
-            select tt.PCBID,
-            (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
-            tt.SNID, 
-            (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
-            tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by snid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  SNID  = {_snid}) tt
-            where  tt.num = 1 "))
+                    If newArr.Count > 0 Then
+                        If newArr(4) = 42 Or newArr(4) = 1 Then
+                            Return True
+                        Else
+                            Return False
+                        End If
+                        Exit For
+                    End If
+                Next
         End Select
-        Return newArr
     End Function
 #End Region
 #Region "3. Запись в базу"
     Private Sub WriteToDB()
-
         If PCInfo(6) = 43 Then
             RunCommand($"use fas
           insert into [FAS].[dbo].[FAS_Bunch_Decode] ([PCBIDTOP],[PCBIDBOT],[Date],[UserID],[LOTID])values
           ({SNBufer(1)},{SNBufer(0)},CURRENT_TIMESTAMP,{UserInfo(0)},{LOTID})
           insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID])values
           ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)})")
-            CurrentLogUpdate(ShiftCounter(), SNBufer(4), SNBufer(3))
         ElseIf PCInfo(6) = 30 Then
             RunCommand($"use fas
           update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
@@ -279,6 +313,9 @@ Public Class Bunch_S_Numbers
                     Return CheckBunch(format, snid)
                 ElseIf SNBufer(0) = snid And SNBufer(1) = 0 And PCInfo(6) = 43 Then
                     PrintLabel(Controllabel, $"Номер ВОТ {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
+                    Return False
+                ElseIf PCInfo(6) = 30 Then
+                    PrintLabel(Controllabel, $"Вы отсканировали номер ВОТ {SerialTextBox.Text}!{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и FAS", 12, 193, Color.Red)
                     Return False
                 End If
             Case 2
@@ -355,7 +392,9 @@ Public Class Bunch_S_Numbers
                         SNBufer(formatIndex + 2) = SerialTextBox.Text
                         Return True
                     ElseIf tempArr(2) <> 0 Then
-                    PrintLabel(Controllabel, $"Номер {If(formatIndex = 2, "TOP", "FAS")} {SerialTextBox.Text} уже был связан с номером {If(formatIndex = 2, "FAS", "TOP")} {SelectString($"SELECT [SN] FROM [FAS].[dbo].[Ct_FASSN_reg] where  LOTID = {LOTID} And ID = {tempArr(2)}")}. {vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
+                    Dim fasSN As String = SelectString($"SELECT [SN] FROM [FAS].[dbo].[Ct_FASSN_reg] where  LOTID = {LOTID} And ID = {tempArr(2)}")
+                    Dim topSN As String = SelectString($"select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser = {tempArr(0)}")
+                    PrintLabel(Controllabel, $"Номер {If(formatIndex = 2, $"TOP {topSN}", $"FAS {fasSN}")} уже был связан с номером {If(formatIndex = 2, $"FAS {fasSN}", $"TOP {topSN}")}. {vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
                     Return False
                 End If
             Else
@@ -378,6 +417,53 @@ Public Class Bunch_S_Numbers
         ' заполняем строку таблицы
         Me.DG_UpLog.Rows.Add(ShtCounter, SN1, SN2, Date.Now)
         DG_UpLog.Sort(DG_UpLog.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+    End Sub
+#End Region
+#Region "Кнопка вызова PCB Info Mode / 'Проверка шагов сканирования требуемой платы"
+    Private Sub BT_PCBInfo_Click(sender As Object, e As EventArgs) Handles BT_PCBInfo.Click
+        Controllabel.Text = ""
+        If GB_PCBInfoMode.Visible = False Then
+            GB_PCBInfoMode.Visible = True
+            TB_GetPCPInfo.Focus()
+        Else
+            GB_PCBInfoMode.Visible = False
+        End If
+        BT_ClearSN_Click(sender, e)
+    End Sub
+    'Проверка шагов сканирования требуемой платы
+    Private Sub TB_GetPCPInfo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_GetPCPInfo.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            GetLogInfo()
+        End If
+    End Sub
+
+    Private Sub GetLogInfo()
+        LoadGridFromDB(DG_PCB_Steps,
+            $"Use FAS
+                declare @content as nvarchar(50) = '{TB_GetPCPInfo.Text}'
+                declare @pcbid as int
+                declare @i int = 1
+                select @pcbid = (SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = @content)
+                    if  @pcbid is null
+                        select @pcbid = (select [PCBIDTOP]  FROM [FAS].[dbo].[FAS_Bunch_Decode] where FASSNID = (select ID from Ct_FASSN_reg where sn = @content))
+                select 
+                num '№',
+                (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) 'Номер платы',
+                (select StepName from  [FAS].[dbo].[Ct_StepScan] where id = tt.StepID  ) 'Название станции',
+                (select Result from [FAS].[dbo].[Ct_TestResult] where id = tt.TestResultID ) 'Результат',
+                (select E.ErrorCode from [FAS].[dbo].[FAS_ErrorCode] E where ErrorCodeID = tt.ErrorCodeID ) 'Код ошибки',
+                (select E.Description from [FAS].[dbo].[FAS_ErrorCode] E where ErrorCodeID = tt.ErrorCodeID ) 'Описание ошибки',
+                tt.Descriptions 'Примечание',
+                (select L.LineName from [FAS].[dbo].[FAS_Lines] L where L.LineID = tt.LineID) 'Линия',
+                (select U.UserName from [FAS].[dbo].[FAS_Users] U where U.UserID = tt.StepByID) 'Пользователь',
+                format([StepDate],'dd.MM.yyyy HH:mm:ss') 'Дата'
+                from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate ) num 
+                FROM [FAS].[dbo].[Ct_OperLog] 
+                where PCBID  = @pcbid) tt
+                order by num")
+        TB_GetPCPInfo.Enabled = False
+
+
     End Sub
 #End Region
 End Class

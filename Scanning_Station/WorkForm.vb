@@ -94,7 +94,7 @@ Public Class WorkForm
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
-        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 4")
+        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 5")
         'Записываем коды ошибок в рабочий комбобокс
         If DG_ErrorCodes.Rows.Count <> 0 Then
             For J = 0 To DG_ErrorCodes.Rows.Count - 1
@@ -229,7 +229,7 @@ Public Class WorkForm
         LB_CurrentErrCode.Text = ""
         Controllabel.Text = ""
         Dim Mess As New ArrayList() 'RDW238120040012'
-        If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = LenSN Then
+        If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = GetLenSN(LOTInfo(3)) Then
             OperatinWithPCB(sender, e)
             'если введен не верный номер
         ElseIf e.KeyCode = Keys.Enter Then

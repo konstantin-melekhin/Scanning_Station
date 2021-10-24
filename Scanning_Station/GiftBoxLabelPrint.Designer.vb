@@ -837,7 +837,6 @@ Partial Class GiftBoxLabelPrint
         Me.TB_RFIDIn.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TB_RFIDIn.Size = New System.Drawing.Size(345, 31)
         Me.TB_RFIDIn.TabIndex = 0
-        Me.TB_RFIDIn.Text = "0000181218"
         '
         'GB_UserData
         '

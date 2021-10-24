@@ -45,12 +45,6 @@ Partial Class Bunch_S_Numbers
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -62,7 +56,6 @@ Partial Class Bunch_S_Numbers
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
         Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.FASDataSet = New Scanning_Station.FASDataSet()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BT_CloseErrMode = New System.Windows.Forms.Button()
         Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
         Me.BT_SeveErCode = New System.Windows.Forms.Button()
@@ -72,7 +65,6 @@ Partial Class Bunch_S_Numbers
         Me.Label4 = New System.Windows.Forms.Label()
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label_ShiftCounter = New System.Windows.Forms.Label()
@@ -106,8 +98,6 @@ Partial Class Bunch_S_Numbers
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GB_UserData.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -171,7 +161,6 @@ Partial Class Bunch_S_Numbers
         Me.TB_RFIDIn.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TB_RFIDIn.Size = New System.Drawing.Size(345, 31)
         Me.TB_RFIDIn.TabIndex = 0
-        Me.TB_RFIDIn.Text = "0000181218"
         '
         'GroupBox5
         '
@@ -282,51 +271,6 @@ Partial Class Bunch_S_Numbers
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
         '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Дата"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 69
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Пользователь"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 140
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Линия"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 78
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Примечание"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Width = 126
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "Описание ошибки"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Width = 150
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Результат"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 112
-        '
         'Label16
         '
         Me.Label16.AutoSize = True
@@ -425,14 +369,6 @@ Partial Class Bunch_S_Numbers
         Me.FASDataSet.DataSetName = "FASDataSet"
         Me.FASDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Код ошибки"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.Width = 108
-        '
         'BT_CloseErrMode
         '
         Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
@@ -524,13 +460,6 @@ Partial Class Bunch_S_Numbers
         Me.GB_ErrorCode.TabStop = False
         Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
         Me.GB_ErrorCode.Visible = False
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Название станции"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 157
         '
         'Label12
         '
@@ -845,6 +774,7 @@ Partial Class Bunch_S_Numbers
         '
         Me.GB_ScanMode.Controls.Add(Me.BT_ClearSN)
         Me.GB_ScanMode.Controls.Add(Me.Label2)
+        Me.GB_ScanMode.Controls.Add(Me.GB_PCBInfoMode)
         Me.GB_ScanMode.Controls.Add(Me.GroupBox5)
         Me.GB_ScanMode.Controls.Add(Me.BT_Pause)
         Me.GB_ScanMode.Controls.Add(Me.DG_UpLog)
@@ -881,7 +811,7 @@ Partial Class Bunch_S_Numbers
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
         Me.GB_PCBInfoMode.Controls.Add(Me.TB_GetPCPInfo)
         Me.GB_PCBInfoMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(1358, 349)
+        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(0, 15)
         Me.GB_PCBInfoMode.Name = "GB_PCBInfoMode"
         Me.GB_PCBInfoMode.Size = New System.Drawing.Size(1301, 394)
         Me.GB_PCBInfoMode.TabIndex = 32
@@ -905,7 +835,6 @@ Partial Class Bunch_S_Numbers
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DG_PCB_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DG_PCB_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_PCB_Steps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.Column1, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn5, Me.Column4, Me.DataGridViewTextBoxColumn6, Me.Column2, Me.Column3, Me.DataGridViewTextBoxColumn4})
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
@@ -930,22 +859,6 @@ Partial Class Bunch_S_Numbers
         Me.DG_PCB_Steps.Size = New System.Drawing.Size(1273, 276)
         Me.DG_PCB_Steps.TabIndex = 26
         '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn1.HeaderText = "№"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 48
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Серийный номер"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 143
-        '
         'Bunch_S_Numbers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -953,7 +866,6 @@ Partial Class Bunch_S_Numbers
         Me.ClientSize = New System.Drawing.Size(1805, 831)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GB_PCBInfoMode)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_WorkAria)
         Me.Name = "Bunch_S_Numbers"
@@ -998,12 +910,6 @@ Partial Class Bunch_S_Numbers
     Friend WithEvents DG_UpLog As DataGridView
     Friend WithEvents SerialTextBox As TextBox
     Friend WithEvents TB_GetPCPInfo As TextBox
-    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
     Friend WithEvents Label16 As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents Label18 As Label
@@ -1015,7 +921,6 @@ Partial Class Bunch_S_Numbers
     Friend WithEvents FAS_ErrorCodeTableAdapter As FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter
     Friend WithEvents FASErrorCodeBindingSource As BindingSource
     Friend WithEvents FASDataSet As FASDataSet
-    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents BT_CloseErrMode As Button
     Friend WithEvents DG_ErrorCodes As DataGridView
     Friend WithEvents BT_SeveErCode As Button
@@ -1025,7 +930,6 @@ Partial Class Bunch_S_Numbers
     Friend WithEvents Label4 As Label
     Friend WithEvents CurrentTimeTimer As Timer
     Friend WithEvents GB_ErrorCode As GroupBox
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Label12 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label_ShiftCounter As Label
@@ -1059,8 +963,6 @@ Partial Class Bunch_S_Numbers
     Friend WithEvents Label2 As Label
     Friend WithEvents GB_PCBInfoMode As GroupBox
     Friend WithEvents DG_PCB_Steps As DataGridView
-    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents Num As DataGridViewTextBoxColumn
     Friend WithEvents SNumber1 As DataGridViewTextBoxColumn
     Friend WithEvents SNumber2 As DataGridViewTextBoxColumn

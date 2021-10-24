@@ -8,14 +8,14 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Scanning_Station.My.MyApplication</StartupObject>
     <RootNamespace>Scanning_Station</RootNamespace>
-    <AssemblyName>PC_MainBoard_Scanning_Station</AssemblyName>
+    <AssemblyName>Sber_Scanning_Station</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</PublishUrl>
+    <PublishUrl>\\192.168.180.9\ProdSoft\Sber_Scanning_Station\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,9 +25,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</UpdateUrl>
+    <UpdateUrl>\\192.168.180.9\ProdSoft\Sber_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PC_MainBoard_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Sber_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -50,7 +50,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>PC_MainBoard_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Sber_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -155,6 +155,12 @@
     <Compile Include="TestForm1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Weight_control.Designer.vb">
+      <DependentUpon>Weight_control.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Weight_control.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WorkForm.Designer.vb">
       <DependentUpon>WorkForm.vb</DependentUpon>
     </Compile>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm1.resx">
       <DependentUpon>TestForm1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Weight_control.resx">
+      <DependentUpon>Weight_control.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkForm.resx">
       <DependentUpon>WorkForm.vb</DependentUpon>

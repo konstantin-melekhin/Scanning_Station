@@ -29,7 +29,7 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList)
+        GetLotList_ContractStation(DG_LotList, 34)
         GetLotList()
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
@@ -155,9 +155,14 @@ Public Class SettingsForm
             ElseIf PCInfo(6) = 25 Then
                 Dim WF As New GiftBoxLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
-                    WF.Show()
-                    Me.Close()
-                Else
+                WF.Show()
+                Me.Close()
+            ElseIf PCInfo(6) = 37 Then
+                Dim WF As New Weight_control(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
+            Else
                     Dim WF As New WorkForm(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()

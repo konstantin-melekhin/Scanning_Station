@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\192.168.180.9\ProdSoft\Sber_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,6 +113,12 @@
     <Compile Include="Bunch_S_Numbers.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FasErrorCode.Designer.vb">
+      <DependentUpon>FasErrorCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FasErrorCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GetSNFormate.vb" />
     <Compile Include="FASDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -171,6 +177,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Bunch_S_Numbers.resx">
       <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FasErrorCode.resx">
+      <DependentUpon>FasErrorCode.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GiftBoxLabelPrint.resx">
       <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>

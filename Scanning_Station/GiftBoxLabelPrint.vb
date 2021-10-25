@@ -323,7 +323,7 @@ Public Class GiftBoxLabelPrint
                 Return prestep
             End If
             'Если плата в таблице OperLog имеет шаг совпадающий с предыдущей станцией и результат равен 2
-        ElseIf prestep(0) = PreStepID And prestep(1) = 2 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
+        ElseIf prestep(0) = 30 And prestep(1) = 2 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             PrintLabel(Controllabel, $"Номер {prestep(5)}  отправлен на печать!", 12, 193, Color.Green)
             prestep.Add(True)
             Return prestep

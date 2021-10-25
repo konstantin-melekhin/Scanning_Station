@@ -33,7 +33,6 @@ Partial Class GiftBoxLabelPrint
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.CB_Quality = New System.Windows.Forms.CheckBox()
         Me.LB_SW_Wers = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
@@ -51,13 +50,11 @@ Partial Class GiftBoxLabelPrint
         Me.Lebel_StationLine = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label_ShiftCounter = New System.Windows.Forms.Label()
-        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
         Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
         Me.TB_Description = New System.Windows.Forms.TextBox()
         Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.BT_SeveErCode = New System.Windows.Forms.Button()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
@@ -71,13 +68,10 @@ Partial Class GiftBoxLabelPrint
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
-        Me.BT_ClearSN = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
-        Me.BT_PCBInfo = New System.Windows.Forms.Button()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.LB_CurrentErrCode = New System.Windows.Forms.Label()
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
@@ -92,7 +86,6 @@ Partial Class GiftBoxLabelPrint
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
-        Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TB_RFIDIn = New System.Windows.Forms.TextBox()
         Me.GB_UserData = New System.Windows.Forms.GroupBox()
@@ -116,6 +109,13 @@ Partial Class GiftBoxLabelPrint
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.CB_DefaultPrinter = New System.Windows.Forms.ComboBox()
+        Me.BT_PCBInfo = New System.Windows.Forms.Button()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
+        Me.CB_Quality = New System.Windows.Forms.CheckBox()
+        Me.BT_ClearSN = New System.Windows.Forms.Button()
+        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
+        Me.BT_SeveErCode = New System.Windows.Forms.Button()
+        Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.GroupBox4.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,21 +169,10 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(17, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(686, 178)
+        Me.GroupBox4.Size = New System.Drawing.Size(583, 178)
         Me.GroupBox4.TabIndex = 10
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
-        '
-        'CB_Quality
-        '
-        Me.CB_Quality.AutoSize = True
-        Me.CB_Quality.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_Quality.Image = Global.Scanning_Station.My.Resources.Resources.help__1_1
-        Me.CB_Quality.Location = New System.Drawing.Point(67, 99)
-        Me.CB_Quality.Name = "CB_Quality"
-        Me.CB_Quality.Size = New System.Drawing.Size(36, 24)
-        Me.CB_Quality.TabIndex = 33
-        Me.CB_Quality.UseVisualStyleBackColor = True
         '
         'LB_SW_Wers
         '
@@ -355,17 +344,6 @@ Partial Class GiftBoxLabelPrint
         Me.Label_ShiftCounter.TabIndex = 0
         Me.Label_ShiftCounter.Text = "99"
         '
-        'BT_CloseErrMode
-        '
-        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
-        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
-        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
-        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
-        Me.BT_CloseErrMode.TabIndex = 35
-        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
-        '
         'DG_ErrorCodes
         '
         Me.DG_ErrorCodes.AllowUserToAddRows = False
@@ -414,17 +392,6 @@ Partial Class GiftBoxLabelPrint
         Me.Label10.Size = New System.Drawing.Size(224, 31)
         Me.Label10.TabIndex = 1
         Me.Label10.Text = "За день общее:"
-        '
-        'BT_SeveErCode
-        '
-        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
-        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
-        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
-        Me.BT_SeveErCode.Name = "BT_SeveErCode"
-        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
-        Me.BT_SeveErCode.TabIndex = 3
-        Me.BT_SeveErCode.UseVisualStyleBackColor = True
         '
         'Column1
         '
@@ -564,17 +531,6 @@ Partial Class GiftBoxLabelPrint
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
         '
-        'BT_ClearSN
-        '
-        Me.BT_ClearSN.FlatAppearance.BorderSize = 0
-        Me.BT_ClearSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_ClearSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_ClearSN.Location = New System.Drawing.Point(703, 15)
-        Me.BT_ClearSN.Name = "BT_ClearSN"
-        Me.BT_ClearSN.Size = New System.Drawing.Size(66, 94)
-        Me.BT_ClearSN.TabIndex = 28
-        Me.BT_ClearSN.UseVisualStyleBackColor = True
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -587,6 +543,7 @@ Partial Class GiftBoxLabelPrint
         '
         'GB_WorkAria
         '
+        Me.GB_WorkAria.Controls.Add(Me.GroupBox3)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
         Me.GB_WorkAria.Controls.Add(Me.BT_PCBInfo)
         Me.GB_WorkAria.Controls.Add(Me.BT_OpenSettings)
@@ -607,9 +564,9 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox1.Controls.Add(Me.Label_ShiftCounter)
         Me.GroupBox1.Controls.Add(Me.LB_LOTCounter)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(750, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(606, 14)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(489, 178)
+        Me.GroupBox1.Size = New System.Drawing.Size(328, 178)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Счетчик выпуска продукции"
@@ -623,28 +580,6 @@ Partial Class GiftBoxLabelPrint
         Me.LB_LOTCounter.Size = New System.Drawing.Size(46, 31)
         Me.LB_LOTCounter.TabIndex = 0
         Me.LB_LOTCounter.Text = "99"
-        '
-        'BT_PCBInfo
-        '
-        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
-        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
-        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
-        Me.BT_PCBInfo.Name = "BT_PCBInfo"
-        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
-        Me.BT_PCBInfo.TabIndex = 31
-        Me.BT_PCBInfo.UseVisualStyleBackColor = True
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
         '
         'LB_CurrentErrCode
         '
@@ -808,19 +743,6 @@ Partial Class GiftBoxLabelPrint
         Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
         Me.GB_ErrorCode.Visible = False
         '
-        'BT_LOGInClose
-        '
-        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
-        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
-        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
-        Me.BT_LOGInClose.Name = "BT_LOGInClose"
-        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
-        Me.BT_LOGInClose.TabIndex = 2
-        Me.BT_LOGInClose.UseVisualStyleBackColor = False
-        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -965,10 +887,10 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox3.Controls.Add(Me.Label15)
         Me.GroupBox3.Controls.Add(Me.Label17)
         Me.GroupBox3.Controls.Add(Me.CB_DefaultPrinter)
-        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(1391, 2)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(940, 14)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(343, 192)
+        Me.GroupBox3.Size = New System.Drawing.Size(309, 176)
         Me.GroupBox3.TabIndex = 77
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Настройки координат принтера"
@@ -976,70 +898,154 @@ Partial Class GiftBoxLabelPrint
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 108)
+        Me.Label14.Location = New System.Drawing.Point(7, 86)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(106, 20)
+        Me.Label14.Size = New System.Drawing.Size(76, 13)
         Me.Label14.TabIndex = 64
         Me.Label14.Text = "Корекция X"
+        Me.Label14.Visible = False
         '
         'Num_X
         '
-        Me.Num_X.Location = New System.Drawing.Point(119, 102)
+        Me.Num_X.Location = New System.Drawing.Point(119, 80)
         Me.Num_X.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.Num_X.Name = "Num_X"
-        Me.Num_X.Size = New System.Drawing.Size(69, 26)
+        Me.Num_X.Size = New System.Drawing.Size(69, 20)
         Me.Num_X.TabIndex = 62
+        Me.Num_X.Visible = False
         '
         'BT_Save_Coordinats
         '
         Me.BT_Save_Coordinats.FlatAppearance.BorderSize = 0
         Me.BT_Save_Coordinats.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Save_Coordinats.Location = New System.Drawing.Point(194, 100)
+        Me.BT_Save_Coordinats.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_Save_Coordinats.Location = New System.Drawing.Point(194, 61)
         Me.BT_Save_Coordinats.Name = "BT_Save_Coordinats"
-        Me.BT_Save_Coordinats.Size = New System.Drawing.Size(58, 63)
+        Me.BT_Save_Coordinats.Size = New System.Drawing.Size(72, 80)
         Me.BT_Save_Coordinats.TabIndex = 65
         Me.BT_Save_Coordinats.UseVisualStyleBackColor = True
+        Me.BT_Save_Coordinats.Visible = False
         '
         'Num_Y
         '
-        Me.Num_Y.Location = New System.Drawing.Point(119, 128)
+        Me.Num_Y.Location = New System.Drawing.Point(119, 106)
         Me.Num_Y.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.Num_Y.Name = "Num_Y"
-        Me.Num_Y.Size = New System.Drawing.Size(69, 26)
+        Me.Num_Y.Size = New System.Drawing.Size(69, 20)
         Me.Num_Y.TabIndex = 63
+        Me.Num_Y.Visible = False
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(7, 133)
+        Me.Label15.Location = New System.Drawing.Point(7, 111)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(106, 20)
+        Me.Label15.Size = New System.Drawing.Size(76, 13)
         Me.Label15.TabIndex = 64
         Me.Label15.Text = "Корекция Y"
+        Me.Label15.Visible = False
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(6, 45)
+        Me.Label17.Location = New System.Drawing.Point(7, 19)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(271, 20)
+        Me.Label17.Size = New System.Drawing.Size(186, 13)
         Me.Label17.TabIndex = 48
         Me.Label17.Text = "Выберите принтер для печати"
         '
         'CB_DefaultPrinter
         '
         Me.CB_DefaultPrinter.FormattingEnabled = True
-        Me.CB_DefaultPrinter.Location = New System.Drawing.Point(6, 68)
+        Me.CB_DefaultPrinter.Location = New System.Drawing.Point(6, 35)
         Me.CB_DefaultPrinter.Name = "CB_DefaultPrinter"
-        Me.CB_DefaultPrinter.Size = New System.Drawing.Size(303, 28)
+        Me.CB_DefaultPrinter.Size = New System.Drawing.Size(293, 21)
         Me.CB_DefaultPrinter.TabIndex = 47
+        '
+        'BT_PCBInfo
+        '
+        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
+        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
+        Me.BT_PCBInfo.Name = "BT_PCBInfo"
+        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
+        Me.BT_PCBInfo.TabIndex = 31
+        Me.BT_PCBInfo.UseVisualStyleBackColor = True
+        '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        '
+        'CB_Quality
+        '
+        Me.CB_Quality.AutoSize = True
+        Me.CB_Quality.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_Quality.Image = Global.Scanning_Station.My.Resources.Resources.help__1_1
+        Me.CB_Quality.Location = New System.Drawing.Point(67, 99)
+        Me.CB_Quality.Name = "CB_Quality"
+        Me.CB_Quality.Size = New System.Drawing.Size(36, 24)
+        Me.CB_Quality.TabIndex = 33
+        Me.CB_Quality.UseVisualStyleBackColor = True
+        '
+        'BT_ClearSN
+        '
+        Me.BT_ClearSN.FlatAppearance.BorderSize = 0
+        Me.BT_ClearSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_ClearSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_ClearSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_ClearSN.Name = "BT_ClearSN"
+        Me.BT_ClearSN.Size = New System.Drawing.Size(66, 94)
+        Me.BT_ClearSN.TabIndex = 28
+        Me.BT_ClearSN.UseVisualStyleBackColor = True
+        '
+        'BT_CloseErrMode
+        '
+        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
+        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
+        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
+        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
+        Me.BT_CloseErrMode.TabIndex = 35
+        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
+        '
+        'BT_SeveErCode
+        '
+        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
+        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
+        Me.BT_SeveErCode.Name = "BT_SeveErCode"
+        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
+        Me.BT_SeveErCode.TabIndex = 3
+        Me.BT_SeveErCode.UseVisualStyleBackColor = True
+        '
+        'BT_LOGInClose
+        '
+        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
+        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
+        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
+        Me.BT_LOGInClose.Name = "BT_LOGInClose"
+        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
+        Me.BT_LOGInClose.TabIndex = 2
+        Me.BT_LOGInClose.UseVisualStyleBackColor = False
         '
         'GiftBoxLabelPrint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(2044, 875)
-        Me.Controls.Add(Me.GroupBox3)
+        Me.ClientSize = New System.Drawing.Size(1924, 875)
         Me.Controls.Add(Me.GB_PCBInfoMode)
         Me.Controls.Add(Me.GB_WorkAria)
         Me.Controls.Add(Me.GB_ErrorCode)

@@ -94,7 +94,7 @@ Public Class WorkForm
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
-        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 5")
+        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 3")
         'Записываем коды ошибок в рабочий комбобокс
         If DG_ErrorCodes.Rows.Count <> 0 Then
             For J = 0 To DG_ErrorCodes.Rows.Count - 1
@@ -229,7 +229,7 @@ Public Class WorkForm
         LB_CurrentErrCode.Text = ""
         Controllabel.Text = ""
         Dim Mess As New ArrayList() 'RDW238120040012'
-        If e.KeyCode = Keys.Enter And SerialTextBox.TextLength = GetLenSN(LOTInfo(3)) Then
+        If e.KeyCode = Keys.Enter Then 'And SerialTextBox.TextLength = GetLenSN(LOTInfo(3)) 
             OperatinWithPCB(sender, e)
             'если введен не верный номер
         ElseIf e.KeyCode = Keys.Enter Then
@@ -339,6 +339,9 @@ Public Class WorkForm
         ElseIf PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()
             'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 2 
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And PCInfo(6) = 8 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
+            SelectAction()
+
         ElseIf PCBStepRes(0) = 40 And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта 
             If PCInfo(6) <> 29 Then
 

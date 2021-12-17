@@ -419,7 +419,7 @@ Public Class FasErrorCode
             ElseIf CB_Quality.Checked = False And LOTInfo(2) = True Then
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions], SNID)values
-                    ({PCBStepRes(4)},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
+                    (,{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},
                     {If(StepRes = 3, ErrCode(0), "Null")},
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") },{PcbID})")

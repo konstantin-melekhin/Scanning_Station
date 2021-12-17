@@ -29,7 +29,7 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList, 34)
+        GetLotList_ContractStation(DG_LotList)
         GetLotList()
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()

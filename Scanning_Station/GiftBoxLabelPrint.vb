@@ -191,9 +191,9 @@ Public Class GiftBoxLabelPrint
                     SerialTextBox.Clear()
                 End If
             End If
-        ElseIf e.KeyCode = Keys.F Then
+            'ElseIf e.KeyCode = Keys.F Then
 
-            MsgBox("F")
+            '    MsgBox("F")
         End If
     End Sub
 #End Region
@@ -313,11 +313,11 @@ Public Class GiftBoxLabelPrint
     End Sub
 #End Region
     'Кнопка Fail 
-    Private Sub BT_Fail_Click(sender As Object, e As EventArgs) Handles BT_Fail.Click
-        Dim WF As New FasErrorCode(LOTID, 26)
-        WF.Controllabel.Text = ""
-        WF.Show()
-    End Sub
+    'Private Sub BT_Fail_Click(sender As Object, e As EventArgs) Handles BT_Fail.Click
+    '    Dim WF As New FasErrorCode(LOTID, 26)
+    '    WF.Controllabel.Text = ""
+    '    WF.Show()
+    'End Sub
 #Region "Функция определения результата этапа"
     Private Function CheckstepResult(prestep As ArrayList) As ArrayList
         If prestep.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
@@ -328,7 +328,7 @@ Public Class GiftBoxLabelPrint
             Next
             BT_Pause.Focus()
             Return prestep
-        ElseIf (prestep(0) = PCInfo(6) Or prestep(0) = 37) And prestep(1) = 2 Then 'Плата имеет статус ("текущий шаг"/2)
+        ElseIf (prestep(0) = PCInfo(6) Or prestep(0) = 37 Or prestep(0) = 6) And prestep(1) = 2 Then 'Плата имеет статус ("текущий шаг"/2)
             If MsgBox("Повторить печать этого номера?", MessageBoxButtons.YesNo) = 6 Then
                 PrintLabel(Controllabel, $"Номер {prestep(5)} повторно отправлен на печать!", 12, 193, Color.Green)
                 prestep.Add(True)
@@ -395,7 +395,7 @@ Public Class GiftBoxLabelPrint
 ^BY2^BCN,77,N,N^FD>:{Mid(sn, 1, 10)}>5{Mid(sn, 11)}^FS
 ^FT111,422
 ^CI0
-^AAN,27,15^FDS{Mid(sn, 1)}^FS
+^AAN,27,15^FD{Mid(sn, 1)}^FS
 ^FO1,16
 ^XGR:SSGFX000.GRF,1,1^FS
 ^PQ1,0,1,Y

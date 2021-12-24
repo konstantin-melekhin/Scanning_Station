@@ -94,7 +94,7 @@ Public Class WorkForm
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
-        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 3")
+        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 5")
         'Записываем коды ошибок в рабочий комбобокс
         If DG_ErrorCodes.Rows.Count <> 0 Then
             For J = 0 To DG_ErrorCodes.Rows.Count - 1

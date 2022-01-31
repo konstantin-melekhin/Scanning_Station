@@ -184,7 +184,7 @@ Public Class GiftBoxLabelPrint
         If e.KeyCode = Keys.Enter Then
             GetFTSN()
             If SNFormat(0) = True Then
-                Dim dataToPrint As New ArrayList(CheckstepResult(GetPreStep(SNFormat(4))))
+                Dim dataToPrint As New ArrayList(CheckstepResult(GetPreStep(SNFormat(3))))
                 If dataToPrint(7) = True Then
                     Print(GetLabelContent(dataToPrint(5), 0, 0, 2))
                     WriteToDB(dataToPrint)
@@ -207,17 +207,9 @@ Public Class GiftBoxLabelPrint
 #End Region
 #Region "1. Определение формата номера"
     Public Sub GetFTSN()
-        Dim SNID As Integer
         SNFormat = New ArrayList()
-        SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
-        SNID = If(SNFormat(1) = 1 Or SNFormat(1) = 2,
-                SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'"),
-                SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'"))
-        If SNID > 0 Then
-            SNFormat.Add(SNID)
-
-        Else
-            SNFormat(0) = False
+        SNFormat = GetScanSNFormat(LOTInfo(8), SerialTextBox.Text)
+        If SNFormat(0) = False Then
             PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
         End If
@@ -225,33 +217,13 @@ Public Class GiftBoxLabelPrint
 #End Region
 #Region "2. Проверка предыдущего шага и загрузка данных о плате"
     Private Function GetPreStep(_snid As Integer) As ArrayList
-        Dim newArr As ArrayList
-        Select Case SNFormat(1)
-            Case 1
-                newArr = New ArrayList(SelectListString($"Use FAS select
+        Dim newArr As New ArrayList(SelectListString($"Use FAS select 
             tt.StepID,tt.TestResultID, 
             tt.PCBID,(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
             tt.SNID, (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snid}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  SNID  = {_snid}) tt
             where  tt.num = 1 "))
-            Case 2
-                newArr = New ArrayList(SelectListString($"Use FAS select 
-            tt.StepID,tt.TestResultID, 
-            tt.PCBID,(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
-            tt.SNID, (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
-            tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snid}) tt
-            where  tt.num = 1 "))
-            Case 3
-                newArr = New ArrayList(SelectListString($"Use FAS select
-            tt.StepID,tt.TestResultID, 
-            tt.PCBID,(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
-            tt.SNID, (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
-            tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by snid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  SNID  = {_snid}) tt
-            where  tt.num = 1 "))
-        End Select
         Return newArr
     End Function
 #End Region

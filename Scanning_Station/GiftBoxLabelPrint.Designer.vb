@@ -980,7 +980,7 @@ Partial Class GiftBoxLabelPrint
         Me.GB_UserData.Controls.Add(Me.TB_RFIDIn)
         Me.GB_UserData.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.GB_UserData.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_UserData.Location = New System.Drawing.Point(1770, 2)
+        Me.GB_UserData.Location = New System.Drawing.Point(1430, 12)
         Me.GB_UserData.Name = "GB_UserData"
         Me.GB_UserData.Size = New System.Drawing.Size(449, 197)
         Me.GB_UserData.TabIndex = 41

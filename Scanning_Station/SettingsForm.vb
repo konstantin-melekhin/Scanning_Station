@@ -2,6 +2,7 @@
 Imports System.Deployment.Application
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
+    Dim CustamerID As Integer = 37
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
@@ -29,7 +30,8 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList, 34)
+        GetLotList_ContractStation(DG_LotList, CustamerID)
+        'GetLotList_ContractStation(DG_LotList)
         GetLotList()
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
@@ -42,7 +44,8 @@ Public Class SettingsForm
     'Обновление списка лотов
     Private Sub BT_RefreshLOT_Click(sender As Object, e As EventArgs) Handles BT_RefreshLOT.Click
         DG_LOTListPresent.Rows.Clear()
-        GetLotList_ContractStation(DG_LotList, 34)
+        'GetLotList_ContractStation(DG_LotList, CustamerID)
+        GetLotList_ContractStation(DG_LotList)
         GetLotList()
     End Sub 'Обновление списка лотов
     '_______________________________________________________________________________________________________________
@@ -118,7 +121,7 @@ Public Class SettingsForm
             MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
         End If
         'загружаем список операций 
-        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%3%' or ModelType like '%6%'")
+        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%4%' or ModelType like '%6%'")
         'Выводим названия линий FAS в combobox
         If DG_Steps.Rows.Count <> 0 Then
             For i = 0 To DG_Steps.Rows.Count - 1
@@ -152,8 +155,13 @@ Public Class SettingsForm
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 25 Then
-                Dim WF As New GiftBoxLabelPrint(LOTID, IDApp)
+                'ElseIf PCInfo(6) = 45 Then
+                '    Dim WF As New SN_MAC_IMEI_Print(LOTID, IDApp)
+                '    WF.Controllabel.Text = ""
+                '    WF.Show()
+                '    Me.Close()
+            ElseIf PCInfo(6) = 25 Or PCInfo(6) = 45 Then
+                Dim WF As New TabletLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()

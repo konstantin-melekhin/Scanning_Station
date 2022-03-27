@@ -791,7 +791,7 @@ Namespace FASDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.Scanning_Station.My.MySettings.Default.FASConnectionString
+            Me._connection.ConnectionString = Global.Tablet_Scanning_Station.My.MySettings.Default.FASConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

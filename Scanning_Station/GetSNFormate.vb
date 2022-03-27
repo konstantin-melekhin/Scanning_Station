@@ -44,7 +44,7 @@ Public Module GetSNFormate
                     If (MascBase = MascSN) = True Then
                         Res.Add(True) 'Res(0)
                         Res.Add(i) 'Res(1)
-                        VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))
+                        'VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))
                         Res.Add(VarSN) 'Res(2)
                         Exit For
                     End If
@@ -74,7 +74,8 @@ Public Module GetSNFormate
         End Select
         Return Res
     End Function
-    Public Function GetScanSNFormat(FormatFAS As String, SN As String) As ArrayList
+    'только для сберов
+    Public Function GetScanSNFormat(FormatFAS As String, SN As String, StepID As Integer) As ArrayList
         Dim Coordinats() As Integer
         Dim Res As ArrayList = New ArrayList()
         Dim VarSN As Integer
@@ -103,9 +104,56 @@ Public Module GetSNFormate
             End If
         Next
         Select Case Res(1)
+            Case 1 '' надо добавить условие на 25 степ и 45 степ
+                'Res(3) ' SNID
+                If StepID = 25 Then
+                    Res.Add(SelectString($"use FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SN}'"))
+                    Res.Add($"Формат номера {SN & vbCrLf }соответствует FAS!") 'Res(4) ' Текст сообщения
+                ElseIf StepID = 45 Then
+                    Res.Add(SelectString($"use SMDCOMPONETS  select IDLaser from SMDCOMPONETS.dbo.LazerBase where Content = '{SN}'"))
+                    Res.Add($"Формат номера {SN & vbCrLf }соответствует FAS!") 'Res(4) ' Текст сообщения
+                End If
+
+            Case 2
+                    Res.Add(0)
+                    Res.Add($"Формат номера {SN & vbCrLf }не соответствует выбранному лоту!")
+        End Select
+        Return Res
+    End Function
+#End Region
+#Region " 'функция определения формата серийного номера для материнсих плат "
+    Public Function GetPCBSNFormat(FormatSN As String, SN As String) As ArrayList
+        Dim Coordinats() As Integer
+        Dim Res As ArrayList = New ArrayList()
+        Dim VarSN As Integer
+        ' i = 1 --Номер FAS, i = 2 --Номер не определен
+        For i = 1 To 2
+            If i <> 2 Then
+                Dim SNBase As String
+                Coordinats = GetCoordinats(FormatSN)
+                SNBase = FormatSN
+                If Coordinats Is Nothing Then
+                Else
+                    Dim MascBase As String = Mid(SNBase, 1, Coordinats(0)) + Mid(SNBase, Coordinats(0) + Coordinats(1) + 1, Coordinats(2))
+                    Dim MascSN As String = Mid(SN, 1, Coordinats(0)) + Mid(SN, Coordinats(0) + Coordinats(1) + 1) ', Coordinats(2))
+                    If (MascBase = MascSN) = True Then
+                        Res.Add(True) 'Res(0)
+                        Res.Add(i) 'Res(1)
+                        VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))
+                        Res.Add(VarSN) 'Res(2)
+                        Exit For
+                    End If
+                End If
+            Else
+                Res.Add(False) 'Res(0)
+                Res.Add(i) 'Res(1)
+                Res.Add(0) 'Res(2)
+            End If
+        Next
+        Select Case Res(1)
             Case 1
                 'Res(3) ' SNID
-                Res.Add(SelectString($"use FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SN}'"))
+                'Res.Add(SelectString($"use FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SN}'"))
                 Res.Add($"Формат номера {SN & vbCrLf }соответствует FAS!")'Res(4) ' Текст сообщения
             Case 2
                 Res.Add(0)
@@ -114,7 +162,5 @@ Public Module GetSNFormate
         Return Res
     End Function
 #End Region
-
-
 
 End Module

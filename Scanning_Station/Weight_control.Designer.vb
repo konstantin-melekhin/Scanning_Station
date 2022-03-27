@@ -749,7 +749,7 @@ Partial Class Weight_control
         '
         Me.BT_CleareSN.FlatAppearance.BorderSize = 0
         Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.edittrash
         Me.BT_CleareSN.Location = New System.Drawing.Point(504, 287)
         Me.BT_CleareSN.Name = "BT_CleareSN"
         Me.BT_CleareSN.Size = New System.Drawing.Size(68, 69)

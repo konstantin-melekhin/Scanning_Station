@@ -2,6 +2,7 @@
 Imports System.Deployment.Application
 Public Class WorkForm
     Dim LOTID, IDApp As Integer
+    Dim ErrcodeGr As Integer = 4
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
     Dim StartStep As String, PreStep As String, NextStep As String
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
@@ -10,6 +11,7 @@ Public Class WorkForm
     Dim StepSequence As String()
     Dim Yield As Double, RepeatStep As Boolean, PassOrFail As Boolean
     Dim PCBCheckRes As New ArrayList()
+    Dim SNFormat As ArrayList
 #Region "Загрузка рабочей формы"
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
         InitializeComponent()
@@ -41,7 +43,7 @@ Public Class WorkForm
                         "CT_ScanStep = " & PCInfo(7) & vbCrLf 'PCInfo
         'получение данных о текущем лоте
         LOTInfo = GetCurrentContractLot(LOTID)
-        LenSN = If(LOTInfo(2) = True, GetLenSN(LOTInfo(3)), GetLenSN(LOTInfo(8)))
+        'LenSN = If(LOTInfo(2) = True, GetLenSN(LOTInfo(3)), GetLenSN(LOTInfo(8)))
         TextBox2.Text = "Model = " & LOTInfo(0) & vbCrLf &
                         "LOT = " & LOTInfo(1) & vbCrLf &
                         "CheckFormatSN_SMT = " & LOTInfo(2) & vbCrLf &
@@ -61,6 +63,7 @@ Public Class WorkForm
                         "PalletCapacity = " & LOTInfo(16) & vbCrLf &
                         "LiterIndex = " & LOTInfo(17) & vbCrLf &
                         "PreRackStage = " & LOTInfo(18) &
+                        "FASNumberFormat2 = " & LOTInfo(19) & 'Список доступных форматов
                         "LenSN = " & LenSN & vbCrLf 'LOTInfo
         'Определить стартовый шаг, текущий и последующий
         StepSequence = New String(Len(LOTInfo(14)) / 2 - 1) {}
@@ -94,7 +97,8 @@ Public Class WorkForm
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
-        LoadGridFromDB(DG_ErrorCodes, "use FAS select [ErrorCodeID],[ErrorCode],[Description]  FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = 5")
+        LoadGridFromDB(DG_ErrorCodes, $"use FAS select [ErrorCodeID],[ErrorCode],[Description]  
+                    FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = {ErrcodeGr}")
         'Записываем коды ошибок в рабочий комбобокс
         If DG_ErrorCodes.Rows.Count <> 0 Then
             For J = 0 To DG_ErrorCodes.Rows.Count - 1
@@ -230,11 +234,32 @@ Public Class WorkForm
         Controllabel.Text = ""
         Dim Mess As New ArrayList() 'RDW238120040012'
         If e.KeyCode = Keys.Enter Then 'And SerialTextBox.TextLength = GetLenSN(LOTInfo(3)) 
-            OperatinWithPCB(sender, e)
+            GetFTSN(LOTInfo(19))
+            If SNFormat(0) = True Then
+                OperatinWithPCB(sender, e)
+            End If
             'если введен не верный номер
         ElseIf e.KeyCode = Keys.Enter Then
             PrintLabel(Controllabel, SerialTextBox.Text & " не верный номер", 12, 193, Color.Red)
             CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Ошибка", "", "Плата имеет не верный номер")
+            SerialTextBox.Enabled = False
+            BT_Pause.Focus()
+        End If
+    End Sub
+#End Region
+#Region "1. Определение формата номера"
+    Public Sub GetFTSN(SNArrFormat As String)
+        SNFormat = New ArrayList()
+        For i = 0 To SNArrFormat.Split(";").Count - 1
+            If LOTInfo(19).Split(";")(i) <> "" Then
+                SNFormat = GetPCBSNFormat(LOTInfo(19).Split(";")(i), SerialTextBox.Text)
+                If SNFormat(0) = True Then
+                    Exit For
+                End If
+            End If
+        Next
+        If SNFormat(0) = False Then
+            PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
         End If

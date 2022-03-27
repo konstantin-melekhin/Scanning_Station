@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class GiftBoxLabelPrint
+Partial Class TabletLabelPrint
     Inherits System.Windows.Forms.Form
 
     'Форма переопределяет dispose для очистки списка компонентов.
@@ -82,7 +82,7 @@ Partial Class GiftBoxLabelPrint
         Me.Num_Y = New System.Windows.Forms.NumericUpDown()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.CB_DefaultPrinter = New System.Windows.Forms.ComboBox()
+        Me.CB_Printer1 = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
         Me.BT_PCBInfo = New System.Windows.Forms.Button()
@@ -96,10 +96,6 @@ Partial Class GiftBoxLabelPrint
         Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.BT_Pause = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
-        Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SNumber1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SNumber2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
@@ -115,13 +111,20 @@ Partial Class GiftBoxLabelPrint
         Me.DG_PCBInfoFromDB = New System.Windows.Forms.DataGridView()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.DG_StepList = New System.Windows.Forms.DataGridView()
-        Me.FASDataSet = New Scanning_Station.FASDataSet()
-        Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.FASDataSet = New Tablet_Scanning_Station.FASDataSet()
+        Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.FAS_ErrorCodeTableAdapter = New Tablet_Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
+        Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SNumber1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SNumber2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox4.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,10 +141,10 @@ Partial Class GiftBoxLabelPrint
         Me.GB_UserData.SuspendLayout()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label12
@@ -185,7 +188,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.CB_Quality.AutoSize = True
         Me.CB_Quality.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_Quality.Image = Global.Scanning_Station.My.Resources.Resources.help__1_1
+        Me.CB_Quality.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.help__1_1
         Me.CB_Quality.Location = New System.Drawing.Point(67, 99)
         Me.CB_Quality.Name = "CB_Quality"
         Me.CB_Quality.Size = New System.Drawing.Size(36, 24)
@@ -609,7 +612,7 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox3.Controls.Add(Me.Num_Y)
         Me.GroupBox3.Controls.Add(Me.Label15)
         Me.GroupBox3.Controls.Add(Me.Label17)
-        Me.GroupBox3.Controls.Add(Me.CB_DefaultPrinter)
+        Me.GroupBox3.Controls.Add(Me.CB_Printer1)
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox3.Location = New System.Drawing.Point(940, 14)
         Me.GroupBox3.Name = "GroupBox3"
@@ -641,7 +644,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_Save_Coordinats.FlatAppearance.BorderSize = 0
         Me.BT_Save_Coordinats.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Save_Coordinats.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_Save_Coordinats.Image = Global.Tablet_Scanning_Station.My.Resources.Resources._3floppy_mount
         Me.BT_Save_Coordinats.Location = New System.Drawing.Point(194, 61)
         Me.BT_Save_Coordinats.Name = "BT_Save_Coordinats"
         Me.BT_Save_Coordinats.Size = New System.Drawing.Size(72, 80)
@@ -677,13 +680,13 @@ Partial Class GiftBoxLabelPrint
         Me.Label17.TabIndex = 48
         Me.Label17.Text = "Выберите принтер для печати"
         '
-        'CB_DefaultPrinter
+        'CB_Printer1
         '
-        Me.CB_DefaultPrinter.FormattingEnabled = True
-        Me.CB_DefaultPrinter.Location = New System.Drawing.Point(6, 35)
-        Me.CB_DefaultPrinter.Name = "CB_DefaultPrinter"
-        Me.CB_DefaultPrinter.Size = New System.Drawing.Size(293, 21)
-        Me.CB_DefaultPrinter.TabIndex = 47
+        Me.CB_Printer1.FormattingEnabled = True
+        Me.CB_Printer1.Location = New System.Drawing.Point(6, 35)
+        Me.CB_Printer1.Name = "CB_Printer1"
+        Me.CB_Printer1.Size = New System.Drawing.Size(293, 21)
+        Me.CB_Printer1.TabIndex = 47
         '
         'GroupBox1
         '
@@ -713,7 +716,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
         Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_PCBInfo.Image = Global.Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.Symbol_Information
         Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
         Me.BT_PCBInfo.Name = "BT_PCBInfo"
         Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
@@ -724,7 +727,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
         Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.package_utilities
         Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
         Me.BT_OpenSettings.Name = "BT_OpenSettings"
         Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
@@ -770,7 +773,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_Fail.FlatAppearance.BorderSize = 0
         Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.agt_action_fail__1_
         Me.BT_Fail.Location = New System.Drawing.Point(56, 15)
         Me.BT_Fail.Name = "BT_Fail"
         Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
@@ -782,7 +785,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_ClearSN.FlatAppearance.BorderSize = 0
         Me.BT_ClearSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_ClearSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_ClearSN.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.edittrash
         Me.BT_ClearSN.Location = New System.Drawing.Point(703, 15)
         Me.BT_ClearSN.Name = "BT_ClearSN"
         Me.BT_ClearSN.Size = New System.Drawing.Size(66, 94)
@@ -841,7 +844,7 @@ Partial Class GiftBoxLabelPrint
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DG_UpLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber1, Me.SNumber2, Me.CASIDTab})
+        Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber1, Me.SNumber2, Me.Column6, Me.Column5, Me.Column7, Me.CASIDTab})
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
@@ -865,38 +868,6 @@ Partial Class GiftBoxLabelPrint
         Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.DG_UpLog.Size = New System.Drawing.Size(1268, 283)
         Me.DG_UpLog.TabIndex = 25
-        '
-        'Num
-        '
-        Me.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Num.HeaderText = "№"
-        Me.Num.Name = "Num"
-        Me.Num.ReadOnly = True
-        Me.Num.Width = 50
-        '
-        'SNumber1
-        '
-        Me.SNumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.SNumber1.HeaderText = "SN1"
-        Me.SNumber1.Name = "SNumber1"
-        Me.SNumber1.ReadOnly = True
-        Me.SNumber1.Width = 68
-        '
-        'SNumber2
-        '
-        Me.SNumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.SNumber2.HeaderText = "SN2"
-        Me.SNumber2.Name = "SNumber2"
-        Me.SNumber2.ReadOnly = True
-        Me.SNumber2.Width = 68
-        '
-        'CASIDTab
-        '
-        Me.CASIDTab.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CASIDTab.HeaderText = "Дата"
-        Me.CASIDTab.Name = "CASIDTab"
-        Me.CASIDTab.ReadOnly = True
-        Me.CASIDTab.Width = 77
         '
         'SerialTextBox
         '
@@ -937,7 +908,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
         Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseErrMode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
         Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
         Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
         Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
@@ -948,7 +919,7 @@ Partial Class GiftBoxLabelPrint
         '
         Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
         Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources._3floppy_mount
         Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
         Me.BT_SeveErCode.Name = "BT_SeveErCode"
         Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
@@ -994,7 +965,7 @@ Partial Class GiftBoxLabelPrint
         Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
         Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.Scanning_Station.My.Resources.Resources.close
+        Me.BT_LOGInClose.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.close
         Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
         Me.BT_LOGInClose.Name = "BT_LOGInClose"
         Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
@@ -1054,16 +1025,6 @@ Partial Class GiftBoxLabelPrint
         Me.DG_StepList.Size = New System.Drawing.Size(159, 57)
         Me.DG_StepList.TabIndex = 32
         '
-        'FASDataSet
-        '
-        Me.FASDataSet.DataSetName = "FASDataSet"
-        Me.FASDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'FASErrorCodeBindingSource
-        '
-        Me.FASErrorCodeBindingSource.DataMember = "FAS_ErrorCode"
-        Me.FASErrorCodeBindingSource.DataSource = Me.FASDataSet
-        '
         'TextBox1
         '
         Me.TextBox1.Location = New System.Drawing.Point(26, 20)
@@ -1099,13 +1060,76 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox2.Text = "GroupBox2"
         Me.GroupBox2.Visible = False
         '
+        'ErrorProvider1
+        '
+        Me.ErrorProvider1.ContainerControl = Me
+        '
+        'FASDataSet
+        '
+        Me.FASDataSet.DataSetName = "FASDataSet"
+        Me.FASDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'FASErrorCodeBindingSource
+        '
+        Me.FASErrorCodeBindingSource.DataMember = "FAS_ErrorCode"
+        Me.FASErrorCodeBindingSource.DataSource = Me.FASDataSet
+        '
         'FAS_ErrorCodeTableAdapter
         '
         Me.FAS_ErrorCodeTableAdapter.ClearBeforeFill = True
         '
-        'ErrorProvider1
+        'Num
         '
-        Me.ErrorProvider1.ContainerControl = Me
+        Me.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Num.HeaderText = "№"
+        Me.Num.Name = "Num"
+        Me.Num.ReadOnly = True
+        Me.Num.Width = 50
+        '
+        'SNumber1
+        '
+        Me.SNumber1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.SNumber1.HeaderText = "PCBSN"
+        Me.SNumber1.Name = "SNumber1"
+        Me.SNumber1.ReadOnly = True
+        Me.SNumber1.Width = 93
+        '
+        'SNumber2
+        '
+        Me.SNumber2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.SNumber2.HeaderText = "SN"
+        Me.SNumber2.Name = "SNumber2"
+        Me.SNumber2.ReadOnly = True
+        Me.SNumber2.Width = 58
+        '
+        'Column6
+        '
+        Me.Column6.HeaderText = "MAC WiFi"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
+        Me.Column6.Width = 112
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = "IMEI"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Width = 72
+        '
+        'Column7
+        '
+        Me.Column7.HeaderText = "MAC BT"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        Me.Column7.Width = 99
+        '
+        'CASIDTab
+        '
+        Me.CASIDTab.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CASIDTab.HeaderText = "Дата"
+        Me.CASIDTab.Name = "CASIDTab"
+        Me.CASIDTab.ReadOnly = True
+        Me.CASIDTab.Width = 77
         '
         'GiftBoxLabelPrint
         '
@@ -1118,7 +1142,7 @@ Partial Class GiftBoxLabelPrint
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GroupBox2)
         Me.Name = "GiftBoxLabelPrint"
-        Me.Text = "GiftBoxLabelPrint"
+        Me.Text = "TabletLabelPrint"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
@@ -1145,11 +1169,11 @@ Partial Class GiftBoxLabelPrint
         Me.GB_UserData.PerformLayout()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1208,10 +1232,6 @@ Partial Class GiftBoxLabelPrint
     Friend WithEvents CurrrentTimeLabel As Label
     Friend WithEvents BT_Pause As Button
     Friend WithEvents DG_UpLog As DataGridView
-    Friend WithEvents Num As DataGridViewTextBoxColumn
-    Friend WithEvents SNumber1 As DataGridViewTextBoxColumn
-    Friend WithEvents SNumber2 As DataGridViewTextBoxColumn
-    Friend WithEvents CASIDTab As DataGridViewTextBoxColumn
     Friend WithEvents SerialTextBox As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents GB_ErrorCode As GroupBox
@@ -1238,9 +1258,16 @@ Partial Class GiftBoxLabelPrint
     Friend WithEvents Num_Y As NumericUpDown
     Friend WithEvents Label15 As Label
     Friend WithEvents Label17 As Label
-    Friend WithEvents CB_DefaultPrinter As ComboBox
+    Friend WithEvents CB_Printer1 As ComboBox
     Friend WithEvents BT_Fail As Button
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents ErrorProvider1 As ErrorProvider
+    Friend WithEvents Num As DataGridViewTextBoxColumn
+    Friend WithEvents SNumber1 As DataGridViewTextBoxColumn
+    Friend WithEvents SNumber2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents CASIDTab As DataGridViewTextBoxColumn
 End Class

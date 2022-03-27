@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="FASConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FASConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Scanning_Station.My.MySettings.GlobalReference.Default.FASConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="FASConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="FASConnectionString (MySettings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Tablet_Scanning_Station.My.MySettings.GlobalReference.Default.FASConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="FAS_ErrorCodeTableAdapter" GeneratorDataComponentClassName="FAS_ErrorCodeTableAdapter" Name="FAS_ErrorCode" UserDataComponentName="FAS_ErrorCodeTableAdapter">
@@ -41,7 +41,7 @@
   <xs:element name="FASDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="FASDataSet" msprop:Generator_UserDSName="FASDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="FAS_ErrorCode" msprop:Generator_TableClassName="FAS_ErrorCodeDataTable" msprop:Generator_TableVarName="tableFAS_ErrorCode" msprop:Generator_TablePropName="FAS_ErrorCode" msprop:Generator_RowDeletingName="FAS_ErrorCodeRowDeleting" msprop:Generator_RowChangingName="FAS_ErrorCodeRowChanging" msprop:Generator_RowEvHandlerName="FAS_ErrorCodeRowChangeEventHandler" msprop:Generator_RowDeletedName="FAS_ErrorCodeRowDeleted" msprop:Generator_UserTableName="FAS_ErrorCode" msprop:Generator_RowChangedName="FAS_ErrorCodeRowChanged" msprop:Generator_RowEvArgName="FAS_ErrorCodeRowChangeEvent" msprop:Generator_RowClassName="FAS_ErrorCodeRow">
+        <xs:element name="FAS_ErrorCode" msprop:Generator_TableClassName="FAS_ErrorCodeDataTable" msprop:Generator_TableVarName="tableFAS_ErrorCode" msprop:Generator_RowChangedName="FAS_ErrorCodeRowChanged" msprop:Generator_TablePropName="FAS_ErrorCode" msprop:Generator_RowDeletingName="FAS_ErrorCodeRowDeleting" msprop:Generator_RowChangingName="FAS_ErrorCodeRowChanging" msprop:Generator_RowEvHandlerName="FAS_ErrorCodeRowChangeEventHandler" msprop:Generator_RowDeletedName="FAS_ErrorCodeRowDeleted" msprop:Generator_RowClassName="FAS_ErrorCodeRow" msprop:Generator_UserTableName="FAS_ErrorCode" msprop:Generator_RowEvArgName="FAS_ErrorCodeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ErrorCodeID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnErrorCodeID" msprop:Generator_ColumnPropNameInRow="ErrorCodeID" msprop:Generator_ColumnPropNameInTable="ErrorCodeIDColumn" msprop:Generator_UserColumnName="ErrorCodeID" type="xs:int" />

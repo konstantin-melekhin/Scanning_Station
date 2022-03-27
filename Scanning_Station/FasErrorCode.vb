@@ -234,7 +234,7 @@ Public Class FasErrorCode
         Dim Mess As New ArrayList() 'RDW238120040012'
         If e.KeyCode = Keys.Enter Then
             GetFTSN()
-            If SNFormat(0) = True Then
+            If SNFormat(0) = True Then 'заменить на True
                 GetStepResult() 'SBB16X12AF014895
             End If
         End If
@@ -243,7 +243,23 @@ Public Class FasErrorCode
 #Region "1. Определение формата номера"
     Public Sub GetFTSN()
         SNFormat = New ArrayList()
-        SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
+        Dim FAsFormat As String
+        For i = 1 To 4
+            Select Case i
+                Case 1
+                    FAsFormat = LOTInfo(19).Split(";")(2)
+                Case 2
+                    FAsFormat = "SBB16X09AE1234560A0600"
+                Case 3
+                    FAsFormat = "SBB16X12AF1234560A0600"
+                Case 4
+                    FAsFormat = "SBB16X09AG1234560A0600"
+            End Select
+            SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), FAsFormat, SerialTextBox.Text, PCInfo(6))
+            If SNFormat(0) = True Then
+                Exit For
+            End If
+        Next
         If SNFormat(0) = False Then
             PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
@@ -258,7 +274,7 @@ Public Class FasErrorCode
         RepeatStep = New Boolean
         Dim Mess As New ArrayList()
         Select Case SNFormat(1)
-            Case 1 Or 2
+            Case 1
                 PCBStepRes = SelectListString($"Use FAS select 
                 tt.StepID,tt.TestResultID, 
                 tt.PCBID,(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
@@ -279,6 +295,15 @@ Public Class FasErrorCode
                 'PCBStepRes имеет следующие значения:
                 'StepID	TestResultID	PCBID	(Номер платы)	SNID	(Номер приемника)	StepDate
                 '  30        2	       8687782	3040557SBTSP3  332744	 SBB16X12AF015355	2022-01-22 14:52:30.130
+            Case 2
+                PCBStepRes = SelectListString($"Use FAS select 
+                tt.StepID,tt.TestResultID, 
+                tt.PCBID,(select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
+                tt.SNID, (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
+                tt.StepDate 
+                from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
+                FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {SNFormat(3)}) tt
+                where  tt.num = 1 ")
         End Select
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции не совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
@@ -293,7 +318,8 @@ Public Class FasErrorCode
             CheckBunchSN()
             SelectAction()
             'Если плата в таблице OperLog имеет шаг совпадающий с предыдущей станцией и результат равен 2
-        ElseIf (PCBStepRes(0) = 1 Or PCBStepRes(0) = 30 Or PCBStepRes(0) = 25 Or PCBStepRes(0) = 37) And
+        ElseIf (PCBStepRes(0) = 1 Or PCBStepRes(0) = 30 Or PCBStepRes(0) = 25 Or
+            PCBStepRes(0) = 37 Or PCBStepRes(0) = 40) And
             PCBStepRes(1) = 2 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             CheckBunchSN()
             SelectAction()
@@ -319,10 +345,13 @@ Public Class FasErrorCode
          where [PCBIDTOP]  = {PCBStepRes(2)} or [PCBIDBOT] = {PCBStepRes(2)}")
         If SerchedNum.Count > 0 And IsDBNull(SerchedNum(0)) Then
         Else
-            If SerchedNum(0) = PCBStepRes(4) Then
+            If IsDBNull(PCBStepRes(4)) Then
                 RunCommand($"update [FAS].[dbo].[FAS_Bunch_Decode] set [FASSNID] = null 
             where [PCBIDTOP]  = {PCBStepRes(2)} or [PCBIDBOT] = {PCBStepRes(2)}")
 
+            ElseIf SerchedNum(0) = PCBStepRes(4) Then
+                RunCommand($"update [FAS].[dbo].[FAS_Bunch_Decode] set [FASSNID] = null 
+            where [PCBIDTOP]  = {PCBStepRes(2)} or [PCBIDBOT] = {PCBStepRes(2)}")
             Else
                 CheckInPack = New ArrayList(SelectListString($" Use FAS
             SELECT (Select sn from Ct_FASSN_reg where ID = P.SNID )SN,
@@ -334,16 +363,16 @@ Public Class FasErrorCode
             format(P.PackingDate,'dd.MM.yyyy HH:mm:ss')PackingDate 
             FROM [FAS].[dbo].[Ct_PackingTable] P
             where LOTID = {LOTID} and SNID = {SerchedNum}"))
-                If CheckInPack.Count > 0 Then
-                    PrintLabel(Controllabel, $"Номер платы {PCBStepRes(3)} присвоен серийному номеру {CheckInPack(0)}
+                    If CheckInPack.Count > 0 Then
+                        PrintLabel(Controllabel, $"Номер платы {PCBStepRes(3)} присвоен серийному номеру {CheckInPack(0)}
 который упакован в Литера {CheckInPack(1) & CheckInPack(2)}, Паллет {CheckInPack(3)}, Коробка {CheckInPack(4)},
 Дата упаковки {CheckInPack(6)}", Color.Red)
-                    UpdateStepRes(PCInfo(6), 5, PCBStepRes)
-                    SerialTextBox.Enabled = False
-                    BT_Pause.Focus()
+                        UpdateStepRes(PCInfo(6), 5, PCBStepRes)
+                        SerialTextBox.Enabled = False
+                        BT_Pause.Focus()
+                    End If
                 End If
             End If
-        End If
     End Sub
 #End Region
 #Region "4. Выбор действия Pass\Fail"
@@ -384,20 +413,38 @@ Public Class FasErrorCode
         Select Case StepRes
             Case 3
                 ErrCode = GetErrorCode()
-                Message = $"Номер {If((SNFormat(1) = 1 Or SNFormat(1) = 2), PcbStepInfo(3), PcbStepInfo(5)) } перемещается в карантин!" &
+                If ErrCode(0) = 591 Then
+                    Message = $"Технологическая отвязка номера {If((SNFormat(1) = 1 Or SNFormat(1) = 2), PcbStepInfo(3), PcbStepInfo(5)) }!" &
+                                                             vbCrLf & "Передайте плату на прошивку Андроид!"
+                    MesColor = Color.Green
+                    CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Отвязка", ErrCode(1),
+                              $"Технологическая отвязка номера {If((SNFormat(1) = 1 Or SNFormat(1) = 2), PcbStepInfo(3), PcbStepInfo(5)) }!" &
+                                                              vbCrLf & "Передайте плату на прошивку Андроид!")
+                Else
+                    Message = $"Номер {If((SNFormat(1) = 1 Or SNFormat(1) = 2), PcbStepInfo(3), PcbStepInfo(5)) } перемещается в карантин!" &
                        vbCrLf & "Передайте плату в ремонт!"
                 MesColor = Color.Red
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Карантин", ErrCode(1), $"Номер {If((SNFormat(1) = 1 Or SNFormat(1) = 2), PcbStepInfo(3), PcbStepInfo(5)) } перемещается в карантин!" &
                   vbCrLf & "Передайте плату в ремонт!")
+                End If
+
             Case 5
                 Exit Sub
         End Select
-        RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+        If ErrCode(0) = 591 Then
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[Descriptions])values
+                    ({PcbStepInfo(2)},{LOTID},43,2,CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    { "'Технологическая отвязка с перепрошивкой андроид'" })")
+        Else
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions],SNID)values
                     ({PcbStepInfo(2)},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},{ErrCode(0)},
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") },
                     {PcbStepInfo(4)})")
+        End If
         PrintLabel(Controllabel, Message, 12, 193, MesColor)
     End Sub
 #End Region

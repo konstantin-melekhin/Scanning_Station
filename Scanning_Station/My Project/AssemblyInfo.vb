@@ -1,4 +1,5 @@
-﻿Imports System
+﻿Imports System.Resources
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,12 +9,12 @@ Imports System.Runtime.InteropServices
 
 ' Проверьте значения атрибутов сборки
 
-<Assembly: AssemblyTitle("Scanning_Station")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyTitle("Tablet_Scanning_Station")>
+<Assembly: AssemblyDescription("Программа для выпуска планшетов")>
+<Assembly: AssemblyCompany("DTVS")>
 <Assembly: AssemblyProduct("Scanning_Station")>
 <Assembly: AssemblyCopyright("Copyright ©  2020")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTrademark("Meg@")>
 
 <Assembly: ComVisible(False)>
 
@@ -33,3 +34,4 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")>
 <Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: NeutralResourcesLanguage("ru")>

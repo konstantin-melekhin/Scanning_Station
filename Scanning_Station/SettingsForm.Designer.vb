@@ -22,8 +22,9 @@ Partial Class SettingsForm
     'Не изменяйте ее в редакторе исходного кода.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SettingsForm))
         Me.GB_NotVisibleElements = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -301,8 +302,8 @@ Partial Class SettingsForm
         Me.DG_LOTListPresent.Margin = New System.Windows.Forms.Padding(4)
         Me.DG_LOTListPresent.Name = "DG_LOTListPresent"
         Me.DG_LOTListPresent.ReadOnly = True
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DG_LOTListPresent.Size = New System.Drawing.Size(812, 218)
         Me.DG_LOTListPresent.TabIndex = 45
         '
@@ -379,7 +380,7 @@ Partial Class SettingsForm
         '
         Me.BT_CloseLineSet.FlatAppearance.BorderSize = 0
         Me.BT_CloseLineSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseLineSet.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseLineSet.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
         Me.BT_CloseLineSet.Location = New System.Drawing.Point(12, 195)
         Me.BT_CloseLineSet.Name = "BT_CloseLineSet"
         Me.BT_CloseLineSet.Size = New System.Drawing.Size(75, 64)
@@ -416,7 +417,7 @@ Partial Class SettingsForm
         '
         Me.BT_SaveLine.FlatAppearance.BorderSize = 0
         Me.BT_SaveLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SaveLine.Image = Global.Scanning_Station.My.Resources.Resources._04
+        Me.BT_SaveLine.Image = Global.Tablet_Scanning_Station.My.Resources.Resources._04
         Me.BT_SaveLine.Location = New System.Drawing.Point(587, 204)
         Me.BT_SaveLine.Name = "BT_SaveLine"
         Me.BT_SaveLine.Size = New System.Drawing.Size(54, 55)
@@ -435,8 +436,8 @@ Partial Class SettingsForm
         '
         Me.DG_AppList.AllowUserToAddRows = False
         Me.DG_AppList.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_AppList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_AppList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.DG_AppList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_AppList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DG_AppList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -459,7 +460,7 @@ Partial Class SettingsForm
         '
         Me.BT_SelectLot.FlatAppearance.BorderSize = 0
         Me.BT_SelectLot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SelectLot.Image = Global.Scanning_Station.My.Resources.Resources.play
+        Me.BT_SelectLot.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.play
         Me.BT_SelectLot.Location = New System.Drawing.Point(991, 262)
         Me.BT_SelectLot.Name = "BT_SelectLot"
         Me.BT_SelectLot.Size = New System.Drawing.Size(94, 79)
@@ -470,7 +471,7 @@ Partial Class SettingsForm
         '
         Me.BT_RefreshLOT.FlatAppearance.BorderSize = 0
         Me.BT_RefreshLOT.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_RefreshLOT.Image = Global.Scanning_Station.My.Resources.Resources.refresh__2_
+        Me.BT_RefreshLOT.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.refresh__2_
         Me.BT_RefreshLOT.Location = New System.Drawing.Point(832, 172)
         Me.BT_RefreshLOT.Name = "BT_RefreshLOT"
         Me.BT_RefreshLOT.Size = New System.Drawing.Size(61, 59)
@@ -489,6 +490,7 @@ Partial Class SettingsForm
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.DG_LOTListPresent)
         Me.Controls.Add(Me.L_Result)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SettingsForm"
         Me.Text = "Настройки программы"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

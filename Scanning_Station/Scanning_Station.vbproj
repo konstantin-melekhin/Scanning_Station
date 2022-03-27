@@ -6,16 +6,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{678A5FEF-5A4C-41B5-8DE1-4C8237BB238E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Scanning_Station.My.MyApplication</StartupObject>
-    <RootNamespace>Scanning_Station</RootNamespace>
-    <AssemblyName>Sber_Scanning_Station</AssemblyName>
+    <StartupObject>Tablet_Scanning_Station.My.MyApplication</StartupObject>
+    <RootNamespace>Tablet_Scanning_Station</RootNamespace>
+    <AssemblyName>Tablet_Scanning_Station</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>\\192.168.180.9\ProdSoft\Sber_Scanning_Station\</PublishUrl>
+    <PublishUrl>\\192.168.180.9\ProdSoft\Tablet_Scanning_Station\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,10 +25,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\192.168.180.9\ProdSoft\Sber_Scanning_Station\</UpdateUrl>
+    <UpdateUrl>\\192.168.180.9\ProdSoft\Tablet_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>26</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Sber_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Tablet_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -50,7 +50,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Sber_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Tablet_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -76,6 +76,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>wacom.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Library3">
@@ -106,6 +112,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Aqua_AndroidUpload.vb" />
     <Compile Include="Bunch_S_Numbers.Designer.vb">
       <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
@@ -125,10 +132,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FASDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="GiftBoxLabelPrint.Designer.vb">
-      <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>
+    <Compile Include="TabletLabelPrint.Designer.vb">
+      <DependentUpon>TabletLabelPrint.vb</DependentUpon>
     </Compile>
-    <Compile Include="GiftBoxLabelPrint.vb">
+    <Compile Include="TabletLabelPrint.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RawPrinterHelper.vb" />
@@ -181,8 +188,8 @@
     <EmbeddedResource Include="FasErrorCode.resx">
       <DependentUpon>FasErrorCode.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GiftBoxLabelPrint.resx">
-      <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>
+    <EmbeddedResource Include="TabletLabelPrint.resx">
+      <DependentUpon>TabletLabelPrint.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -215,6 +222,7 @@
     <None Include="FASDataSet.xss">
       <DependentUpon>FASDataSet.xsd</DependentUpon>
     </None>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -298,6 +306,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\help %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wacom.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -462,14 +462,7 @@ Public Class WorkForm
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "", "Плата прошла этап " & PCInfo(7) & " с ошибкой V5!" &
                    vbCrLf & "Передайте плату на следующий этап " & NextStep & "!")
         End Select
-        If If(ErrCode.Count <> 0, ErrCode(0), 0) = 514 Then
-            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID], [LOTID], [StepID], [TestResultID], [StepDate],
-                    [StepByID], [LineID], [ErrorCodeID], [Descriptions])values
-                    ({PcbID},{LOTID},{StepID},{StepRes},CURRENT_TIMESTAMP,
-                    {UserInfo(0)},{PCInfo(2)},
-                    {If(StepRes = 2, ErrCode(0), "Null")},
-                    {If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
-        ElseIf CB_Quality.Checked = False And LOTInfo(2) = True Then
+        If CB_Quality.Checked = False And LOTInfo(2) = True And PCInfo(6) <> 2 Then
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
@@ -477,7 +470,17 @@ Public Class WorkForm
                     {If(StepRes = 3, ErrCode(0), "Null")},
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
             CB_GoldSample.Checked = False
-        ElseIf CB_Quality.Checked = False And LOTInfo(2) = False And LOTInfo(7) = True Then
+        ElseIf CB_Quality.Checked = False And LOTInfo(2) = True And PCInfo(6) = 2 Then
+            Dim snID As Integer = SelectInt($"select [FASSNID]FROM [FAS].[dbo].[FAS_Bunch_Decode]where LOTID = {LOTID} and [PCBIDTOP] ={PcbID}")
+
+            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions],SNID)values
+                    ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    {If(StepRes = 3, ErrCode(0), "Null")},
+                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") },{snID})")
+            CB_GoldSample.Checked = False
+            ElseIf CB_Quality.Checked = False And LOTInfo(2) = False And LOTInfo(7) = True Then
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([SNID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,

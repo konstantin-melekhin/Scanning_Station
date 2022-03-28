@@ -31,6 +31,7 @@ Partial Class WorkForm
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(WorkForm))
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -44,13 +45,8 @@ Partial Class WorkForm
         Me.LB_FailLotRes = New System.Windows.Forms.Label()
         Me.LB_PassLotRes = New System.Windows.Forms.Label()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
-        Me.BT_PCBInfo = New System.Windows.Forms.Button()
-        Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.CB_Quality = New System.Windows.Forms.CheckBox()
-        Me.CB_GoldSample = New System.Windows.Forms.CheckBox()
         Me.LB_SW_Wers = New System.Windows.Forms.Label()
-        Me.CB_User_Input = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
         Me.LabelAppName = New System.Windows.Forms.Label()
@@ -69,7 +65,6 @@ Partial Class WorkForm
         Me.LB_CurrentErrCode = New System.Windows.Forms.Label()
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
-        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
@@ -84,11 +79,8 @@ Partial Class WorkForm
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HDCP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CERT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BT_Pass = New System.Windows.Forms.Button()
-        Me.BT_Fail = New System.Windows.Forms.Button()
         Me.SerialTextBox = New System.Windows.Forms.TextBox()
         Me.GB_UserData = New System.Windows.Forms.GroupBox()
-        Me.BT_LOGInClose = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TB_RFIDIn = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -97,9 +89,7 @@ Partial Class WorkForm
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.DG_StepList = New System.Windows.Forms.DataGridView()
         Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
-        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
         Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
-        Me.BT_SeveErCode = New System.Windows.Forms.Button()
         Me.TB_Description = New System.Windows.Forms.TextBox()
         Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -111,6 +101,17 @@ Partial Class WorkForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
+        Me.BT_SeveErCode = New System.Windows.Forms.Button()
+        Me.BT_LOGInClose = New System.Windows.Forms.Button()
+        Me.BT_PCBInfo = New System.Windows.Forms.Button()
+        Me.BT_OpenSettings = New System.Windows.Forms.Button()
+        Me.CB_Quality = New System.Windows.Forms.CheckBox()
+        Me.CB_GoldSample = New System.Windows.Forms.CheckBox()
+        Me.CB_User_Input = New System.Windows.Forms.CheckBox()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
+        Me.BT_Pass = New System.Windows.Forms.Button()
+        Me.BT_Fail = New System.Windows.Forms.Button()
         Me.GB_WorkAria.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -279,28 +280,6 @@ Partial Class WorkForm
         Me.LB_LOTCounter.TabIndex = 0
         Me.LB_LOTCounter.Text = "99"
         '
-        'BT_PCBInfo
-        '
-        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
-        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_PCBInfo.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.Symbol_Information
-        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
-        Me.BT_PCBInfo.Name = "BT_PCBInfo"
-        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
-        Me.BT_PCBInfo.TabIndex = 31
-        Me.BT_PCBInfo.UseVisualStyleBackColor = True
-        '
-        'BT_OpenSettings
-        '
-        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
-        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_OpenSettings.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.package_utilities
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
-        Me.BT_OpenSettings.Name = "BT_OpenSettings"
-        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
-        Me.BT_OpenSettings.TabIndex = 22
-        Me.BT_OpenSettings.UseVisualStyleBackColor = True
-        '
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.CB_Quality)
@@ -330,29 +309,6 @@ Partial Class WorkForm
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
         '
-        'CB_Quality
-        '
-        Me.CB_Quality.AutoSize = True
-        Me.CB_Quality.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_Quality.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.help__1_1
-        Me.CB_Quality.Location = New System.Drawing.Point(67, 99)
-        Me.CB_Quality.Name = "CB_Quality"
-        Me.CB_Quality.Size = New System.Drawing.Size(36, 24)
-        Me.CB_Quality.TabIndex = 33
-        Me.CB_Quality.UseVisualStyleBackColor = True
-        '
-        'CB_GoldSample
-        '
-        Me.CB_GoldSample.AutoSize = True
-        Me.CB_GoldSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_GoldSample.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.Fav
-        Me.CB_GoldSample.Location = New System.Drawing.Point(6, 134)
-        Me.CB_GoldSample.Name = "CB_GoldSample"
-        Me.CB_GoldSample.Size = New System.Drawing.Size(40, 28)
-        Me.CB_GoldSample.TabIndex = 33
-        Me.CB_GoldSample.UseVisualStyleBackColor = True
-        Me.CB_GoldSample.Visible = False
-        '
         'LB_SW_Wers
         '
         Me.LB_SW_Wers.AutoSize = True
@@ -362,17 +318,6 @@ Partial Class WorkForm
         Me.LB_SW_Wers.Size = New System.Drawing.Size(76, 16)
         Me.LB_SW_Wers.TabIndex = 34
         Me.LB_SW_Wers.Text = "SW_Wers"
-        '
-        'CB_User_Input
-        '
-        Me.CB_User_Input.AutoSize = True
-        Me.CB_User_Input.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CB_User_Input.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.User
-        Me.CB_User_Input.Location = New System.Drawing.Point(6, 95)
-        Me.CB_User_Input.Name = "CB_User_Input"
-        Me.CB_User_Input.Size = New System.Drawing.Size(44, 32)
-        Me.CB_User_Input.TabIndex = 33
-        Me.CB_User_Input.UseVisualStyleBackColor = True
         '
         'Label19
         '
@@ -561,17 +506,6 @@ Partial Class WorkForm
         Me.GB_ScanMode.TabIndex = 30
         Me.GB_ScanMode.TabStop = False
         '
-        'BT_CleareSN
-        '
-        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
-        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
-        Me.BT_CleareSN.Name = "BT_CleareSN"
-        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
-        Me.BT_CleareSN.TabIndex = 28
-        Me.BT_CleareSN.UseVisualStyleBackColor = True
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -752,30 +686,6 @@ Partial Class WorkForm
         Me.CERT.ReadOnly = True
         Me.CERT.Width = 139
         '
-        'BT_Pass
-        '
-        Me.BT_Pass.FlatAppearance.BorderSize = 0
-        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Pass.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.agt_action_success__1_
-        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
-        Me.BT_Pass.Name = "BT_Pass"
-        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
-        Me.BT_Pass.TabIndex = 26
-        Me.BT_Pass.UseVisualStyleBackColor = True
-        Me.BT_Pass.Visible = False
-        '
-        'BT_Fail
-        '
-        Me.BT_Fail.FlatAppearance.BorderSize = 0
-        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_Fail.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.agt_action_fail__1_
-        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
-        Me.BT_Fail.Name = "BT_Fail"
-        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
-        Me.BT_Fail.TabIndex = 27
-        Me.BT_Fail.UseVisualStyleBackColor = True
-        Me.BT_Fail.Visible = False
-        '
         'SerialTextBox
         '
         Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
@@ -799,19 +709,6 @@ Partial Class WorkForm
         Me.GB_UserData.TabStop = False
         Me.GB_UserData.Text = "Регистрация пользователя"
         Me.GB_UserData.Visible = False
-        '
-        'BT_LOGInClose
-        '
-        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
-        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.close
-        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
-        Me.BT_LOGInClose.Name = "BT_LOGInClose"
-        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
-        Me.BT_LOGInClose.TabIndex = 2
-        Me.BT_LOGInClose.UseVisualStyleBackColor = False
         '
         'Label13
         '
@@ -890,17 +787,6 @@ Partial Class WorkForm
         Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
         Me.GB_ErrorCode.Visible = False
         '
-        'BT_CloseErrMode
-        '
-        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
-        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseErrMode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
-        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
-        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
-        Me.BT_CloseErrMode.TabIndex = 35
-        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
-        '
         'DG_ErrorCodes
         '
         Me.DG_ErrorCodes.AllowUserToAddRows = False
@@ -912,17 +798,6 @@ Partial Class WorkForm
         Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
         Me.DG_ErrorCodes.TabIndex = 34
         Me.DG_ErrorCodes.Visible = False
-        '
-        'BT_SeveErCode
-        '
-        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
-        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SeveErCode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources._3floppy_mount
-        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
-        Me.BT_SeveErCode.Name = "BT_SeveErCode"
-        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
-        Me.BT_SeveErCode.TabIndex = 3
-        Me.BT_SeveErCode.UseVisualStyleBackColor = True
         '
         'TB_Description
         '
@@ -1020,6 +895,132 @@ Partial Class WorkForm
         Me.Label16.TabIndex = 33
         Me.Label16.Text = "DG_StepList "
         '
+        'BT_CloseErrMode
+        '
+        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
+        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseErrMode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
+        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
+        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
+        Me.BT_CloseErrMode.TabIndex = 35
+        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
+        '
+        'BT_SeveErCode
+        '
+        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
+        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SeveErCode.Image = Global.Tablet_Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
+        Me.BT_SeveErCode.Name = "BT_SeveErCode"
+        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
+        Me.BT_SeveErCode.TabIndex = 3
+        Me.BT_SeveErCode.UseVisualStyleBackColor = True
+        '
+        'BT_LOGInClose
+        '
+        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
+        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
+        Me.BT_LOGInClose.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.close
+        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
+        Me.BT_LOGInClose.Name = "BT_LOGInClose"
+        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
+        Me.BT_LOGInClose.TabIndex = 2
+        Me.BT_LOGInClose.UseVisualStyleBackColor = False
+        '
+        'BT_PCBInfo
+        '
+        Me.BT_PCBInfo.FlatAppearance.BorderSize = 0
+        Me.BT_PCBInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_PCBInfo.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.Symbol_Information
+        Me.BT_PCBInfo.Location = New System.Drawing.Point(1245, 10)
+        Me.BT_PCBInfo.Name = "BT_PCBInfo"
+        Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
+        Me.BT_PCBInfo.TabIndex = 31
+        Me.BT_PCBInfo.UseVisualStyleBackColor = True
+        '
+        'BT_OpenSettings
+        '
+        Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
+        Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.package_utilities
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(1231, 228)
+        Me.BT_OpenSettings.Name = "BT_OpenSettings"
+        Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
+        Me.BT_OpenSettings.TabIndex = 22
+        Me.BT_OpenSettings.UseVisualStyleBackColor = True
+        '
+        'CB_Quality
+        '
+        Me.CB_Quality.AutoSize = True
+        Me.CB_Quality.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_Quality.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.help__1_1
+        Me.CB_Quality.Location = New System.Drawing.Point(67, 99)
+        Me.CB_Quality.Name = "CB_Quality"
+        Me.CB_Quality.Size = New System.Drawing.Size(36, 24)
+        Me.CB_Quality.TabIndex = 33
+        Me.CB_Quality.UseVisualStyleBackColor = True
+        '
+        'CB_GoldSample
+        '
+        Me.CB_GoldSample.AutoSize = True
+        Me.CB_GoldSample.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_GoldSample.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.Fav
+        Me.CB_GoldSample.Location = New System.Drawing.Point(6, 134)
+        Me.CB_GoldSample.Name = "CB_GoldSample"
+        Me.CB_GoldSample.Size = New System.Drawing.Size(40, 28)
+        Me.CB_GoldSample.TabIndex = 33
+        Me.CB_GoldSample.UseVisualStyleBackColor = True
+        Me.CB_GoldSample.Visible = False
+        '
+        'CB_User_Input
+        '
+        Me.CB_User_Input.AutoSize = True
+        Me.CB_User_Input.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CB_User_Input.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.User
+        Me.CB_User_Input.Location = New System.Drawing.Point(6, 95)
+        Me.CB_User_Input.Name = "CB_User_Input"
+        Me.CB_User_Input.Size = New System.Drawing.Size(44, 32)
+        Me.CB_User_Input.TabIndex = 33
+        Me.CB_User_Input.UseVisualStyleBackColor = True
+        '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(703, 15)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(66, 94)
+        Me.BT_CleareSN.TabIndex = 28
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
+        '
+        'BT_Pass
+        '
+        Me.BT_Pass.FlatAppearance.BorderSize = 0
+        Me.BT_Pass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Pass.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.agt_action_success__1_
+        Me.BT_Pass.Location = New System.Drawing.Point(17, 17)
+        Me.BT_Pass.Name = "BT_Pass"
+        Me.BT_Pass.Size = New System.Drawing.Size(97, 91)
+        Me.BT_Pass.TabIndex = 26
+        Me.BT_Pass.UseVisualStyleBackColor = True
+        Me.BT_Pass.Visible = False
+        '
+        'BT_Fail
+        '
+        Me.BT_Fail.FlatAppearance.BorderSize = 0
+        Me.BT_Fail.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Fail.Image = Global.Tablet_Scanning_Station.My.Resources.Resources.agt_action_fail__1_
+        Me.BT_Fail.Location = New System.Drawing.Point(833, 17)
+        Me.BT_Fail.Name = "BT_Fail"
+        Me.BT_Fail.Size = New System.Drawing.Size(87, 91)
+        Me.BT_Fail.TabIndex = 27
+        Me.BT_Fail.UseVisualStyleBackColor = True
+        Me.BT_Fail.Visible = False
+        '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1029,6 +1030,7 @@ Partial Class WorkForm
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GB_WorkAria)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "WorkForm"
         Me.Text = "WorkForm"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

@@ -106,7 +106,7 @@ Public Module GetSNFormate
         Select Case Res(1)
             Case 1 '' надо добавить условие на 25 степ и 45 степ
                 'Res(3) ' SNID
-                If StepID = 25 Then
+                If StepID = 46 Then
                     Res.Add(SelectString($"use FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SN}'"))
                     Res.Add($"Формат номера {SN & vbCrLf }соответствует FAS!") 'Res(4) ' Текст сообщения
                 ElseIf StepID = 45 Then

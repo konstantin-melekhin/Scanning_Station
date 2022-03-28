@@ -210,7 +210,7 @@ Public Class Weight_control
         Next
         WeightSerialPort.Close()
         Return If(ResText = Nothing, 0, Int32.Parse(ResText))
-        'Return 45
+        'Return 46
     End Function
 #End Region
 
@@ -225,7 +225,7 @@ Public Class Weight_control
                 If _stepArr.Count = 0 Then
                     PrintLabel(Controllabel, SerialTextBox.Text & " не не был зарегистрирован на FAS Start!", 12, 234, Color.Red)
                     Return
-                ElseIf _stepArr.Count > 0 And _stepArr(4) = 25 And _stepArr(5) = 2 And _stepArr(0) IsNot DBNull.Value Then
+                ElseIf _stepArr.Count > 0 And _stepArr(4) = 46 And _stepArr(5) = 2 And _stepArr(0) IsNot DBNull.Value Then
                     CurW = GetWeight()
                     If CurW >= MinW And CurW <= MaxW Then
                         Msg = $"{SerialTextBox.Text}  взвешен,{vbCrLf}Масса приемника {CurW} грамм."

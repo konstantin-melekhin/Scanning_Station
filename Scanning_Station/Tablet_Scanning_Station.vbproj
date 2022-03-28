@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>\\192.168.180.9\ProdSoft\Tablet_Scanning_Station\</PublishUrl>
+    <PublishUrl>\\192.168.180.9\ProdSoft\Планшет_Марвел\Tablet_Scanning_Station\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,9 +25,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\192.168.180.9\ProdSoft\Tablet_Scanning_Station\</UpdateUrl>
+    <UpdateUrl>\\192.168.180.9\ProdSoft\Планшет_Марвел\Tablet_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -308,6 +308,8 @@
     <None Include="Resources\help %281%29.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Everaldo-Kids-Icons-3floppy-unmount.ico" />
+    <None Include="Resources\Hopstarter-Button-Button-Refresh.ico" />
     <Content Include="wacom.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

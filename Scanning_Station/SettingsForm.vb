@@ -121,7 +121,7 @@ Public Class SettingsForm
             MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
         End If
         'загружаем список операций 
-        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%4%' or ModelType like '%6%'")
+        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%4%'")
         'Выводим названия линий FAS в combobox
         If DG_Steps.Rows.Count <> 0 Then
             For i = 0 To DG_Steps.Rows.Count - 1
@@ -160,7 +160,7 @@ Public Class SettingsForm
                 '    WF.Controllabel.Text = ""
                 '    WF.Show()
                 '    Me.Close()
-            ElseIf PCInfo(6) = 25 Or PCInfo(6) = 45 Then
+            ElseIf PCInfo(6) = 45 Or PCInfo(6) = 46 Then
                 Dim WF As New TabletLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()

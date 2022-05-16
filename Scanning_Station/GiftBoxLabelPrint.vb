@@ -40,6 +40,7 @@ Public Class GiftBoxLabelPrint
         PrintLabel(Controllabel, "", 32, 564, Color.Red)
 #End Region
         LB_CurrentErrCode.Text = ""
+        CB_CheckID.Checked = True
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
         PCInfo = GetPCInfo(IDApp)
@@ -184,6 +185,13 @@ Public Class GiftBoxLabelPrint
         If e.KeyCode = Keys.Enter Then
             GetFTSN()
             If SNFormat(0) = True Then
+                If CB_CheckID.Checked = True Then
+                    If CheckSberID(SerialTextBox.Text) <> SerialTextBox.Text Then
+                        PrintLabel(Controllabel, "Номер не прошит в устройство! Вернуть на перепрошивку", 12, 193, Color.Red)
+                        SerialTextBox.Enabled = False
+                        Exit Sub
+                    End If
+                End If
                 Dim dataToPrint As New ArrayList(CheckstepResult(GetPreStep(SNFormat(3))))
                 If dataToPrint(7) = True Then
                     Print(GetLabelContent(dataToPrint(5), 0, 0, 2))
@@ -191,9 +199,6 @@ Public Class GiftBoxLabelPrint
                     SerialTextBox.Clear()
                 End If
             End If
-            'ElseIf e.KeyCode = Keys.F Then
-
-            '    MsgBox("F")
         End If
     End Sub
 #End Region
@@ -251,6 +256,10 @@ Public Class GiftBoxLabelPrint
         Me.DG_UpLog.Rows.Add(ShtCounter, SN1, SN2, Date.Now)
         DG_UpLog.Sort(DG_UpLog.Columns(3), System.ComponentModel.ListSortDirection.Descending)
     End Sub
+
+    Private Sub GB_WorkAria_Enter(sender As Object, e As EventArgs) Handles GB_WorkAria.Enter
+
+    End Sub
 #End Region
 #Region "Функция печати на этикетке"
     Private Sub Print(ByVal content As String)
@@ -284,12 +293,6 @@ Public Class GiftBoxLabelPrint
         GetCoordinats()
     End Sub
 #End Region
-    'Кнопка Fail 
-    'Private Sub BT_Fail_Click(sender As Object, e As EventArgs) Handles BT_Fail.Click
-    '    Dim WF As New FasErrorCode(LOTID, 26)
-    '    WF.Controllabel.Text = ""
-    '    WF.Show()
-    'End Sub
 #Region "Функция определения результата этапа"
     Private Function CheckstepResult(prestep As ArrayList) As ArrayList
         If prestep.Count = 0 And StartStepID <> PCInfo(6) Then ' шаг не первый, но предыдущего результата нет
@@ -342,7 +345,7 @@ Public Class GiftBoxLabelPrint
         End If
     End Function
 #End Region
-
+#Region "GetLabelContent"
     Private Function GetLabelContent(sn As String, x As Integer, y As Integer, w As Integer) As String
         If w = 2 Then
             Return $"
@@ -377,6 +380,22 @@ Public Class GiftBoxLabelPrint
 "
         End If
     End Function
+#End Region
+#Region "Проверка SberID"
+    Private Sub Label17_DoubleClick(sender As Object, e As EventArgs) Handles Label17.DoubleClick
+        If CB_CheckID.Visible = True Then
+            CB_CheckID.Visible = False
+        Else
+            CB_CheckID.Visible = True
+        End If
+    End Sub
+    Private Function CheckSberID(SN)
+        Return SelectString($"SELECT SN  FROM [FAS].[dbo].[SberCheckID] where SN='{SN}'")
+    End Function
+#End Region
+
+
+
 End Class
 
 'Этикетка для SP1/SP2

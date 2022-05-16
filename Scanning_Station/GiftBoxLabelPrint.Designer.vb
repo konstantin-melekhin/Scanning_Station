@@ -76,6 +76,7 @@ Partial Class GiftBoxLabelPrint
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CB_CheckID = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Num_X = New System.Windows.Forms.NumericUpDown()
         Me.BT_Save_Coordinats = New System.Windows.Forms.Button()
@@ -603,6 +604,7 @@ Partial Class GiftBoxLabelPrint
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.CB_CheckID)
         Me.GroupBox3.Controls.Add(Me.Label14)
         Me.GroupBox3.Controls.Add(Me.Num_X)
         Me.GroupBox3.Controls.Add(Me.BT_Save_Coordinats)
@@ -613,10 +615,21 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox3.Location = New System.Drawing.Point(940, 14)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(309, 176)
+        Me.GroupBox3.Size = New System.Drawing.Size(310, 178)
         Me.GroupBox3.TabIndex = 77
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Настройки координат принтера"
+        '
+        'CB_CheckID
+        '
+        Me.CB_CheckID.AutoSize = True
+        Me.CB_CheckID.Location = New System.Drawing.Point(8, 152)
+        Me.CB_CheckID.Name = "CB_CheckID"
+        Me.CB_CheckID.Size = New System.Drawing.Size(75, 17)
+        Me.CB_CheckID.TabIndex = 66
+        Me.CB_CheckID.Text = "CheckID"
+        Me.CB_CheckID.UseVisualStyleBackColor = True
+        Me.CB_CheckID.Visible = False
         '
         'Label14
         '
@@ -1243,4 +1256,5 @@ Partial Class GiftBoxLabelPrint
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents ErrorProvider1 As ErrorProvider
+    Friend WithEvents CB_CheckID As CheckBox
 End Class

@@ -2,6 +2,7 @@
 Imports System.Deployment.Application
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
+    Dim CustamerID As Integer = 8
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
@@ -29,7 +30,8 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList, 34)
+        GetLotList_ContractStation(DG_LotList, CustamerID)
+        'GetLotList_ContractStation(DG_LotList)
         GetLotList()
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
@@ -42,7 +44,8 @@ Public Class SettingsForm
     'Обновление списка лотов
     Private Sub BT_RefreshLOT_Click(sender As Object, e As EventArgs) Handles BT_RefreshLOT.Click
         DG_LOTListPresent.Rows.Clear()
-        GetLotList_ContractStation(DG_LotList, 34)
+        'GetLotList_ContractStation(DG_LotList, CustamerID)
+        GetLotList_ContractStation(DG_LotList)
         GetLotList()
     End Sub 'Обновление списка лотов
     '_______________________________________________________________________________________________________________

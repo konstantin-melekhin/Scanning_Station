@@ -204,12 +204,16 @@ Public Class Bunch_S_Numbers
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
         SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
+        If SNFormat(0) = False Then
+            Dim SNSp2 As String = SelectString("use fas select [FASNumberFormat2] from [FAS].[dbo].[Contract_LOT] where ID = 20109")
+            SNFormat = GetScanSNFormat(SNSp2.Split(";")(0), SNSp2.Split(";")(1), SNSp2.Split(";")(2), SerialTextBox.Text, PCInfo(6))
+        End If
         SNID = If(SNFormat(1) = 1 Or SNFormat(1) = 2,
                 SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'"),
                 SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'"))
         If SNID > 0 Then
             If CheckSNBufer(SNFormat(1), SNID) = True Then
-                Mess = SNFormat(3)
+                Mess = SNFormat(4)
                 Res = SNFormat(0)
                 If SNBufer(0) = 0 Or SNBufer(1) = 0 Then
                     col = If(Res = False, Color.Red, Color.Green)
@@ -240,10 +244,10 @@ Public Class Bunch_S_Numbers
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snbuf(i)}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where  PCBID  = {_snbuf(i)}) tt
             where  tt.num = 1 "))
                     If newArr.Count > 0 Then
-                        If newArr(4) = 42 Or newArr(4) = 1 Then
+                        If newArr(4) = 42 Or newArr(4) = 1 Or newArr(4) = 43 Then
                             Return True
                         Else
                             Return False
@@ -262,7 +266,7 @@ Public Class Bunch_S_Numbers
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  PCBID  = {_snbuf(i)}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where PCBID  = {_snbuf(i)}) tt
             where  tt.num = 1 "))
                     If newArr.Count > 0 Then
                         If newArr(4) = 42 Or newArr(4) = 1 Then
@@ -286,12 +290,12 @@ Public Class Bunch_S_Numbers
           ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)})")
         ElseIf PCInfo(6) = 30 Then
             RunCommand($"use fas
-          update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
-          insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
-          ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})")
+            update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
+            insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
+            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})")
         End If
         PrintLabel(Controllabel, $"Номера {If(SNBufer(0) = 0, "FAS", "BOT")} и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-        CurrentLogUpdate(ShiftCounter(), SNBufer(5), SNBufer(4))
+        CurrentLogUpdate(ShiftCounter(), If(PCInfo(6) = 30, SNBufer(5), SNBufer(3)), SNBufer(4))
         SNBufer = New ArrayList From {0, 0, 0, "", "", ""}
     End Sub
 #End Region

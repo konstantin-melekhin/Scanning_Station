@@ -2,7 +2,8 @@
 Imports System.Deployment.Application
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
-    Dim CustamerID As Integer = 8
+    Dim CustamerID As Integer = 34 '8- депо, 20 РДВ, 39 Ядро, 7 iRU, 34 sber, 4 Aqua , 33 - Prankor
+
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
@@ -121,7 +122,8 @@ Public Class SettingsForm
             MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
         End If
         'загружаем список операций 
-        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%3%' or ModelType like '%6%'")
+        'LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] where ModelType like '%3%' or ModelType like '%6%'")
+        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan] --where ModelType like '%3%' or ModelType like '%6%'")
         'Выводим названия линий FAS в combobox
         If DG_Steps.Rows.Count <> 0 Then
             For i = 0 To DG_Steps.Rows.Count - 1
@@ -167,6 +169,16 @@ Public Class SettingsForm
                 Me.Close()
             ElseIf PCInfo(6) = 44 Then
                 Dim WF As New FasErrorCode(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
+            ElseIf PCInfo(6) = 47 Then
+                Dim WF As New PCB_SN_Print(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
+            ElseIf PCInfo(6) = 51 Or PCInfo(6) = 52 Or PCInfo(6) = 53 Then
+                Dim WF As New PR_Lamp(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()

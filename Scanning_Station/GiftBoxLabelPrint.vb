@@ -177,7 +177,7 @@ Public Class GiftBoxLabelPrint
     End Sub ' условия для возврата в окно настроек
 #End Region
     '_________________________________________________________________________________________________________________
-    'начало работы приложения FAS Scanning Station
+    'начало работы приложения FAS Scanning Station SBB16W05AH037958
 #Region "Окно ввода серийного номера платы"
     Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
         LB_CurrentErrCode.Text = ""
@@ -213,7 +213,7 @@ Public Class GiftBoxLabelPrint
 #Region "1. Определение формата номера"
     Public Sub GetFTSN()
         SNFormat = New ArrayList()
-        SNFormat = GetScanSNFormat(LOTInfo(8), SerialTextBox.Text)
+        SNFormat = GetSTBSNFormat(LOTInfo(8), SerialTextBox.Text)
         If SNFormat(0) = False Then
             PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
@@ -229,6 +229,11 @@ Public Class GiftBoxLabelPrint
             tt.StepDate 
             from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where LOTID = {LOTID} and  SNID  = {_snid}) tt
             where  tt.num = 1 "))
+        If newArr(3) Is DBNull.Value Then
+            newArr(3) = "Неопределен"
+        ElseIf newArr(3) Is DBNull.Value Then
+            newArr(5) = "Неопределен"
+        End If
         Return newArr
     End Function
 #End Region
@@ -365,6 +370,7 @@ Public Class GiftBoxLabelPrint
 ^XA
 ^FT313,272
 ^CI28
+
 ^A@N,21,21,TT0003M_^FD{Format(Date.Now, "MM.yyyy")}^FS
 ^FO66,317
 ^BY2^BCN,77,N,N^FD>:{Mid(sn, 1, 10)}>5{Mid(sn, 11)}^FS
@@ -378,6 +384,8 @@ Public Class GiftBoxLabelPrint
 <xpml></page></xpml>^XA
 ^IDR:SSGFX000.GRF^XZ
 "
+            '^A@N,21,21,TT0003M_^FD{Format(Date.Now, "MM.yyyy")}^FS
+            '^A@N,21,21,TT0003M_^FD05.2022^FS
         End If
     End Function
 #End Region

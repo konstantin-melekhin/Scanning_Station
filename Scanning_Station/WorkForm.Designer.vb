@@ -111,6 +111,15 @@ Partial Class WorkForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CB_CheckID = New System.Windows.Forms.CheckBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Num_X = New System.Windows.Forms.NumericUpDown()
+        Me.BT_Save_Coordinats = New System.Windows.Forms.Button()
+        Me.Num_Y = New System.Windows.Forms.NumericUpDown()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.CB_DefaultPrinter = New System.Windows.Forms.ComboBox()
         Me.GB_WorkAria.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -127,6 +136,9 @@ Partial Class WorkForm
         CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.Num_X, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Num_Y, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GB_WorkAria
@@ -1020,11 +1032,108 @@ Partial Class WorkForm
         Me.Label16.TabIndex = 33
         Me.Label16.Text = "DG_StepList "
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.CB_CheckID)
+        Me.GroupBox3.Controls.Add(Me.Label20)
+        Me.GroupBox3.Controls.Add(Me.Num_X)
+        Me.GroupBox3.Controls.Add(Me.BT_Save_Coordinats)
+        Me.GroupBox3.Controls.Add(Me.Num_Y)
+        Me.GroupBox3.Controls.Add(Me.Label21)
+        Me.GroupBox3.Controls.Add(Me.Label22)
+        Me.GroupBox3.Controls.Add(Me.CB_DefaultPrinter)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(1527, 764)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(310, 178)
+        Me.GroupBox3.TabIndex = 78
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Настройки координат принтера"
+        '
+        'CB_CheckID
+        '
+        Me.CB_CheckID.AutoSize = True
+        Me.CB_CheckID.Location = New System.Drawing.Point(8, 152)
+        Me.CB_CheckID.Name = "CB_CheckID"
+        Me.CB_CheckID.Size = New System.Drawing.Size(75, 17)
+        Me.CB_CheckID.TabIndex = 66
+        Me.CB_CheckID.Text = "CheckID"
+        Me.CB_CheckID.UseVisualStyleBackColor = True
+        Me.CB_CheckID.Visible = False
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(7, 86)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(76, 13)
+        Me.Label20.TabIndex = 64
+        Me.Label20.Text = "Корекция X"
+        Me.Label20.Visible = False
+        '
+        'Num_X
+        '
+        Me.Num_X.Location = New System.Drawing.Point(119, 80)
+        Me.Num_X.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.Num_X.Name = "Num_X"
+        Me.Num_X.Size = New System.Drawing.Size(69, 20)
+        Me.Num_X.TabIndex = 62
+        Me.Num_X.Visible = False
+        '
+        'BT_Save_Coordinats
+        '
+        Me.BT_Save_Coordinats.FlatAppearance.BorderSize = 0
+        Me.BT_Save_Coordinats.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_Save_Coordinats.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_Save_Coordinats.Location = New System.Drawing.Point(194, 61)
+        Me.BT_Save_Coordinats.Name = "BT_Save_Coordinats"
+        Me.BT_Save_Coordinats.Size = New System.Drawing.Size(72, 80)
+        Me.BT_Save_Coordinats.TabIndex = 65
+        Me.BT_Save_Coordinats.UseVisualStyleBackColor = True
+        Me.BT_Save_Coordinats.Visible = False
+        '
+        'Num_Y
+        '
+        Me.Num_Y.Location = New System.Drawing.Point(119, 106)
+        Me.Num_Y.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.Num_Y.Name = "Num_Y"
+        Me.Num_Y.Size = New System.Drawing.Size(69, 20)
+        Me.Num_Y.TabIndex = 63
+        Me.Num_Y.Visible = False
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(7, 111)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(76, 13)
+        Me.Label21.TabIndex = 64
+        Me.Label21.Text = "Корекция Y"
+        Me.Label21.Visible = False
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(7, 19)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(186, 13)
+        Me.Label22.TabIndex = 48
+        Me.Label22.Text = "Выберите принтер для печати"
+        '
+        'CB_DefaultPrinter
+        '
+        Me.CB_DefaultPrinter.FormattingEnabled = True
+        Me.CB_DefaultPrinter.Location = New System.Drawing.Point(6, 35)
+        Me.CB_DefaultPrinter.Name = "CB_DefaultPrinter"
+        Me.CB_DefaultPrinter.Size = New System.Drawing.Size(293, 21)
+        Me.CB_DefaultPrinter.TabIndex = 47
+        '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 751)
+        Me.ClientSize = New System.Drawing.Size(1924, 951)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_UserData)
@@ -1057,6 +1166,10 @@ Partial Class WorkForm
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.Num_X, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Num_Y, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1141,4 +1254,13 @@ Partial Class WorkForm
     Friend WithEvents CERT As DataGridViewTextBoxColumn
     Friend WithEvents BT_Pass As Button
     Friend WithEvents BT_Fail As Button
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents CB_CheckID As CheckBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Num_X As NumericUpDown
+    Friend WithEvents BT_Save_Coordinats As Button
+    Friend WithEvents Num_Y As NumericUpDown
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents CB_DefaultPrinter As ComboBox
 End Class

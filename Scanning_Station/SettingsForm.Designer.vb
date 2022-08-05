@@ -22,8 +22,16 @@ Partial Class SettingsForm
     'Не изменяйте ее в редакторе исходного кода.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GB_NotVisibleElements = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -51,14 +59,14 @@ Partial Class SettingsForm
         Me.L_Result = New System.Windows.Forms.Label()
         Me.GB_SelectLine = New System.Windows.Forms.GroupBox()
         Me.GB_LineSettings = New System.Windows.Forms.GroupBox()
-        Me.BT_CloseLineSet = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.CB_Steps = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.BT_SaveLine = New System.Windows.Forms.Button()
         Me.CB_Line = New System.Windows.Forms.ComboBox()
         Me.DG_AppList = New System.Windows.Forms.DataGridView()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.BT_CloseLineSet = New System.Windows.Forms.Button()
+        Me.BT_SaveLine = New System.Windows.Forms.Button()
         Me.BT_SelectLot = New System.Windows.Forms.Button()
         Me.BT_RefreshLOT = New System.Windows.Forms.Button()
         Me.GB_NotVisibleElements.SuspendLayout()
@@ -114,7 +122,23 @@ Partial Class SettingsForm
         '
         Me.DG_Steps.AllowUserToAddRows = False
         Me.DG_Steps.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_Steps.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DG_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_Steps.DefaultCellStyle = DataGridViewCellStyle2
         Me.DG_Steps.Location = New System.Drawing.Point(170, 132)
         Me.DG_Steps.Name = "DG_Steps"
         Me.DG_Steps.ReadOnly = True
@@ -125,7 +149,23 @@ Partial Class SettingsForm
         '
         Me.DG_LineList.AllowUserToAddRows = False
         Me.DG_LineList.AllowUserToDeleteRows = False
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_LineList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DG_LineList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_LineList.DefaultCellStyle = DataGridViewCellStyle4
         Me.DG_LineList.Location = New System.Drawing.Point(7, 132)
         Me.DG_LineList.Name = "DG_LineList"
         Me.DG_LineList.ReadOnly = True
@@ -165,7 +205,23 @@ Partial Class SettingsForm
         '
         Me.DG_LotList.AllowUserToAddRows = False
         Me.DG_LotList.AllowUserToDeleteRows = False
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_LotList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DG_LotList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_LotList.DefaultCellStyle = DataGridViewCellStyle6
         Me.DG_LotList.Location = New System.Drawing.Point(0, 35)
         Me.DG_LotList.Margin = New System.Windows.Forms.Padding(4)
         Me.DG_LotList.Name = "DG_LotList"
@@ -295,14 +351,30 @@ Partial Class SettingsForm
         Me.DG_LOTListPresent.AllowUserToAddRows = False
         Me.DG_LOTListPresent.AllowUserToDeleteRows = False
         Me.DG_LOTListPresent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DG_LOTListPresent.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DG_LOTListPresent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_LOTListPresent.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.FullLOTCode, Me.LOT, Me.ModelName, Me.LOT_ID})
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DG_LOTListPresent.DefaultCellStyle = DataGridViewCellStyle8
         Me.DG_LOTListPresent.Location = New System.Drawing.Point(13, 13)
         Me.DG_LOTListPresent.Margin = New System.Windows.Forms.Padding(4)
         Me.DG_LOTListPresent.Name = "DG_LOTListPresent"
         Me.DG_LOTListPresent.ReadOnly = True
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle9
         Me.DG_LOTListPresent.Size = New System.Drawing.Size(812, 218)
         Me.DG_LOTListPresent.TabIndex = 45
         '
@@ -333,7 +405,7 @@ Partial Class SettingsForm
         Me.LOT_ID.Name = "LOT_ID"
         Me.LOT_ID.ReadOnly = True
         Me.LOT_ID.Visible = False
-        Me.LOT_ID.Width = 85
+        Me.LOT_ID.Width = 70
         '
         'L_Result
         '
@@ -375,17 +447,6 @@ Partial Class SettingsForm
         Me.GB_LineSettings.TabIndex = 35
         Me.GB_LineSettings.TabStop = False
         '
-        'BT_CloseLineSet
-        '
-        Me.BT_CloseLineSet.FlatAppearance.BorderSize = 0
-        Me.BT_CloseLineSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseLineSet.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseLineSet.Location = New System.Drawing.Point(12, 195)
-        Me.BT_CloseLineSet.Name = "BT_CloseLineSet"
-        Me.BT_CloseLineSet.Size = New System.Drawing.Size(75, 64)
-        Me.BT_CloseLineSet.TabIndex = 20
-        Me.BT_CloseLineSet.UseVisualStyleBackColor = True
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -397,10 +458,12 @@ Partial Class SettingsForm
         '
         'CB_Steps
         '
+        Me.CB_Steps.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.CB_Steps.FormattingEnabled = True
         Me.CB_Steps.Location = New System.Drawing.Point(12, 142)
+        Me.CB_Steps.MaxDropDownItems = 2
         Me.CB_Steps.Name = "CB_Steps"
-        Me.CB_Steps.Size = New System.Drawing.Size(629, 39)
+        Me.CB_Steps.Size = New System.Drawing.Size(629, 24)
         Me.CB_Steps.TabIndex = 19
         '
         'Label7
@@ -412,31 +475,22 @@ Partial Class SettingsForm
         Me.Label7.TabIndex = 15
         Me.Label7.Text = "Выберите Линию"
         '
-        'BT_SaveLine
-        '
-        Me.BT_SaveLine.FlatAppearance.BorderSize = 0
-        Me.BT_SaveLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SaveLine.Image = Global.Scanning_Station.My.Resources.Resources._04
-        Me.BT_SaveLine.Location = New System.Drawing.Point(587, 204)
-        Me.BT_SaveLine.Name = "BT_SaveLine"
-        Me.BT_SaveLine.Size = New System.Drawing.Size(54, 55)
-        Me.BT_SaveLine.TabIndex = 17
-        Me.BT_SaveLine.UseVisualStyleBackColor = True
-        '
         'CB_Line
         '
+        Me.CB_Line.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.CB_Line.FormattingEnabled = True
         Me.CB_Line.Location = New System.Drawing.Point(12, 55)
+        Me.CB_Line.MaxDropDownItems = 4
         Me.CB_Line.Name = "CB_Line"
-        Me.CB_Line.Size = New System.Drawing.Size(629, 39)
+        Me.CB_Line.Size = New System.Drawing.Size(629, 24)
         Me.CB_Line.TabIndex = 16
         '
         'DG_AppList
         '
         Me.DG_AppList.AllowUserToAddRows = False
         Me.DG_AppList.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_AppList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_AppList.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
         Me.DG_AppList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DG_AppList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DG_AppList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -454,6 +508,28 @@ Partial Class SettingsForm
         Me.Label9.Size = New System.Drawing.Size(132, 37)
         Me.Label9.TabIndex = 33
         Me.Label9.Text = "AppList"
+        '
+        'BT_CloseLineSet
+        '
+        Me.BT_CloseLineSet.FlatAppearance.BorderSize = 0
+        Me.BT_CloseLineSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseLineSet.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseLineSet.Location = New System.Drawing.Point(12, 195)
+        Me.BT_CloseLineSet.Name = "BT_CloseLineSet"
+        Me.BT_CloseLineSet.Size = New System.Drawing.Size(75, 64)
+        Me.BT_CloseLineSet.TabIndex = 20
+        Me.BT_CloseLineSet.UseVisualStyleBackColor = True
+        '
+        'BT_SaveLine
+        '
+        Me.BT_SaveLine.FlatAppearance.BorderSize = 0
+        Me.BT_SaveLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SaveLine.Image = Global.Scanning_Station.My.Resources.Resources._04
+        Me.BT_SaveLine.Location = New System.Drawing.Point(587, 204)
+        Me.BT_SaveLine.Name = "BT_SaveLine"
+        Me.BT_SaveLine.Size = New System.Drawing.Size(54, 55)
+        Me.BT_SaveLine.TabIndex = 17
+        Me.BT_SaveLine.UseVisualStyleBackColor = True
         '
         'BT_SelectLot
         '

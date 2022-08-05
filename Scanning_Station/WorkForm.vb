@@ -1,17 +1,22 @@
 ﻿Imports Library3
 Imports System.Deployment.Application
+Imports System.Drawing.Printing
+Imports System.IO
+
 Public Class WorkForm
+#Region "Constants"
     Dim LOTID, IDApp As Integer
-    Dim ErrcodeGr As Integer = 3
+    Dim ErrcodeGr As Integer = 5
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
     Dim StartStep As String, PreStep As String, NextStep As String
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
-    Dim LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
+    Dim Coordinats, LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
     Dim Yield As Double, RepeatStep As Boolean, PassOrFail As Boolean
     Dim PCBCheckRes As New ArrayList()
     Dim SNFormat As ArrayList
+#End Region
 #Region "Загрузка рабочей формы"
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
         InitializeComponent()
@@ -96,6 +101,20 @@ Public Class WorkForm
         Next
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
+#Region "Обнаружение принтеров и установка дефолтного принтера"
+        For Each item In PrinterSettings.InstalledPrinters
+            If InStr(item.ToString(), "ZDesigner") Or InStr(item.ToString(), "Zebra ZT410") Then
+                CB_DefaultPrinter.Items.Add(item.ToString())
+            End If
+        Next
+        If CB_DefaultPrinter.Items.Count <> 0 Then
+            CB_DefaultPrinter.Text = CB_DefaultPrinter.Items(0)
+        Else
+            PrintLabel(Controllabel, "Ни один принтер не подключен!", 32, 564, Color.Red)
+        End If
+        GetCoordinats()
+        PrintLabel(Controllabel, "", 32, 564, Color.Red)
+#End Region
         'загружаем список кодов ошибок в грид SQL запрос "ErrorCodeList" 
         LoadGridFromDB(DG_ErrorCodes, $"use FAS select [ErrorCodeID],[ErrorCode],[Description]  
                     FROM [FAS].[dbo].[FAS_ErrorCode] where [ErrGroup] = {ErrcodeGr}")
@@ -276,6 +295,9 @@ Public Class WorkForm
             If Mess.Count <> 0 Then
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, Mess(0), "", Mess(1))
                 PrintLabel(Controllabel, Mess(1), 12, 193, Mess(2))
+                If LOTID = 20189 Then
+                    Print(GetLabelContent(SerialTextBox.Text, 0, 0))
+                End If
             End If
             'Если плата не прошла этапы АОИ и ТНТ Старт
         Else
@@ -291,6 +313,11 @@ Public Class WorkForm
         Dim PCBID As Integer
         If LOTInfo(2) = True Then
             PCBID = SelectInt($"use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{PCBSN}'")
+            If PCBID = 0 And LOTID = 20201 Then
+                PCBID = SelectInt($"use SMDCOMPONETS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
+            End If
+
+
         ElseIf LOTInfo(2) = False And LOTInfo(7) = True Then
             PCBID = SelectInt($"use FAS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
             If PCBID = 0 Then
@@ -310,7 +337,7 @@ Public Class WorkForm
         ElseIf LOTInfo(2) = True Then
             'Проверка ТНТ старт
             If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
-                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") Then
+                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") And LOTID <> 20201 Then
                 PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
                 SerialTextBox.Enabled = False
                 BT_Pause.Focus()
@@ -335,13 +362,20 @@ Public Class WorkForm
         RepeatStep = New Boolean
         Dim Mess As New ArrayList()
         ' В аргументах PCBID = PCBCheckRes(1) и PCBSN = PCBCheckRes(2), CurrentStepID = PCInfo(6) и CurrentStep = PCInfo(7)
-        Dim PCBStepRes As New ArrayList(SelectListString($"Use FAS
-                select 
+        Dim PCBStepRes As New ArrayList(SelectListString($"Use FAS select 
                 tt.StepID,tt.TestResultID, tt.StepDate ,tt.SNID
                 from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
                 FROM [FAS].[dbo].[Ct_OperLog] 
                 where PCBID  ={PCBCheckRes(1)}) tt
                 where  tt.num = 1"))
+        If LOTID = 20201 Then
+            PCBStepRes = New ArrayList(SelectListString($"Use FAS Select
+                tt.StepID, tt.TestResultID, tt.StepDate, tt.SNID
+                from(SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
+                From [FAS].[dbo].[Ct_OperLog] 
+                Where SNID = {PCBCheckRes(1)}) tt
+                where  tt.num = 1"))
+        End If
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
             SelectAction()
@@ -430,7 +464,6 @@ Public Class WorkForm
                     MesColor = Color.Green
                     CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Успех", "",
                                      $"Плата {PCBCheckRes(2)} прошла этап {PCInfo(7) } со статусом ЭТАЛОН!")
-
                 ElseIf CB_Quality.Checked = True Then
                     Message = $"Плата {PCBCheckRes(2)} отправлена на согласование в ОТК!"
                     MesColor = Color.Green
@@ -470,12 +503,21 @@ Public Class WorkForm
                     {If(StepRes = 2, ErrCode(0), "Null")},
                     {If(StepRes = 2, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
         ElseIf CB_Quality.Checked = False And LOTInfo(2) = True Then
-            RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
+            If LOTID = 20201 Then
+                RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[SNID],[LOTID],[StepID],[TestResultID],[StepDate],
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+                    (0,{PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
+                    {UserInfo(0)},{PCInfo(2)},
+                    {If(StepRes = 3, ErrCode(0), "Null")},
+                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
+            Else
+                RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},
                     {If(StepRes = 3, ErrCode(0), "Null")},
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
+            End If
             CB_GoldSample.Checked = False
         ElseIf CB_Quality.Checked = False And LOTInfo(2) = False And LOTInfo(7) = True Then
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([SNID],[LOTID],[StepID],[TestResultID],[StepDate],
@@ -682,6 +724,73 @@ FROM [FAS].[dbo].[Ct_OperLog]
 where PCBID  = (SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{TB_GetPCPInfo.Text}')) tt
 order by num")
         TB_GetPCPInfo.Enabled = False
+    End Sub
+#End Region
+#Region "Определение и сохранение координат"
+    Private Sub GetCoordinats()
+        Coordinats = New ArrayList
+        Try
+            For Each item In File.ReadAllLines("C:\Conract_LabelSet\Coordinats.csv")
+                Coordinats.Add(item.Split(";")(0))
+                Coordinats.Add(item.Split(";")(1))
+            Next
+            Num_X.Value = Coordinats(0)
+            Num_Y.Value = Coordinats(1)
+        Catch ex As Exception
+            Dim PrinterInfo() As String = New String(0) {$"0;0"}
+            IO.Directory.CreateDirectory("C:\Conract_LabelSet\")
+            File.Create("C:\Conract_LabelSet\Coordinats.csv").Close()
+            File.WriteAllLines("C:\Conract_LabelSet\Coordinats.csv", PrinterInfo)
+            GetCoordinats()
+        End Try
+    End Sub
+    Private Sub BT_Save_Coordinats_Click(sender As Object, e As EventArgs) Handles BT_Save_Coordinats.Click
+        File.WriteAllText("C:\Conract_LabelSet\Coordinats.csv", $"{Num_X.Value};{Num_Y.Value}")
+        GetCoordinats()
+    End Sub
+#End Region
+#Region "GetLabelContent"
+    Public Function GetLabelContent(sn As String, x As Integer, y As Integer) As String
+        If LOTID = 20201 Then
+            Return $"
+^XA~TA000~JSN^LT0^MNW^MTT^PON^PMN^LH0,0^JMA^PR2,2~SD15^JUS^LRN^CI0^XZ
+^XA
+^MMT
+^PW650
+^LL0201
+^LS0
+^FO64,0^GFA,05760,05760,00060,:Z64:
+eJzt1UGu2yAQANCxvGDJtqtykopzfbXfJuqiyxwhN2nJCXqDhqoXwMriE31kOgPYxvmO8ttV1c9IkTIyz7I9wwBQo0aNGjVq1Hgz0QQQdvtSCBb6YBoHPXANIAyABEyBq/t2ROtn2zuyPOBdXmED2hE8WlzdBA/0L6jFKnnbqh5/2bZ4Gwgggwb5GquTDQotw8do6EkM9HetB6E76PVkbR8tN5jft9x0+HU7XCsBmJGqDTAy2072ST/etAwd/nANWm6EYgF8a/nKSl0YSrrF2snqyYqVDbZxjRNK7PGDYDLQ1WTbyTK0WFzXWHEqbEsdQFaipeSMhbi21BLiW1x3yPasHywLY7I9WkqesBDZNk62v0yXrJS07v3UG2dzwZcvLCXUyvk7F1ZCsu9W1oZkA1lMAnNkpb6yXbRQWqHlLllsAkrG1qW+ipYdk+3Br+1gBosg2l20mNDmif1MVnw52k+0Fl/syg6L/bxYn/bRZD0t9VsWd+VxtjGBaH22KtoW22LbhoCLTmtrkt0rR5Y5bOmVtcPP2e4PpfXcRcvROuwobrm+ss83bZuemX9XF7LS8BCGW/YgVrYZkz3BA9le/4EFsrjlTvAYLbywH4/zd/56ZftoWbYjWYv7aGWn+npR1hetivYHfLBU3mixUIvtN23qZ0Vzg41AYwnbdNPmfnai7Oc06/hkmY3bYWRmsXI37yN6AFXsI7JSY6mixfZGS3NyZfP+TbbcvzSf0dJRxLMNazvNDUOWRZvmhn1p6VwobRvcYil5zvPK0nmUrUi2PI+saOY5qclScklzsnV4DsYPvNjyHIxW6jxjyVKS5nPj6e2wXvH4TZaql+1m0PW/jWr/b1ujRo0a/178Bi7i5/k=:14E2
+^BY3,3,57^FT77,135^BCN,,N,N
+^FD>:{Mid(sn, 1, 3)}>5{Mid(sn, 4)}^FS
+^FT141,173^A0N,38,38^FH\^FD{sn}^FS
+^PQ1,0,1,Y^XZ
+"
+        Else
+            Return $"
+^XA~TA000~JSN^LT0^MNW^MTT^PON^PMN^LH0,0^JMA^JUS^LRN^CI0^XZ
+^XA
+^MMT
+^PW650
+^LL0201
+^LS0
+^FO64,0^GFA,06144,06144,00064,:Z64:
+eJzt1bFu2zAQBuAjOHDkG5QvUoiv1LFDKrHw0NGPVBkd+hoMMnQsgQzhwOr630l2ZLlFjQ5dqnOcOIY/WeJ/PBHttddee+211157/eOyzJxW/7fbj0RuFLhST2G0hShkcsVUGtK9nlNgvvihUmymGs53+xE+RXiXyeB0hslUy+Vun+Hz4i1PxGyqwyXd68vsY4Z3wMwfq2f5LC4o/MljuUIK5ezLYFo8Vf94t7c1JIdnzH4kl+Oh+lMN43SvN7Dy/FDgfQ6HIj71ax9H+V1bRxrschx5ufh29mNI7649czOyRpNtjROCtU9MMVlklM+ezt7B4yDl2luu8G76wSOCsd8Q9+iQUbnxJCcc0sY7bvAeaY4Ixn7nUbyXjBff+7FWvVb8igmHald+CvKjvYKzQdzZzxnP67/yOCATrfKD91n9Vz6W8DjZyRfx4aTel61HdEv/iW8E3+P9eGBXYhpsc7OXc9T+E38q79UPZJt0bll5M6o3k5U+w8qXWEK1qS39D+8ey0OQUCdYomX/LZ5I/ABfZ1/Fax/o/lt8BDENPm3OX44acQxsbOzzA+aDejN7mn1+K15OPqCPXveP+HDj8cCgEF9n/5Q78Q7fiz7AMq89b32Hh9H87KTewqO7kQaemVb9A29vfevRf5rffP72OXdCItYN+xgxrbyb+q1/eKi+qR+S+pfxjfhhnD3Fm/y3fs4fXyX9Dx/U0y98GG9832rU/LHa4s3iJzL51qdt/l1X8XL2efbJP2j87nd+3X8rj5GTZOAnL31bMQL9dv1Cmjb930V47R+dn/bsXQFC/vEqv/BFPfZfXvZfF0qNny4eqTOpZz60uO6fo3jNf73/1V/2P96A19bD8Jd7hojFV+Sn/jJ/8KfzGUw9ZufW06r/xTv+LB7zL2Ho2RdO4j33F58WLy+Hq/lxLNK/QS4U81c2tn1mEu+mTjzJYNN9v3jZVq/7/5hJE8AXldbL0LelUefGil2ofpD7P7pLb//wPi/3hpua7xvyub+r3f/ffq+99trrP6mfz1AYDg==:569B
+^BY3,3,57^FT118,135^BCN,,N,N
+^FD>;{Mid(sn, 1, 4)}>6{Mid(sn, 5)}^FS
+^FT211,173^A0N,38,38^FH\^FD{sn}^FS
+^PQ1,0,1,Y^XZ
+"
+        End If
+    End Function
+#End Region
+#Region "Функция печати на этикетке"
+    Private Sub Print(ByVal content As String)
+        If CB_DefaultPrinter.Text <> "" Then
+            RawPrinterHelper.SendStringToPrinter(CB_DefaultPrinter.Text, content)
+        Else
+            MsgBox("Принтер не выбран или не подключен")
+        End If
     End Sub
 #End Region
 End Class

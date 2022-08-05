@@ -1,24 +1,26 @@
 ﻿Imports Library3
 Imports System.Deployment.Application
+Imports System.Drawing.Printing
+Imports System.IO
 
-Public Class Bunch_S_Numbers
+Public Class PR_Lamp
     Dim LOTID, IDApp As Integer
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
     Dim StartStep As String, PreStep As String, NextStep As String
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
-    Dim LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
+    Dim Coordinats, LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
     Dim StepSequence As String()
     Dim PCBCheckRes As New ArrayList()
     Dim SNFormat As ArrayList, SNID As Integer
-    Dim SNBufer As New ArrayList From {0, 0, 0, "", "", ""} 'SNBufer = (BOT,TOP,FAS,SNBot,SNTop,SNFAs )
+    Dim SNBufer As New ArrayList From {0, 0, 0, "", "", ""} 'SNBufer = (ДрайверID,LEDId,FAS,SNДрайвер,SN_LED,SNFAs )
 #Region "Загрузка рабочей формы"
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
         InitializeComponent()
         Me.LOTID = LOTIDWF
         Me.IDApp = IDApp
     End Sub
-    Private Sub Bunch_S_Numbers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub PR_Lamp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
         If ApplicationDeployment.IsNetworkDeployed Then
             myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
@@ -95,6 +97,20 @@ Public Class Bunch_S_Numbers
         Next
         L_LOT.Text = LOTInfo(1)
         L_Model.Text = LOTInfo(0)
+#Region "Обнаружение принтеров и установка дефолтного принтера"
+        For Each item In PrinterSettings.InstalledPrinters
+            If InStr(item.ToString(), "ZDesigner") Or InStr(item.ToString(), "Zebra ZT410") Then
+                CB_DefaultPrinter.Items.Add(item.ToString())
+            End If
+        Next
+        If CB_DefaultPrinter.Items.Count <> 0 Then
+            CB_DefaultPrinter.Text = CB_DefaultPrinter.Items(0)
+        Else
+            PrintLabel(Controllabel, "Ни один принтер не подключен!", 32, 564, Color.Red)
+        End If
+        GetCoordinats()
+        PrintLabel(Controllabel, "", 32, 564, Color.Red)
+#End Region
         'Запуск программы
         '___________________________________________________________
         GB_UserData.Location = New Point(10, 12)
@@ -164,14 +180,35 @@ Public Class Bunch_S_Numbers
         If e.KeyCode = Keys.Enter Then
             Dim _stepArr As ArrayList
             If GetFTSN() = True Then
-                If (SNBufer(0) <> 0 Or SNBufer(2) <> 0) And SNBufer(1) <> 0 Then
+                If PCInfo(6) = 51 Then
+                    If (SNBufer(0) <> 0 Or SNBufer(2) <> 0) And SNBufer(1) <> 0 Then
+                        Dim ResStep As Boolean = GetPreStep(SNBufer, PCInfo(6))
+                        If ResStep = True Then
+                            If getLabelSN().Count > 0 Then
+                                Print(GetLabelContent(SNBufer(5), 0, 0))
+                                WriteToDB()
+                            Else
+                                PrintLabel(Controllabel, $"Номер для печати не найден в базе!", 12, 193, Color.Red)
+                            End If
+                        ElseIf ResStep = False Then
+                            PrintLabel(Controllabel, $"Светильник с номерами: Драйвер {SNBufer(4)} и LED {SNBufer(3)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
+                        End If
+                    End If
+                Else
                     Dim ResStep As Boolean = GetPreStep(SNBufer, PCInfo(6))
                     If ResStep = True Then
-                        WriteToDB()
-                    ElseIf ResStep = False And PCInfo(6) = 43 Then
-                        PrintLabel(Controllabel, $"Плата с номерами: ТОР {SNBufer(4)} и ВОТ {SNBufer(3)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
-                    ElseIf ResStep = False And PCInfo(6) = 30 Then
-                        PrintLabel(Controllabel, $"Плата с номерами: ТОР {SNBufer(4)} и ВОТ {SNBufer(5)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
+                        If PCInfo(6) = 51 Then
+                            If getLabelSN().Count > 0 Then
+                                Print(GetLabelContent(SNBufer(5), 0, 0))
+                                WriteToDB()
+                            Else
+                                PrintLabel(Controllabel, $"Номер для печати не найден в базе!", 12, 193, Color.Red)
+                            End If
+                        Else
+                            WriteToDB()
+                        End If
+                    ElseIf ResStep = False Then
+                        PrintLabel(Controllabel, $"Светильник с номерами: Драйвер {SNBufer(4)} и LED {SNBufer(3)} {vbCrLf}имеет не верный предыдущий шаг!", 12, 193, Color.Red)
                     End If
                 End If
             End If
@@ -203,47 +240,55 @@ Public Class Bunch_S_Numbers
     Public Function GetFTSN() As Boolean
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
-        SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
-        If SNFormat(0) = False Then
-            Dim SNSp2 As String
-            For i = 0 To 2
-                Select Case i
-                    Case 0
-                        SNSp2 = "123456SBB000603;123456SBT000603;SBB16W05AH0000010A0600"
-                        SNFormat = GetScanSNFormat(SNSp2.Split(";")(0), SNSp2.Split(";")(1), SNSp2.Split(";")(2), SerialTextBox.Text, PCInfo(6))
-                        If SNFormat(0) = True Then
-                            Exit For
-                        End If
-                    Case 1
-                        SNSp2 = "1201108SBBSP3000706;3129221SBTSP3000706;SBB16W05AH0000010A0600"
-                        SNFormat = GetScanSNFormat(SNSp2.Split(";")(0), SNSp2.Split(";")(1), SNSp2.Split(";")(2), SerialTextBox.Text, PCInfo(6))
-                        If SNFormat(0) = True Then
-                            Exit For
-                        End If
-                    Case 2
-                        SNSp2 = "123456789SBB000903;123456789SB000902;SBB16W05AH0000010A0600;FFE00000000C6B390B0500;1234567SBTSP3000706;002575SBT000603;"
-                        SNFormat = GetScanSNFormat(SNSp2.Split(";")(0), SNSp2.Split(";")(1), SNSp2.Split(";")(2), SerialTextBox.Text, PCInfo(6))
-                        If SNFormat(0) = True Then
-                            Exit For
-                        End If
-                End Select
-            Next
+        SNFormat = GetPrScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text)
+        If SNFormat.Count > 4 Then
+            If SNFormat(1) = 2 And SNFormat(3) = "" Then
+                SNFormat(3) = SelectString($"use SMDCOMPONETS
+                declare @Cont as nvarchar(50) = '{SerialTextBox.Text}'
+                declare @IdLaz as int = (select IDLaser from SMDCOMPONETS.dbo.LazerBase where Content = @Cont)
+                if  @IdLaz  is null
+                insert into [SMDCOMPONETS].[dbo].[LazerBase](ID,LogDate,ProductName,BoardID,Content,Marked,Result,InsertionDateTime,PCID) values  
+                (1,CURRENT_TIMESTAMP,'Manual',1,@Cont,1,'Manual',CURRENT_TIMESTAMP,1)
+                select IDLaser from SMDCOMPONETS.dbo.LazerBase where Content = @Cont
+                ")
+            End If
+            SNID = SNFormat(3)
+        Else
+            If CB_Reprint.Checked = True Then
+                Print(GetLabelContent(SerialTextBox.Text, 0, 0))
+                PrintLabel(Controllabel, $"Номер {SerialTextBox.Text} повторно отправлен на печать!", 12, 193, Color.Green)
+                SerialTextBox.Clear()
+                CB_Reprint.Checked = False
+                SerialTextBox.Focus()
+            Else
+                PrintLabel(Controllabel, $"Формат номера не определен!", 12, 193, Color.Red)
+            End If
+            Return False
+            Exit Function
         End If
-        SNID = If(SNFormat(1) = 1 Or SNFormat(1) = 2,
-                SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'"),
-                SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'"))
         If SNID > 0 Then
-            If CheckSNBufer(SNFormat(1), SNID) = True Then
+            If PCInfo(6) = 51 Then
+                If CheckSNBufer(SNFormat(1), SNID) = True Then
+                    Mess = SNFormat(4)
+                    Res = SNFormat(0)
+                    If SNBufer(0) = 0 Or SNBufer(1) = 0 Then
+                        col = If(Res = False, Color.Red, Color.Green)
+                        PrintLabel(Controllabel, Mess, 12, 193, col)
+                    End If
+                    SerialTextBox.Enabled = Res
+                    SerialTextBox.Clear()
+                Else
+                    SerialTextBox.Enabled = False
+                End If
+            Else
                 Mess = SNFormat(4)
                 Res = SNFormat(0)
-                If SNBufer(0) = 0 Or SNBufer(1) = 0 Then
-                    col = If(Res = False, Color.Red, Color.Green)
-                    PrintLabel(Controllabel, Mess, 12, 193, col)
-                End If
+                SNBufer(0) = SNFormat(3)
+                SNBufer(3) = SerialTextBox.Text
+                col = If(Res = False, Color.Red, Color.Green)
+                PrintLabel(Controllabel, Mess, 12, 193, col)
                 SerialTextBox.Enabled = Res
                 SerialTextBox.Clear()
-            Else
-                SerialTextBox.Enabled = False
             End If
         ElseIf SNID = 0 And PCInfo(6) = 30 And SNFormat(1) = 3 Then
             PrintLabel(Controllabel, $"Серийный номер FAS {SerialTextBox.Text} не зарегистрирован в базе!", 12, 193, Color.Red)
@@ -256,67 +301,66 @@ Public Class Bunch_S_Numbers
 #Region "2. Проверка предыдущего шага и загрузка данных о плате"
     Private Function GetPreStep(_snbuf As ArrayList, stepId As Integer) As Boolean
         Dim newArr As ArrayList
-        Select Case stepId
-            Case 43
-                For i = 0 To 1
-                    newArr = New ArrayList(SelectListString($"Use FAS 
+        For i = 0 To 1
+            newArr = New ArrayList(SelectListString($"Use FAS 
             select tt.PCBID,
             (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where  PCBID  = {_snbuf(i)}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where  {If(stepId = 51, "PCBID", "SNID")}  = {_snbuf(i)}) tt
             where  tt.num = 1 "))
-                    If newArr.Count > 0 Then
-                        If newArr(4) = 42 Or newArr(4) = 1 Or newArr(4) = 43 Or newArr(4) = 48 Then
-                            Return True
-                        Else
-                            Return False
-                        End If
-                        Exit For
+            If newArr.Count > 0 Then
+                SNBufer(1) = newArr(0)
+                If PCInfo(6) = 51 Then
+                    If newArr(4) = 51 Or newArr(4) = 1 Then
+                        Return True
+                    Else
+                        Return False
                     End If
-                Next
-                If newArr.Count = 0 Then
-                    Return True
+                    Exit For
+                ElseIf PCInfo(6) = 52 Then
+                    If newArr(4) = 51 Or newArr(4) = 52 Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                    Exit For
+                ElseIf PCInfo(6) = 53 Then
+                    If newArr(4) = 53 Or newArr(4) = 52 Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                    Exit For
                 End If
-            Case 30
-                For i = 1 To 2
-                    newArr = New ArrayList(SelectListString($"Use FAS 
-            select tt.PCBID,
-            (select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =  tt.PCBID) ,
-            tt.SNID, 
-            (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
-            tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where PCBID  = {_snbuf(i)}) tt
-            where  tt.num = 1 "))
-                    If newArr.Count > 0 Then
-                        If newArr(4) = 42 Or newArr(4) = 1 Then
-                            Return True
-                        Else
-                            Return False
-                        End If
-                        Exit For
-                    End If
-                Next
-        End Select
+            End If
+        Next
+        If newArr.Count = 0 Then
+            Return True
+        End If
     End Function
+
+
 #End Region
 #Region "3. Запись в базу"
     Private Sub WriteToDB()
-        If PCInfo(6) = 43 Then
+        If PCInfo(6) = 51 Then
             RunCommand($"use fas
-          insert into [FAS].[dbo].[FAS_Bunch_Decode] ([PCBIDTOP],[PCBIDBOT],[Date],[UserID],[LOTID])values
-          ({SNBufer(1)},{SNBufer(0)},CURRENT_TIMESTAMP,{UserInfo(0)},{LOTID})
-          insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID])values
-          ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)})")
-        ElseIf PCInfo(6) = 30 Then
+          insert into [FAS].[dbo].[FAS_Bunch_Decode] ([PCBIDTOP],[PCBIDBOT],[Date],[UserID],[LOTID],[FASSNID])values
+          ({SNBufer(1)},{SNBufer(0)},CURRENT_TIMESTAMP,{UserInfo(0)},{LOTID},{SNBufer(2)})
+          insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID],[SNID])values
+          ({SNBufer(0)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})")
+            PrintLabel(Controllabel, $"Номера LED и Драйвер определены и записаны в базу!", 12, 193, Color.Green)
+            CurrentLogUpdate(ShiftCounter(), SNBufer(3), SNBufer(4), SNBufer(5))
+        Else
             RunCommand($"use fas
-            update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
-            insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
-            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})")
+            insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID],[SNID])values
+            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(0)})")
+            PrintLabel(Controllabel, $"{If(PCInfo(6) = 53, "Высоковольтный тест пройден!", "Измерение мощности пройдено!")}", 12, 193, Color.Green)
+            CurrentLogUpdate(ShiftCounter(), SNBufer(3), SNBufer(4), SNBufer(5))
         End If
-        PrintLabel(Controllabel, $"Номера {If(SNBufer(0) = 0, "FAS", "BOT")} и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-        CurrentLogUpdate(ShiftCounter(), If(PCInfo(6) = 30, SNBufer(5), SNBufer(3)), SNBufer(4))
+
         SNBufer = New ArrayList From {0, 0, 0, "", "", ""}
     End Sub
 #End Region
@@ -334,56 +378,26 @@ Public Class Bunch_S_Numbers
     Private Function CheckSNBufer(format As Integer, snid As Integer) As Boolean
         Select Case format
             Case 1
-                If SNBufer(0) = 0 And PCInfo(6) = 43 Then
+                If SNBufer(0) = 0 Then
+                    PrintLabel(Controllabel, $"Номер LED {SNBufer(3)} определен.{vbCrLf}Отсканируйте номер драйвера", 12, 193, Color.Red)
                     Return CheckBunch(format, snid)
-                ElseIf SNBufer(0) = snid And SNBufer(1) = 0 And PCInfo(6) = 43 Then
-                    PrintLabel(Controllabel, $"Номер ВОТ {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
-                    Return False
-                ElseIf PCInfo(6) = 30 Then
-                    PrintLabel(Controllabel, $"Вы отсканировали номер ВОТ {SerialTextBox.Text}!{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и FAS", 12, 193, Color.Red)
+                ElseIf SNBufer(0) = snid And SNBufer(1) = 0 Then
+                    PrintLabel(Controllabel, $"Номер LED {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров LED и Драйвера", 12, 193, Color.Red)
                     Return False
                 End If
             Case 2
-                If PCInfo(6) = 43 Then
-                    If SNBufer(1) = 0 Then
-                        Return CheckBunch(format, snid)
-                    ElseIf SNBufer(0) <> 0 And SNBufer(1) = 0 Then
-                        If CheckBunch(format, snid) = True Then
-                            PrintLabel(Controllabel, "Номера ВОТ и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-                            Return True
-                        End If
-                    ElseIf SNBufer(0) = 0 And SNBufer(1) = snid Then
-                        PrintLabel(Controllabel, $"Номер ВОТ {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
-                        Return False
+                If SNBufer(1) = 0 Then
+                    PrintLabel(Controllabel, $"Номер драйвера {SNBufer(3)} определен.{vbCrLf}Отсканируйте номер LED", 12, 193, Color.Red)
+                    Return CheckBunch(format, snid)
+                ElseIf SNBufer(0) <> 0 And SNBufer(1) = 0 Then
+                    If CheckBunch(format, snid) = True Then
+                        PrintLabel(Controllabel, "Номера ВОТ и ТОР определены и записаны в базу!", 12, 193, Color.Green)
+                        Return True
                     End If
-                ElseIf PCInfo(6) = 30 Then
-                    If SNBufer(0) = 0 Then
-                        Return CheckBunchFAS(format, snid)
-                    ElseIf SNBufer(0) <> 0 And SNBufer(1) = 0 Then
-                        If CheckBunch(format, snid) = True Then
-                            PrintLabel(Controllabel, "Номера ВОТ и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-                            Return True
-                        End If
-                    ElseIf SNBufer(0) = 0 And SNBufer(1) = snid Then
-                        PrintLabel(Controllabel, $"Номер ВОТ {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
-                        Return False
-                    End If
+                ElseIf SNBufer(0) = 0 And SNBufer(1) = snid Then
+                    PrintLabel(Controllabel, $"Номер Драйвера {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров LED и Драйвера", 12, 193, Color.Red)
+                    Return False
                 End If
-            Case 3
-                If PCInfo(6) = 30 Then
-                    If SNBufer(0) = 0 Then
-                        Return CheckBunchFAS(format, snid)
-                    ElseIf SNBufer(0) <> 0 And SNBufer(1) = 0 Then
-                        If CheckBunch(format, snid) = True Then
-                            PrintLabel(Controllabel, "Номера ВОТ и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-                            Return True
-                        End If
-                    ElseIf SNBufer(0) = 0 And SNBufer(1) = snid Then
-                        PrintLabel(Controllabel, $"Номер ВОТ {SNBufer(3)} уже был отсканирован.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
-                        Return False
-                    End If
-                End If
-
         End Select
     End Function
 #End Region
@@ -394,10 +408,10 @@ Public Class Bunch_S_Numbers
             SNBufer(formatIndex + 2) = SerialTextBox.Text
             Return True
         Else
-            PrintLabel(Controllabel, $"Номер {If(formatIndex = 1, "ВОТ", "TOP")} {SerialTextBox.Text} уже был связан с номером {If(formatIndex = 2, "ВОТ", "TOP")} {SelectString($"SELECT (select Content from SMDCOMPONETS.dbo.LazerBase L 
+            PrintLabel(Controllabel, $"Номер {If(formatIndex = 1, "LED", "Драйвер")} {SerialTextBox.Text} уже был связан с номером {If(formatIndex = 2, "Драйвер", "LED")} {SelectString($"SELECT (select Content from SMDCOMPONETS.dbo.LazerBase L 
                where L.IDLaser = B.{If(formatIndex = 2, "PCBIDBOT", "PCBIDTOP")} ) 
                FROM [FAS].[dbo].[FAS_Bunch_Decode] B
-               where {If(formatIndex = 1, "PCBIDBOT", "PCBIDTOP")} = {snid}")}.{vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
+               where {If(formatIndex = 1, "PCBIDBOT", "PCBIDTOP")} = {snid}")}.{vbCrLf}Выполните сброс и повторите сканирование номеров LED и Драйвер", 12, 193, Color.Red)
             Return False
         End If
     End Function
@@ -412,11 +426,11 @@ Public Class Bunch_S_Numbers
                 tempArr = SelectListString($"SELECT PCBIDTOP,PCBIDBOT,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where FASSNID =  {snid}")
             End If
             If tempArr.Count > 0 Then
-                    If IsDBNull(tempArr(2)) Then
-                        SNBufer(formatIndex - 1) = snid
-                        SNBufer(formatIndex + 2) = SerialTextBox.Text
-                        Return True
-                    ElseIf tempArr(2) <> 0 Then
+                If IsDBNull(tempArr(2)) Then
+                    SNBufer(formatIndex - 1) = snid
+                    SNBufer(formatIndex + 2) = SerialTextBox.Text
+                    Return True
+                ElseIf tempArr(2) <> 0 Then
                     Dim fasSN As String = SelectString($"SELECT [SN] FROM [FAS].[dbo].[Ct_FASSN_reg] where  LOTID = {LOTID} And ID = {tempArr(2)}")
                     Dim topSN As String = SelectString($"select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser = {tempArr(0)}")
                     PrintLabel(Controllabel, $"Номер {If(formatIndex = 2, $"TOP {topSN}", $"FAS {fasSN}")} уже был связан с номером {If(formatIndex = 2, $"FAS {fasSN}", $"TOP {topSN}")}. {vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
@@ -438,11 +452,74 @@ Public Class Bunch_S_Numbers
     End Function
 #End Region
 #Region "8. Функция запролнения LogGrid "
-    Private Sub CurrentLogUpdate(ShtCounter As Integer, SN1 As String, SN2 As String)
+    Private Sub CurrentLogUpdate(ShtCounter As Integer, SN1 As String, SN2 As String, SN3 As String)
         ' заполняем строку таблицы
-        Me.DG_UpLog.Rows.Add(ShtCounter, SN1, SN2, Date.Now)
-        DG_UpLog.Sort(DG_UpLog.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+        Me.DG_UpLog.Rows.Add(ShtCounter, SN1, SN2, SN3, Date.Now)
+        DG_UpLog.Sort(DG_UpLog.Columns(4), System.ComponentModel.ListSortDirection.Descending)
     End Sub
+#End Region
+#Region "9. Функция выбора номера для печати "
+    Private Function getLabelSN() As ArrayList
+        Dim tpArray As New ArrayList(
+        SelectListString($"use fas
+         declare @PrintSN as nvarchar (16) = (select top 1 [Lamp_SN] FROM [FAS].[dbo].[PR_Lamp_SN] where [IsUsed] = 0)
+         update [FAS].[dbo].[PR_Lamp_SN] set [IsUsed] = 1, [PrintDate] = CURRENT_TIMESTAMP, [UserID] = 11 where  [Lamp_SN] =  @PrintSN --[IsUsed] = 1
+         declare @SNRegID as int = (SELECT ID FROM [FAS].[dbo].[Ct_FASSN_reg] where [SN] = @PrintSN)
+         if (SELECT ID FROM [FAS].[dbo].[Ct_FASSN_reg] where [SN] = @PrintSN) is null
+         insert into [FAS].[dbo].[Ct_FASSN_reg] values (@PrintSN,20223,11,26,9,CURRENT_TIMESTAMP)
+         SELECT ID, SN FROM [FAS].[dbo].[Ct_FASSN_reg] where [SN] = @PrintSN"))
+        SNBufer(2) = tpArray(0)
+        SNBufer(5) = tpArray(1)
+        Return tpArray
+    End Function
+#End Region
+#Region "10. Функция печати на этикетке"
+    Private Sub Print(ByVal content As String)
+        If CB_DefaultPrinter.Text <> "" Then
+            RawPrinterHelper.SendStringToPrinter(CB_DefaultPrinter.Text, content)
+        Else
+            MsgBox("Принтер не выбран или не подключен")
+        End If
+    End Sub
+#End Region
+#Region "11. Определение и сохранение координат"
+    Private Sub GetCoordinats()
+        Coordinats = New ArrayList
+        Try
+            For Each item In File.ReadAllLines("C:\Conract_LabelSet\Coordinats.csv")
+                Coordinats.Add(item.Split(";")(0))
+                Coordinats.Add(item.Split(";")(1))
+            Next
+            Num_X.Value = Coordinats(0)
+            Num_Y.Value = Coordinats(1)
+        Catch ex As Exception
+            Dim PrinterInfo() As String = New String(0) {$"0;0"}
+            IO.Directory.CreateDirectory("C:\Conract_LabelSet\")
+            File.Create("C:\Conract_LabelSet\Coordinats.csv").Close()
+            File.WriteAllLines("C:\Conract_LabelSet\Coordinats.csv", PrinterInfo)
+            GetCoordinats()
+        End Try
+    End Sub
+    Private Sub BT_Save_Coordinats_Click(sender As Object, e As EventArgs) Handles BT_Save_Coordinats.Click
+        File.WriteAllText("C:\Conract_LabelSet\Coordinats.csv", $"{Num_X.Value};{Num_Y.Value}")
+        GetCoordinats()
+    End Sub
+#End Region
+#Region "12. GetLabelContent"
+    Private Function GetLabelContent(sn As String, x As Integer, y As Integer) As String
+        Return $"
+^XA~TA000~JSN^LT0^MNW^MTT^PON^PMN^LH0,0^JMA^JUS^LRN^CI0^XZ
+^XA
+^MMT
+^PW650
+^LL0201
+^LS0
+^BY3,3,107^FT{81 + x},{124 + y}^BCN,,N,N
+^FD>:{Mid(sn, 1, 8)}>5{Mid(sn, 9)}^FS
+^FT{174 + x},{172 + y}^A0N,46,45^FH\^FD{sn}^FS
+^PQ3,0,1,Y^XZ
+"
+    End Function
 #End Region
 #Region "Кнопка вызова PCB Info Mode / 'Проверка шагов сканирования требуемой платы"
     Private Sub BT_PCBInfo_Click(sender As Object, e As EventArgs) Handles BT_PCBInfo.Click
@@ -492,3 +569,7 @@ Public Class Bunch_S_Numbers
     End Sub
 #End Region
 End Class
+
+
+
+

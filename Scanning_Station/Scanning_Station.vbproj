@@ -8,14 +8,14 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Scanning_Station.My.MyApplication</StartupObject>
     <RootNamespace>Scanning_Station</RootNamespace>
-    <AssemblyName>PC_MainBoard_Scanning_Station</AssemblyName>
+    <AssemblyName>Pr_Scanning_Station</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</PublishUrl>
+    <PublishUrl>\\192.168.180.9\ProdSoft\Prankor\Pr_Scanning_Station\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,9 +25,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</UpdateUrl>
+    <UpdateUrl>\\192.168.180.9\ProdSoft\Prankor\Pr_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>49</ApplicationRevision>
+    <ApplicationRevision>66</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>PC_MainBoard_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Pr_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -50,7 +50,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>PC_MainBoard_Scanning_Station.xml</DocumentationFile>
+    <DocumentationFile>Pr_Scanning_Station.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -78,8 +78,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Library3">
-      <HintPath>..\..\Library3\Library3\bin\Debug\Library3.dll</HintPath>
+    <Reference Include="Library3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Library3\Library3\bin\Debug\Library3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,6 +130,18 @@
       <DependentUpon>GiftBoxLabelPrint.vb</DependentUpon>
     </Compile>
     <Compile Include="GiftBoxLabelPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCB_SN_Print.Designer.vb">
+      <DependentUpon>PCB_SN_Print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PCB_SN_Print.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PR_Lamp.Designer.vb">
+      <DependentUpon>PR_Lamp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PR_Lamp.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RawPrinterHelper.vb" />
@@ -189,6 +202,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCB_SN_Print.resx">
+      <DependentUpon>PCB_SN_Print.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PR_Lamp.resx">
+      <DependentUpon>PR_Lamp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.vb</DependentUpon>

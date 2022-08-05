@@ -629,7 +629,6 @@ Partial Class GiftBoxLabelPrint
         Me.CB_CheckID.TabIndex = 66
         Me.CB_CheckID.Text = "CheckID"
         Me.CB_CheckID.UseVisualStyleBackColor = True
-        Me.CB_CheckID.Visible = False
         '
         'Label14
         '
@@ -639,7 +638,6 @@ Partial Class GiftBoxLabelPrint
         Me.Label14.Size = New System.Drawing.Size(76, 13)
         Me.Label14.TabIndex = 64
         Me.Label14.Text = "Корекция X"
-        Me.Label14.Visible = False
         '
         'Num_X
         '
@@ -648,7 +646,6 @@ Partial Class GiftBoxLabelPrint
         Me.Num_X.Name = "Num_X"
         Me.Num_X.Size = New System.Drawing.Size(69, 20)
         Me.Num_X.TabIndex = 62
-        Me.Num_X.Visible = False
         '
         'BT_Save_Coordinats
         '
@@ -660,7 +657,6 @@ Partial Class GiftBoxLabelPrint
         Me.BT_Save_Coordinats.Size = New System.Drawing.Size(72, 80)
         Me.BT_Save_Coordinats.TabIndex = 65
         Me.BT_Save_Coordinats.UseVisualStyleBackColor = True
-        Me.BT_Save_Coordinats.Visible = False
         '
         'Num_Y
         '
@@ -669,7 +665,6 @@ Partial Class GiftBoxLabelPrint
         Me.Num_Y.Name = "Num_Y"
         Me.Num_Y.Size = New System.Drawing.Size(69, 20)
         Me.Num_Y.TabIndex = 63
-        Me.Num_Y.Visible = False
         '
         'Label15
         '
@@ -679,7 +674,6 @@ Partial Class GiftBoxLabelPrint
         Me.Label15.Size = New System.Drawing.Size(76, 13)
         Me.Label15.TabIndex = 64
         Me.Label15.Text = "Корекция Y"
-        Me.Label15.Visible = False
         '
         'Label17
         '

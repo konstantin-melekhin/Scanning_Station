@@ -2,8 +2,8 @@
 Imports System.Deployment.Application
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 26
-    Dim CustamerID As Integer = 34 '8- депо, 20 РДВ, 39 Ядро, 7 iRU, 34 sber, 4 Aqua , 33 - Prankor
-
+    'Dim CustamerID As Integer = 34 '8- депо, 20 РДВ, 39 Ядро, 7 iRU, 34 sber, 4 Aqua , 33 - Prankor
+    Dim ds As New DataSet
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
@@ -31,10 +31,27 @@ Public Class SettingsForm
                             "CT_ScanStep = " & PCInfo(7) & vbCrLf
         End If
         'загружаем список лотов в грид
-        GetLotList_ContractStation(DG_LotList, CustamerID)
-        'GetLotList_ContractStation(DG_LotList)
-        GetLotList()
+        LoadCombo(CB_Customers, $"use FAS  SELECT [СustomerName] FROM [FAS].[dbo].[CT_Сustomers]")
+        'GetLotList_ContractStation(DG_LotList, CustamerID)
+        ''GetLotList_ContractStation(DG_LotList)
+        'GetLotList()
     End Sub 'Загрузка формы настроек
+#Region "Выбор заказчика"
+    Private Sub CB_Customers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Customers.SelectedIndexChanged
+        Get_LOT_Table(CB_Customers.Text)
+    End Sub
+#End Region
+#Region "Загрузка грида заказов для выбранного заказчика"
+    Private Sub Get_LOT_Table(Customer As String)
+        'ds.Clear()
+        ds = New DataSet
+        GetLotList_ContractStation(DG_LotList, SelectInt($"SELECT ID FROM [FAS].[dbo].[CT_Сustomers] 
+        where [СustomerName] ='{Customer}'"), ds)
+        DG_LOTListPresent.Rows.Clear()
+        GetLotList()
+    End Sub
+#End Region
+
     Private Sub GetLotList()
         For i = 0 To DG_LotList.RowCount - 1
             DG_LOTListPresent.Rows.Add(DG_LotList.Item(0, i).Value, DG_LotList.Item(1, i).Value,

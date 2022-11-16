@@ -6,7 +6,7 @@ Imports System.IO
 Public Class WorkForm
 #Region "Constants"
     Dim LOTID, IDApp As Integer
-    Dim ErrcodeGr As Integer = 5
+    Dim ErrcodeGr As Integer
     Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
     Dim StartStep As String, PreStep As String, NextStep As String
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
@@ -29,7 +29,8 @@ Public Class WorkForm
             myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
         End If
         LB_SW_Wers.Text = String.Concat("v", myVersion)
-
+        ErrcodeGr = SelectInt($"  select [ErrorGroupId] from [FAS].[dbo].[FAS_Models] 
+                where ModelID = (select [ModelID] from [FAS].[dbo].[Contract_LOT]where ID = {LOTID})")
         LB_CurrentErrCode.Text = ""
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")

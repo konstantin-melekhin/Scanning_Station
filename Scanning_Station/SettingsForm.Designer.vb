@@ -59,16 +59,18 @@ Partial Class SettingsForm
         Me.L_Result = New System.Windows.Forms.Label()
         Me.GB_SelectLine = New System.Windows.Forms.GroupBox()
         Me.GB_LineSettings = New System.Windows.Forms.GroupBox()
+        Me.BT_CloseLineSet = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.CB_Steps = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.BT_SaveLine = New System.Windows.Forms.Button()
         Me.CB_Line = New System.Windows.Forms.ComboBox()
         Me.DG_AppList = New System.Windows.Forms.DataGridView()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.BT_CloseLineSet = New System.Windows.Forms.Button()
-        Me.BT_SaveLine = New System.Windows.Forms.Button()
         Me.BT_SelectLot = New System.Windows.Forms.Button()
         Me.BT_RefreshLOT = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.CB_Customers = New System.Windows.Forms.ComboBox()
         Me.GB_NotVisibleElements.SuspendLayout()
         CType(Me.DG_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_LineList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -369,13 +371,13 @@ Partial Class SettingsForm
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DG_LOTListPresent.DefaultCellStyle = DataGridViewCellStyle8
-        Me.DG_LOTListPresent.Location = New System.Drawing.Point(13, 13)
+        Me.DG_LOTListPresent.Location = New System.Drawing.Point(13, 84)
         Me.DG_LOTListPresent.Margin = New System.Windows.Forms.Padding(4)
         Me.DG_LOTListPresent.Name = "DG_LOTListPresent"
         Me.DG_LOTListPresent.ReadOnly = True
         DataGridViewCellStyle9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.DG_LOTListPresent.Size = New System.Drawing.Size(812, 218)
+        Me.DG_LOTListPresent.Size = New System.Drawing.Size(812, 269)
         Me.DG_LOTListPresent.TabIndex = 45
         '
         'FullLOTCode
@@ -424,7 +426,7 @@ Partial Class SettingsForm
         Me.GB_SelectLine.Controls.Add(Me.DG_AppList)
         Me.GB_SelectLine.Controls.Add(Me.Label9)
         Me.GB_SelectLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_SelectLine.Location = New System.Drawing.Point(1, 215)
+        Me.GB_SelectLine.Location = New System.Drawing.Point(1200, 357)
         Me.GB_SelectLine.Name = "GB_SelectLine"
         Me.GB_SelectLine.Size = New System.Drawing.Size(881, 614)
         Me.GB_SelectLine.TabIndex = 48
@@ -446,6 +448,17 @@ Partial Class SettingsForm
         Me.GB_LineSettings.Size = New System.Drawing.Size(658, 270)
         Me.GB_LineSettings.TabIndex = 35
         Me.GB_LineSettings.TabStop = False
+        '
+        'BT_CloseLineSet
+        '
+        Me.BT_CloseLineSet.FlatAppearance.BorderSize = 0
+        Me.BT_CloseLineSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseLineSet.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseLineSet.Location = New System.Drawing.Point(12, 195)
+        Me.BT_CloseLineSet.Name = "BT_CloseLineSet"
+        Me.BT_CloseLineSet.Size = New System.Drawing.Size(75, 64)
+        Me.BT_CloseLineSet.TabIndex = 20
+        Me.BT_CloseLineSet.UseVisualStyleBackColor = True
         '
         'Label5
         '
@@ -474,6 +487,17 @@ Partial Class SettingsForm
         Me.Label7.Size = New System.Drawing.Size(243, 31)
         Me.Label7.TabIndex = 15
         Me.Label7.Text = "Выберите Линию"
+        '
+        'BT_SaveLine
+        '
+        Me.BT_SaveLine.FlatAppearance.BorderSize = 0
+        Me.BT_SaveLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SaveLine.Image = Global.Scanning_Station.My.Resources.Resources._04
+        Me.BT_SaveLine.Location = New System.Drawing.Point(587, 204)
+        Me.BT_SaveLine.Name = "BT_SaveLine"
+        Me.BT_SaveLine.Size = New System.Drawing.Size(54, 55)
+        Me.BT_SaveLine.TabIndex = 17
+        Me.BT_SaveLine.UseVisualStyleBackColor = True
         '
         'CB_Line
         '
@@ -509,28 +533,6 @@ Partial Class SettingsForm
         Me.Label9.TabIndex = 33
         Me.Label9.Text = "AppList"
         '
-        'BT_CloseLineSet
-        '
-        Me.BT_CloseLineSet.FlatAppearance.BorderSize = 0
-        Me.BT_CloseLineSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseLineSet.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseLineSet.Location = New System.Drawing.Point(12, 195)
-        Me.BT_CloseLineSet.Name = "BT_CloseLineSet"
-        Me.BT_CloseLineSet.Size = New System.Drawing.Size(75, 64)
-        Me.BT_CloseLineSet.TabIndex = 20
-        Me.BT_CloseLineSet.UseVisualStyleBackColor = True
-        '
-        'BT_SaveLine
-        '
-        Me.BT_SaveLine.FlatAppearance.BorderSize = 0
-        Me.BT_SaveLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SaveLine.Image = Global.Scanning_Station.My.Resources.Resources._04
-        Me.BT_SaveLine.Location = New System.Drawing.Point(587, 204)
-        Me.BT_SaveLine.Name = "BT_SaveLine"
-        Me.BT_SaveLine.Size = New System.Drawing.Size(54, 55)
-        Me.BT_SaveLine.TabIndex = 17
-        Me.BT_SaveLine.UseVisualStyleBackColor = True
-        '
         'BT_SelectLot
         '
         Me.BT_SelectLot.FlatAppearance.BorderSize = 0
@@ -553,6 +555,26 @@ Partial Class SettingsForm
         Me.BT_RefreshLOT.TabIndex = 46
         Me.BT_RefreshLOT.UseVisualStyleBackColor = True
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label2.Location = New System.Drawing.Point(12, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(174, 20)
+        Me.Label2.TabIndex = 59
+        Me.Label2.Text = "Выбрать заказчика"
+        '
+        'CB_Customers
+        '
+        Me.CB_Customers.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CB_Customers.FormattingEnabled = True
+        Me.CB_Customers.Items.AddRange(New Object() {""})
+        Me.CB_Customers.Location = New System.Drawing.Point(13, 43)
+        Me.CB_Customers.Name = "CB_Customers"
+        Me.CB_Customers.Size = New System.Drawing.Size(502, 28)
+        Me.CB_Customers.TabIndex = 58
+        '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -565,6 +587,8 @@ Partial Class SettingsForm
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.DG_LOTListPresent)
         Me.Controls.Add(Me.L_Result)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.CB_Customers)
         Me.Name = "SettingsForm"
         Me.Text = "Настройки программы"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -623,4 +647,6 @@ Partial Class SettingsForm
     Friend WithEvents LB_CurrentStep As Label
     Friend WithEvents LB_SW_Wers As Label
     Friend WithEvents Label19 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents CB_Customers As ComboBox
 End Class

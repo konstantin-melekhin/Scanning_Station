@@ -73,9 +73,9 @@ Partial Class GiftBoxLabelPrint
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.RB_NewBox = New System.Windows.Forms.RadioButton()
+        Me.RB_OldBox = New System.Windows.Forms.RadioButton()
         Me.CB_CheckID = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Num_X = New System.Windows.Forms.NumericUpDown()
@@ -123,6 +123,7 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.CB_Deception = New System.Windows.Forms.CheckBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -562,8 +563,7 @@ Partial Class GiftBoxLabelPrint
         '
         'GB_WorkAria
         '
-        Me.GB_WorkAria.Controls.Add(Me.RadioButton2)
-        Me.GB_WorkAria.Controls.Add(Me.RadioButton1)
+        Me.GB_WorkAria.Controls.Add(Me.CB_Deception)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox3)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox1)
         Me.GB_WorkAria.Controls.Add(Me.BT_PCBInfo)
@@ -578,32 +578,10 @@ Partial Class GiftBoxLabelPrint
         Me.GB_WorkAria.TabIndex = 40
         Me.GB_WorkAria.TabStop = False
         '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(522, 279)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(90, 17)
-        Me.RadioButton2.TabIndex = 78
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "RadioButton1"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        Me.RadioButton2.Visible = False
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(409, 279)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(90, 17)
-        Me.RadioButton1.TabIndex = 78
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "RadioButton1"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        Me.RadioButton1.Visible = False
-        '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.RB_NewBox)
+        Me.GroupBox3.Controls.Add(Me.RB_OldBox)
         Me.GroupBox3.Controls.Add(Me.CB_CheckID)
         Me.GroupBox3.Controls.Add(Me.Label14)
         Me.GroupBox3.Controls.Add(Me.Num_X)
@@ -619,6 +597,28 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox3.TabIndex = 77
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Настройки координат принтера"
+        '
+        'RB_NewBox
+        '
+        Me.RB_NewBox.AutoSize = True
+        Me.RB_NewBox.Location = New System.Drawing.Point(209, 151)
+        Me.RB_NewBox.Name = "RB_NewBox"
+        Me.RB_NewBox.Size = New System.Drawing.Size(87, 17)
+        Me.RB_NewBox.TabIndex = 78
+        Me.RB_NewBox.TabStop = True
+        Me.RB_NewBox.Text = "Новая кор"
+        Me.RB_NewBox.UseVisualStyleBackColor = True
+        '
+        'RB_OldBox
+        '
+        Me.RB_OldBox.AutoSize = True
+        Me.RB_OldBox.Location = New System.Drawing.Point(96, 151)
+        Me.RB_OldBox.Name = "RB_OldBox"
+        Me.RB_OldBox.Size = New System.Drawing.Size(92, 17)
+        Me.RB_OldBox.TabIndex = 78
+        Me.RB_OldBox.TabStop = True
+        Me.RB_OldBox.Text = "Старая кор"
+        Me.RB_OldBox.UseVisualStyleBackColor = True
         '
         'CB_CheckID
         '
@@ -1114,6 +1114,18 @@ Partial Class GiftBoxLabelPrint
         '
         Me.ErrorProvider1.ContainerControl = Me
         '
+        'CB_Deception
+        '
+        Me.CB_Deception.AutoSize = True
+        Me.CB_Deception.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CB_Deception.Location = New System.Drawing.Point(946, 199)
+        Me.CB_Deception.Name = "CB_Deception"
+        Me.CB_Deception.Size = New System.Drawing.Size(225, 17)
+        Me.CB_Deception.TabIndex = 78
+        Me.CB_Deception.Text = "Без проверки предыдущего шага"
+        Me.CB_Deception.UseVisualStyleBackColor = True
+        Me.CB_Deception.Visible = False
+        '
         'GiftBoxLabelPrint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1247,8 +1259,9 @@ Partial Class GiftBoxLabelPrint
     Friend WithEvents Label17 As Label
     Friend WithEvents CB_DefaultPrinter As ComboBox
     Friend WithEvents BT_Fail As Button
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents RB_NewBox As RadioButton
+    Friend WithEvents RB_OldBox As RadioButton
     Friend WithEvents ErrorProvider1 As ErrorProvider
     Friend WithEvents CB_CheckID As CheckBox
+    Friend WithEvents CB_Deception As CheckBox
 End Class

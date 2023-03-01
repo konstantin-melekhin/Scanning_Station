@@ -34,8 +34,8 @@ Public Class WorkForm
         LB_CurrentErrCode.Text = ""
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
-        PCInfo = GetPCInfo(IDApp)
-        LabelAppName.Text = PCInfo(1)
+        PCInfo = GetPCInfo(IDApp) 'PCInfo = GetPCInfo(47)
+        LabelAppName.Text = PCInfo(1) 
         Label_StationName.Text = PCInfo(5)
         LB_CurrentStep.Text = PCInfo(7)
         Lebel_StationLine.Text = PCInfo(3)

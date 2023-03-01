@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>74</ApplicationRevision>
+    <ApplicationRevision>76</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -82,7 +82,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Library3\Library3\bin\Debug\Library3.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -108,6 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aqua_AndroidUpload.vb" />
+    <Compile Include="Banch_S_Numbers_Smart.Designer.vb">
+      <DependentUpon>Banch_S_Numbers_Smart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Banch_S_Numbers_Smart.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Bunch_S_Numbers.Designer.vb">
       <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
     </Compile>
@@ -168,6 +176,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SilverLabelPrint.designer.vb">
+      <DependentUpon>SilverLabelPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SilverLabelPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TestForm1.Designer.vb">
       <DependentUpon>TestForm1.vb</DependentUpon>
     </Compile>
@@ -188,6 +202,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Banch_S_Numbers_Smart.resx">
+      <DependentUpon>Banch_S_Numbers_Smart.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bunch_S_Numbers.resx">
       <DependentUpon>Bunch_S_Numbers.vb</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SilverLabelPrint.resx">
+      <DependentUpon>SilverLabelPrint.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm1.resx">
       <DependentUpon>TestForm1.vb</DependentUpon>
@@ -317,6 +337,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\help %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -45,6 +45,14 @@ Partial Class WorkForm
         Me.LB_PassLotRes = New System.Windows.Forms.Label()
         Me.LB_LOTCounter = New System.Windows.Forms.Label()
         Me.BT_PCBInfo = New System.Windows.Forms.Button()
+        Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
+        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
+        Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
+        Me.BT_SeveErCode = New System.Windows.Forms.Button()
+        Me.TB_Description = New System.Windows.Forms.TextBox()
+        Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.CB_Quality = New System.Windows.Forms.CheckBox()
@@ -96,14 +104,6 @@ Partial Class WorkForm
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.DG_StepList = New System.Windows.Forms.DataGridView()
-        Me.GB_ErrorCode = New System.Windows.Forms.GroupBox()
-        Me.BT_CloseErrMode = New System.Windows.Forms.Button()
-        Me.DG_ErrorCodes = New System.Windows.Forms.DataGridView()
-        Me.BT_SeveErCode = New System.Windows.Forms.Button()
-        Me.TB_Description = New System.Windows.Forms.TextBox()
-        Me.CB_ErrorCode = New System.Windows.Forms.ComboBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.FASDataSet = New Scanning_Station.FASDataSet()
         Me.FASErrorCodeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
@@ -122,6 +122,8 @@ Partial Class WorkForm
         Me.CB_DefaultPrinter = New System.Windows.Forms.ComboBox()
         Me.GB_WorkAria.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GB_ErrorCode.SuspendLayout()
+        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
         Me.GB_ScanMode.SuspendLayout()
         Me.GB_PCBInfoMode.SuspendLayout()
@@ -130,8 +132,6 @@ Partial Class WorkForm
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_UserData.SuspendLayout()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GB_ErrorCode.SuspendLayout()
-        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -301,6 +301,94 @@ Partial Class WorkForm
         Me.BT_PCBInfo.Size = New System.Drawing.Size(75, 68)
         Me.BT_PCBInfo.TabIndex = 31
         Me.BT_PCBInfo.UseVisualStyleBackColor = True
+        '
+        'GB_ErrorCode
+        '
+        Me.GB_ErrorCode.Controls.Add(Me.BT_CloseErrMode)
+        Me.GB_ErrorCode.Controls.Add(Me.DG_ErrorCodes)
+        Me.GB_ErrorCode.Controls.Add(Me.BT_SeveErCode)
+        Me.GB_ErrorCode.Controls.Add(Me.TB_Description)
+        Me.GB_ErrorCode.Controls.Add(Me.CB_ErrorCode)
+        Me.GB_ErrorCode.Controls.Add(Me.Label8)
+        Me.GB_ErrorCode.Controls.Add(Me.Label4)
+        Me.GB_ErrorCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GB_ErrorCode.Location = New System.Drawing.Point(1461, 428)
+        Me.GB_ErrorCode.Name = "GB_ErrorCode"
+        Me.GB_ErrorCode.Size = New System.Drawing.Size(595, 335)
+        Me.GB_ErrorCode.TabIndex = 33
+        Me.GB_ErrorCode.TabStop = False
+        Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
+        Me.GB_ErrorCode.Visible = False
+        '
+        'BT_CloseErrMode
+        '
+        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
+        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
+        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
+        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
+        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
+        Me.BT_CloseErrMode.TabIndex = 35
+        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
+        '
+        'DG_ErrorCodes
+        '
+        Me.DG_ErrorCodes.AllowUserToAddRows = False
+        Me.DG_ErrorCodes.AllowUserToDeleteRows = False
+        Me.DG_ErrorCodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DG_ErrorCodes.Location = New System.Drawing.Point(488, 37)
+        Me.DG_ErrorCodes.Name = "DG_ErrorCodes"
+        Me.DG_ErrorCodes.ReadOnly = True
+        Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
+        Me.DG_ErrorCodes.TabIndex = 34
+        Me.DG_ErrorCodes.Visible = False
+        '
+        'BT_SeveErCode
+        '
+        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
+        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
+        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
+        Me.BT_SeveErCode.Name = "BT_SeveErCode"
+        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
+        Me.BT_SeveErCode.TabIndex = 3
+        Me.BT_SeveErCode.UseVisualStyleBackColor = True
+        '
+        'TB_Description
+        '
+        Me.TB_Description.Location = New System.Drawing.Point(10, 177)
+        Me.TB_Description.Multiline = True
+        Me.TB_Description.Name = "TB_Description"
+        Me.TB_Description.Size = New System.Drawing.Size(495, 140)
+        Me.TB_Description.TabIndex = 2
+        '
+        'CB_ErrorCode
+        '
+        Me.CB_ErrorCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.CB_ErrorCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.CB_ErrorCode.FormattingEnabled = True
+        Me.CB_ErrorCode.Location = New System.Drawing.Point(10, 97)
+        Me.CB_ErrorCode.Name = "CB_ErrorCode"
+        Me.CB_ErrorCode.Size = New System.Drawing.Size(266, 39)
+        Me.CB_ErrorCode.TabIndex = 1
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(10, 143)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(314, 31)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "Введите комментарий"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(10, 62)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(283, 31)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Укажите код отказа"
         '
         'BT_OpenSettings
         '
@@ -599,7 +687,7 @@ Partial Class WorkForm
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
         Me.GB_PCBInfoMode.Controls.Add(Me.TB_GetPCPInfo)
         Me.GB_PCBInfoMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(0, 5)
+        Me.GB_PCBInfoMode.Location = New System.Drawing.Point(11, 143)
         Me.GB_PCBInfoMode.Name = "GB_PCBInfoMode"
         Me.GB_PCBInfoMode.Size = New System.Drawing.Size(1301, 394)
         Me.GB_PCBInfoMode.TabIndex = 32
@@ -884,94 +972,6 @@ Partial Class WorkForm
         Me.DG_StepList.Size = New System.Drawing.Size(159, 57)
         Me.DG_StepList.TabIndex = 32
         '
-        'GB_ErrorCode
-        '
-        Me.GB_ErrorCode.Controls.Add(Me.BT_CloseErrMode)
-        Me.GB_ErrorCode.Controls.Add(Me.DG_ErrorCodes)
-        Me.GB_ErrorCode.Controls.Add(Me.BT_SeveErCode)
-        Me.GB_ErrorCode.Controls.Add(Me.TB_Description)
-        Me.GB_ErrorCode.Controls.Add(Me.CB_ErrorCode)
-        Me.GB_ErrorCode.Controls.Add(Me.Label8)
-        Me.GB_ErrorCode.Controls.Add(Me.Label4)
-        Me.GB_ErrorCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_ErrorCode.Location = New System.Drawing.Point(1505, 423)
-        Me.GB_ErrorCode.Name = "GB_ErrorCode"
-        Me.GB_ErrorCode.Size = New System.Drawing.Size(595, 335)
-        Me.GB_ErrorCode.TabIndex = 33
-        Me.GB_ErrorCode.TabStop = False
-        Me.GB_ErrorCode.Text = "Регистрация кода ошибки"
-        Me.GB_ErrorCode.Visible = False
-        '
-        'BT_CloseErrMode
-        '
-        Me.BT_CloseErrMode.FlatAppearance.BorderSize = 0
-        Me.BT_CloseErrMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseErrMode.Image = Global.Scanning_Station.My.Resources.Resources.icons8_стрелка_влево_в_круге_2_64
-        Me.BT_CloseErrMode.Location = New System.Drawing.Point(536, 19)
-        Me.BT_CloseErrMode.Name = "BT_CloseErrMode"
-        Me.BT_CloseErrMode.Size = New System.Drawing.Size(53, 55)
-        Me.BT_CloseErrMode.TabIndex = 35
-        Me.BT_CloseErrMode.UseVisualStyleBackColor = True
-        '
-        'DG_ErrorCodes
-        '
-        Me.DG_ErrorCodes.AllowUserToAddRows = False
-        Me.DG_ErrorCodes.AllowUserToDeleteRows = False
-        Me.DG_ErrorCodes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_ErrorCodes.Location = New System.Drawing.Point(488, 37)
-        Me.DG_ErrorCodes.Name = "DG_ErrorCodes"
-        Me.DG_ErrorCodes.ReadOnly = True
-        Me.DG_ErrorCodes.Size = New System.Drawing.Size(101, 80)
-        Me.DG_ErrorCodes.TabIndex = 34
-        Me.DG_ErrorCodes.Visible = False
-        '
-        'BT_SeveErCode
-        '
-        Me.BT_SeveErCode.FlatAppearance.BorderSize = 0
-        Me.BT_SeveErCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_SeveErCode.Image = Global.Scanning_Station.My.Resources.Resources._3floppy_mount
-        Me.BT_SeveErCode.Location = New System.Drawing.Point(517, 250)
-        Me.BT_SeveErCode.Name = "BT_SeveErCode"
-        Me.BT_SeveErCode.Size = New System.Drawing.Size(72, 79)
-        Me.BT_SeveErCode.TabIndex = 3
-        Me.BT_SeveErCode.UseVisualStyleBackColor = True
-        '
-        'TB_Description
-        '
-        Me.TB_Description.Location = New System.Drawing.Point(10, 177)
-        Me.TB_Description.Multiline = True
-        Me.TB_Description.Name = "TB_Description"
-        Me.TB_Description.Size = New System.Drawing.Size(495, 140)
-        Me.TB_Description.TabIndex = 2
-        '
-        'CB_ErrorCode
-        '
-        Me.CB_ErrorCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.CB_ErrorCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.CB_ErrorCode.FormattingEnabled = True
-        Me.CB_ErrorCode.Location = New System.Drawing.Point(10, 97)
-        Me.CB_ErrorCode.Name = "CB_ErrorCode"
-        Me.CB_ErrorCode.Size = New System.Drawing.Size(266, 39)
-        Me.CB_ErrorCode.TabIndex = 1
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 143)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(314, 31)
-        Me.Label8.TabIndex = 0
-        Me.Label8.Text = "Введите комментарий"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 62)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(283, 31)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "Укажите код отказа"
-        '
         'FASDataSet
         '
         Me.FASDataSet.DataSetName = "FASDataSet"
@@ -1145,6 +1145,9 @@ Partial Class WorkForm
         Me.GB_WorkAria.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GB_ErrorCode.ResumeLayout(False)
+        Me.GB_ErrorCode.PerformLayout()
+        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.GB_ScanMode.ResumeLayout(False)
@@ -1158,9 +1161,6 @@ Partial Class WorkForm
         Me.GB_UserData.ResumeLayout(False)
         Me.GB_UserData.PerformLayout()
         CType(Me.DG_StepList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GB_ErrorCode.ResumeLayout(False)
-        Me.GB_ErrorCode.PerformLayout()
-        CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FASDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FASErrorCodeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DG_PCBInfoFromDB, System.ComponentModel.ISupportInitialize).EndInit()

@@ -196,11 +196,16 @@ Public Class GiftBoxLabelPrint
                 End If
                 Dim dataToPrint As New ArrayList(CheckstepResult(GetPreStep(SNFormat(3))))
                 If dataToPrint(7) = True Then
-                    Print(GetLabelContent(dataToPrint(5), 0, 0, If(RB_NewBox.Checked = True, 3, 2)))
+                    If LOTInfo(20) = 34 Then
+                        Print(GetLabelContent(dataToPrint(5), 0, 0, If(RB_NewBox.Checked = True, 3, 2)))
+                    ElseIf LOTInfo(20) = 44 Then
+
+                    End If
+
                     WriteToDB(dataToPrint)
-                    SerialTextBox.Clear()
+                        SerialTextBox.Clear()
+                    End If
                 End If
-            End If
         End If
     End Sub
 #End Region
@@ -341,6 +346,11 @@ Public Class GiftBoxLabelPrint
             PrintLabel(Controllabel, $"Номер {prestep(5)}  отправлен на печать!", 12, 193, Color.Green)
             prestep.Add(True)
             Return prestep
+        ElseIf prestep(0) = prestepid And prestep(1) = 2 And LOTInfo(20) = 44 Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
+
+            PrintLabel(Controllabel, $"Номер {prestep(5)}  отправлен на печать!", 12, 193, Color.Green)
+            prestep.Add(True)
+            Return prestep
             'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 2 
         ElseIf prestep(0) = 40 And prestep(1) = 2 Then 'Плата вернулась из ремонта 
             'RepeatStep = True
@@ -363,6 +373,9 @@ Public Class GiftBoxLabelPrint
             prestep.Add(False)
             Return prestep
             'Если плата в таблице StepResult имеет шаг не совпадающий с предыдущей станцией и результат равен 2
+
+
+
         Else
             Dim sender As Object, e As EventArgs
             'BT_PCBInfo_Click(sender, e)

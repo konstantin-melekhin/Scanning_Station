@@ -73,6 +73,7 @@ Partial Class GiftBoxLabelPrint
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
+        Me.CB_Deception = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.RB_NewBox = New System.Windows.Forms.RadioButton()
         Me.RB_OldBox = New System.Windows.Forms.RadioButton()
@@ -123,7 +124,6 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.FAS_ErrorCodeTableAdapter = New Scanning_Station.FASDataSetTableAdapters.FAS_ErrorCodeTableAdapter()
         Me.ErrorProvider1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.CB_Deception = New System.Windows.Forms.CheckBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -577,6 +577,18 @@ Partial Class GiftBoxLabelPrint
         Me.GB_WorkAria.Size = New System.Drawing.Size(1326, 715)
         Me.GB_WorkAria.TabIndex = 40
         Me.GB_WorkAria.TabStop = False
+        '
+        'CB_Deception
+        '
+        Me.CB_Deception.AutoSize = True
+        Me.CB_Deception.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.CB_Deception.Location = New System.Drawing.Point(946, 199)
+        Me.CB_Deception.Name = "CB_Deception"
+        Me.CB_Deception.Size = New System.Drawing.Size(225, 17)
+        Me.CB_Deception.TabIndex = 78
+        Me.CB_Deception.Text = "Без проверки предыдущего шага"
+        Me.CB_Deception.UseVisualStyleBackColor = True
+        Me.CB_Deception.Visible = False
         '
         'GroupBox3
         '
@@ -1098,7 +1110,7 @@ Partial Class GiftBoxLabelPrint
         Me.GroupBox2.Controls.Add(Me.DG_StepList)
         Me.GroupBox2.Controls.Add(Me.TextBox1)
         Me.GroupBox2.Controls.Add(Me.TextBox3)
-        Me.GroupBox2.Location = New System.Drawing.Point(1528, 216)
+        Me.GroupBox2.Location = New System.Drawing.Point(1430, 215)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(605, 188)
         Me.GroupBox2.TabIndex = 43
@@ -1113,18 +1125,6 @@ Partial Class GiftBoxLabelPrint
         'ErrorProvider1
         '
         Me.ErrorProvider1.ContainerControl = Me
-        '
-        'CB_Deception
-        '
-        Me.CB_Deception.AutoSize = True
-        Me.CB_Deception.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.CB_Deception.Location = New System.Drawing.Point(946, 199)
-        Me.CB_Deception.Name = "CB_Deception"
-        Me.CB_Deception.Size = New System.Drawing.Size(225, 17)
-        Me.CB_Deception.TabIndex = 78
-        Me.CB_Deception.Text = "Без проверки предыдущего шага"
-        Me.CB_Deception.UseVisualStyleBackColor = True
-        Me.CB_Deception.Visible = False
         '
         'GiftBoxLabelPrint
         '

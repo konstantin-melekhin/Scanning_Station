@@ -174,6 +174,11 @@ Public Class SettingsForm
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
+            ElseIf PCInfo(6) = 56 Then
+                Dim WF As New Banch_S_Numbers_Smart(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
             ElseIf PCInfo(6) = 25 Then
                 Dim WF As New GiftBoxLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
@@ -189,6 +194,11 @@ Public Class SettingsForm
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
+            ElseIf PCInfo(6) = 45 Then
+                Dim WF As New SilverLabelPrint(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
             ElseIf PCInfo(6) = 47 Then
                 Dim WF As New PCB_SN_Print(LOTID, IDApp)
                 WF.Controllabel.Text = ""
@@ -200,7 +210,7 @@ Public Class SettingsForm
                 WF.Show()
                 Me.Close()
             Else
-                    Dim WF As New WorkForm(LOTID, IDApp)
+                Dim WF As New WorkForm(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()

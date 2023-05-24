@@ -105,7 +105,8 @@ Public Class FasErrorCode
         'Запуск программы
         '___________________________________________________________
         GB_UserData.Location = New Point(10, 12)
-        If PCInfo(6) = 29 Then
+        'If PCInfo(6) = 29 Then
+        If PCInfo(6) = 299999 Then
             CB_User_Input.Checked = True
             CB_User_Input.Enabled = False
             Label14.Visible = False

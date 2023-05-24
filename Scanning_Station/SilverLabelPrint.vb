@@ -82,15 +82,23 @@ Public Class SilverLabelPrint
 #Region "GetCoordinats"
     Private Sub GetCoordinats()
         Coordinats = New ArrayList
-        For Each item In File.ReadAllLines("Coordinats.csv")
-            Coordinats.Add(item.Split(";")(0))
-            Coordinats.Add(item.Split(";")(1))
-        Next
-        Num_X.Value = Coordinats(0)
-        Num_Y.Value = Coordinats(1)
+        Try
+            For Each item In File.ReadAllLines("C:\Conract_LabelSet\Coordinats.csv")
+                Coordinats.Add(item.Split(";")(0))
+                Coordinats.Add(item.Split(";")(1))
+            Next
+            Num_X.Value = Coordinats(0)
+            Num_Y.Value = Coordinats(1)
+        Catch ex As Exception
+            Dim PrinterInfo() As String = New String(0) {$"0;0"}
+            IO.Directory.CreateDirectory("C:\Conract_LabelSet\")
+            File.Create("C:\Conract_LabelSet\Coordinats.csv").Close()
+            File.WriteAllLines("C:\Conract_LabelSet\Coordinats.csv", PrinterInfo)
+            GetCoordinats()
+        End Try
     End Sub
     Private Sub BT_Save_Coordinats_Click(sender As Object, e As EventArgs) Handles BT_Save_Coordinats.Click
-        File.WriteAllText("Coordinats.csv", $"{Num_X.Value};{Num_Y.Value}")
+        File.WriteAllText("C:\Conract_LabelSet\Coordinats.csv", $"{Num_X.Value};{Num_Y.Value}")
         GetCoordinats()
     End Sub
 #End Region
@@ -195,8 +203,8 @@ BARCODE 1965,136,""128M"",47,0,180,4,8,""!105{Mid(IMEI1, 2, 14)}!100{Mid(IMEI2, 
 TEXT 1809,175,""0"",180,4,5,""{IMEI2}""
 BARCODE 939,136,""128M"",47,0,180,4,8,""!105{Mid(IMEI4, 1, 14)}!100{Mid(IMEI4, 15)}""
 TEXT 783,175,""0"",180,4,5,""{IMEI4}""
-TEXT 1840,72,""ROMAN.TTF"",180,1,5,""Сделано в России    280223""
-TEXT 814,72,""ROMAN.TTF"",180,1,5,""Сделано в России    280223""
+TEXT 1840,72,""ROMAN.TTF"",180,1,5,""Сделано в России    {Format(Date.Today, "ddMMyy")}""
+TEXT 814,72,""ROMAN.TTF"",180,1,5,""Сделано в России    {Format(Date.Today, "ddMMyy")}""
 PRINT 1,1
 CLS"
     End Function

@@ -44,7 +44,11 @@ Partial Class Weight_control
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label_StationName = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.LB_MaxW = New System.Windows.Forms.Label()
+        Me.LB_MinW = New System.Windows.Forms.Label()
         Me.L_Model = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.L_LOT = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -83,11 +87,11 @@ Partial Class Weight_control
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.BT_Pause = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -160,6 +164,7 @@ Partial Class Weight_control
         '
         Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
         Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_OpenSettings.Image = Global.Scanning_Station.My.Resources.Resources.package_utilities
         Me.BT_OpenSettings.Location = New System.Drawing.Point(996, 271)
         Me.BT_OpenSettings.Name = "BT_OpenSettings"
         Me.BT_OpenSettings.Size = New System.Drawing.Size(82, 81)
@@ -178,7 +183,11 @@ Partial Class Weight_control
         Me.GroupBox4.Controls.Add(Me.Label7)
         Me.GroupBox4.Controls.Add(Me.Label_StationName)
         Me.GroupBox4.Controls.Add(Me.Label11)
+        Me.GroupBox4.Controls.Add(Me.LB_MaxW)
+        Me.GroupBox4.Controls.Add(Me.LB_MinW)
         Me.GroupBox4.Controls.Add(Me.L_Model)
+        Me.GroupBox4.Controls.Add(Me.Label14)
+        Me.GroupBox4.Controls.Add(Me.Label3)
         Me.GroupBox4.Controls.Add(Me.Label12)
         Me.GroupBox4.Controls.Add(Me.L_LOT)
         Me.GroupBox4.Controls.Add(Me.Label18)
@@ -187,7 +196,7 @@ Partial Class Weight_control
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(625, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(472, 178)
+        Me.GroupBox4.Size = New System.Drawing.Size(472, 206)
         Me.GroupBox4.TabIndex = 38
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
@@ -292,6 +301,26 @@ Partial Class Weight_control
         Me.Label11.TabIndex = 16
         Me.Label11.Text = "Название ПК:"
         '
+        'LB_MaxW
+        '
+        Me.LB_MaxW.AutoSize = True
+        Me.LB_MaxW.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_MaxW.Location = New System.Drawing.Point(189, 170)
+        Me.LB_MaxW.Name = "LB_MaxW"
+        Me.LB_MaxW.Size = New System.Drawing.Size(39, 16)
+        Me.LB_MaxW.TabIndex = 16
+        Me.LB_MaxW.Text = "MAX"
+        '
+        'LB_MinW
+        '
+        Me.LB_MinW.AutoSize = True
+        Me.LB_MinW.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LB_MinW.Location = New System.Drawing.Point(189, 187)
+        Me.LB_MinW.Name = "LB_MinW"
+        Me.LB_MinW.Size = New System.Drawing.Size(35, 16)
+        Me.LB_MinW.TabIndex = 16
+        Me.LB_MinW.Text = "MIN"
+        '
         'L_Model
         '
         Me.L_Model.AutoSize = True
@@ -301,6 +330,26 @@ Partial Class Weight_control
         Me.L_Model.Size = New System.Drawing.Size(51, 16)
         Me.L_Model.TabIndex = 16
         Me.L_Model.Text = "Model"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label14.Location = New System.Drawing.Point(28, 187)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(161, 16)
+        Me.Label14.TabIndex = 16
+        Me.Label14.Text = "Минимальная масса:"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label3.Location = New System.Drawing.Point(21, 170)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(168, 16)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "Максимальная масса:"
         '
         'Label12
         '
@@ -603,9 +652,9 @@ Partial Class Weight_control
         '
         'Num_Deviation
         '
-        Me.Num_Deviation.Location = New System.Drawing.Point(606, 91)
+        Me.Num_Deviation.Location = New System.Drawing.Point(591, 116)
         Me.Num_Deviation.Name = "Num_Deviation"
-        Me.Num_Deviation.Size = New System.Drawing.Size(120, 31)
+        Me.Num_Deviation.Size = New System.Drawing.Size(64, 31)
         Me.Num_Deviation.TabIndex = 47
         Me.Num_Deviation.Value = New Decimal(New Integer() {15, 0, 0, 0})
         '
@@ -625,7 +674,7 @@ Partial Class Weight_control
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label10.Location = New System.Drawing.Point(16, 93)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(833, 100)
+        Me.Label10.Size = New System.Drawing.Size(836, 100)
         Me.Label10.TabIndex = 1
         Me.Label10.Text = resources.GetString("Label10.Text")
         '
@@ -636,7 +685,6 @@ Partial Class Weight_control
         Me.TB_AutoSetSNin.Name = "TB_AutoSetSNin"
         Me.TB_AutoSetSNin.Size = New System.Drawing.Size(525, 31)
         Me.TB_AutoSetSNin.TabIndex = 0
-        Me.TB_AutoSetSNin.Text = "SBB16X09AG000052"
         '
         'GB_ManualSettings
         '
@@ -714,6 +762,17 @@ Partial Class Weight_control
         Me.DG_UpLog.Size = New System.Drawing.Size(969, 283)
         Me.DG_UpLog.TabIndex = 43
         '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(504, 287)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(68, 69)
+        Me.BT_CleareSN.TabIndex = 42
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
+        '
         'Num
         '
         Me.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -732,10 +791,10 @@ Partial Class Weight_control
         '
         'Column2
         '
-        Me.Column2.HeaderText = "Масса, кг"
+        Me.Column2.HeaderText = "Масса, грамм"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
-        Me.Column2.Width = 104
+        Me.Column2.Width = 135
         '
         'CASIDTab
         '
@@ -744,17 +803,6 @@ Partial Class Weight_control
         Me.CASIDTab.Name = "CASIDTab"
         Me.CASIDTab.ReadOnly = True
         Me.CASIDTab.Width = 77
-        '
-        'BT_CleareSN
-        '
-        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
-        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(504, 287)
-        Me.BT_CleareSN.Name = "BT_CleareSN"
-        Me.BT_CleareSN.Size = New System.Drawing.Size(68, 69)
-        Me.BT_CleareSN.TabIndex = 42
-        Me.BT_CleareSN.UseVisualStyleBackColor = True
         '
         'Weight_control
         '
@@ -850,9 +898,13 @@ Partial Class Weight_control
     Friend WithEvents GB_WorkAria As GroupBox
     Friend WithEvents BT_Pause As Button
     Friend WithEvents DG_UpLog As DataGridView
+    Friend WithEvents BT_CleareSN As Button
+    Friend WithEvents LB_MaxW As Label
+    Friend WithEvents LB_MinW As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label14 As Label
     Friend WithEvents Num As DataGridViewTextBoxColumn
     Friend WithEvents SNumber As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents CASIDTab As DataGridViewTextBoxColumn
-    Friend WithEvents BT_CleareSN As Button
 End Class

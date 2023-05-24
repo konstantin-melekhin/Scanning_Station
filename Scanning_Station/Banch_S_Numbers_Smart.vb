@@ -211,7 +211,7 @@ Public Class Banch_S_Numbers_Smart
             If CheckSNBufer(SNFormat(1), SNID) = True Then
                 Mess = SNFormat(4)
                 Res = SNFormat(0)
-                If SNBufer(0) = 0 Or SNBufer(1) = 0 Then
+                If SNBufer(2) = 0 Or SNBufer(1) = 0 Then
                     col = If(Res = False, Color.Red, Color.Green)
                     PrintLabel(Controllabel, Mess, 12, 193, col)
                 End If
@@ -302,6 +302,7 @@ Public Class Banch_S_Numbers_Smart
             Else
                 SNBufer(formatIndex - 1) = snid
                 SNBufer(formatIndex + 2) = SerialTextBox.Text
+                'SNBufer
                 Return True
             End If
         ElseIf SNBufer(formatIndex - 1) <> 0 Then
@@ -320,7 +321,8 @@ Public Class Banch_S_Numbers_Smart
         RunCommand($"use fas
             update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
             insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
-            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})")
+            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})
+            update [FAS].[dbo].[CT_Aquarius] set PCBID = {SNBufer(1)} where SN = (select sn from Ct_FASSN_reg where id = {SNBufer(2)})")
 
         PrintLabel(Controllabel, $"Номера FAS и ТОР определены и записаны в базу!", 12, 193, Color.Green)
         CurrentLogUpdate(ShiftCounter(), SNBufer(5), SNBufer(4))

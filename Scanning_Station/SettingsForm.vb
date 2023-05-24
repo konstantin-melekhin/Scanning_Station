@@ -209,6 +209,11 @@ Public Class SettingsForm
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
+            ElseIf PCInfo(6) = 64 Then
+                Dim WF As New WF_for_FAS_SN(LOTID, IDApp)
+                WF.Controllabel.Text = ""
+                WF.Show()
+                Me.Close()
             Else
                 Dim WF As New WorkForm(LOTID, IDApp)
                 WF.Controllabel.Text = ""

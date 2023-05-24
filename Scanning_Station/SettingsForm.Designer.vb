@@ -52,10 +52,6 @@ Partial Class SettingsForm
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
         Me.Label_StationName = New System.Windows.Forms.Label()
         Me.DG_LOTListPresent = New System.Windows.Forms.DataGridView()
-        Me.FullLOTCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LOT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ModelName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LOT_ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.L_Result = New System.Windows.Forms.Label()
         Me.GB_SelectLine = New System.Windows.Forms.GroupBox()
         Me.GB_LineSettings = New System.Windows.Forms.GroupBox()
@@ -71,6 +67,10 @@ Partial Class SettingsForm
         Me.BT_RefreshLOT = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.CB_Customers = New System.Windows.Forms.ComboBox()
+        Me.ModelName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LOT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FullLOTCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LOT_ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GB_NotVisibleElements.SuspendLayout()
         CType(Me.DG_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_LineList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -362,7 +362,7 @@ Partial Class SettingsForm
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DG_LOTListPresent.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DG_LOTListPresent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DG_LOTListPresent.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.FullLOTCode, Me.LOT, Me.ModelName, Me.LOT_ID})
+        Me.DG_LOTListPresent.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ModelName, Me.LOT, Me.FullLOTCode, Me.LOT_ID})
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
@@ -379,35 +379,6 @@ Partial Class SettingsForm
         Me.DG_LOTListPresent.RowsDefaultCellStyle = DataGridViewCellStyle9
         Me.DG_LOTListPresent.Size = New System.Drawing.Size(812, 269)
         Me.DG_LOTListPresent.TabIndex = 45
-        '
-        'FullLOTCode
-        '
-        Me.FullLOTCode.HeaderText = "Спецификация"
-        Me.FullLOTCode.Name = "FullLOTCode"
-        Me.FullLOTCode.ReadOnly = True
-        Me.FullLOTCode.Width = 107
-        '
-        'LOT
-        '
-        Me.LOT.HeaderText = "ЛОТ"
-        Me.LOT.Name = "LOT"
-        Me.LOT.ReadOnly = True
-        Me.LOT.Width = 55
-        '
-        'ModelName
-        '
-        Me.ModelName.HeaderText = "Модель"
-        Me.ModelName.Name = "ModelName"
-        Me.ModelName.ReadOnly = True
-        Me.ModelName.Width = 71
-        '
-        'LOT_ID
-        '
-        Me.LOT_ID.HeaderText = "LOT_ID"
-        Me.LOT_ID.Name = "LOT_ID"
-        Me.LOT_ID.ReadOnly = True
-        Me.LOT_ID.Visible = False
-        Me.LOT_ID.Width = 70
         '
         'L_Result
         '
@@ -575,6 +546,34 @@ Partial Class SettingsForm
         Me.CB_Customers.Size = New System.Drawing.Size(502, 28)
         Me.CB_Customers.TabIndex = 58
         '
+        'ModelName
+        '
+        Me.ModelName.HeaderText = "Модель"
+        Me.ModelName.Name = "ModelName"
+        Me.ModelName.ReadOnly = True
+        Me.ModelName.Width = 71
+        '
+        'LOT
+        '
+        Me.LOT.HeaderText = "ЛОТ"
+        Me.LOT.Name = "LOT"
+        Me.LOT.ReadOnly = True
+        Me.LOT.Width = 55
+        '
+        'FullLOTCode
+        '
+        Me.FullLOTCode.HeaderText = "Спецификация"
+        Me.FullLOTCode.Name = "FullLOTCode"
+        Me.FullLOTCode.ReadOnly = True
+        Me.FullLOTCode.Width = 107
+        '
+        'LOT_ID
+        '
+        Me.LOT_ID.HeaderText = "LOT_ID"
+        Me.LOT_ID.Name = "LOT_ID"
+        Me.LOT_ID.ReadOnly = True
+        Me.LOT_ID.Width = 70
+        '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -623,10 +622,6 @@ Partial Class SettingsForm
     Friend WithEvents DG_LOTListPresent As DataGridView
     Friend WithEvents L_Result As Label
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents FullLOTCode As DataGridViewTextBoxColumn
-    Friend WithEvents LOT As DataGridViewTextBoxColumn
-    Friend WithEvents ModelName As DataGridViewTextBoxColumn
-    Friend WithEvents LOT_ID As DataGridViewTextBoxColumn
     Friend WithEvents BT_RefreshLOT As Button
     Friend WithEvents BT_SelectLot As Button
     Friend WithEvents Label4 As Label
@@ -649,4 +644,8 @@ Partial Class SettingsForm
     Friend WithEvents Label19 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents CB_Customers As ComboBox
+    Friend WithEvents ModelName As DataGridViewTextBoxColumn
+    Friend WithEvents LOT As DataGridViewTextBoxColumn
+    Friend WithEvents FullLOTCode As DataGridViewTextBoxColumn
+    Friend WithEvents LOT_ID As DataGridViewTextBoxColumn
 End Class

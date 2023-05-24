@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\192.168.180.9\ProdSoft\PC_MainBoard_Scanning_Station\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>76</ApplicationRevision>
+    <ApplicationRevision>91</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -194,6 +194,12 @@
     <Compile Include="Weight_control.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WF_for_FAS_SN.Designer.vb">
+      <DependentUpon>WF_for_FAS_SN.vb</DependentUpon>
+    </Compile>
+    <Compile Include="WF_for_FAS_SN.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WorkForm.Designer.vb">
       <DependentUpon>WorkForm.vb</DependentUpon>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Weight_control.resx">
       <DependentUpon>Weight_control.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WF_for_FAS_SN.resx">
+      <DependentUpon>WF_for_FAS_SN.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkForm.resx">
       <DependentUpon>WorkForm.vb</DependentUpon>

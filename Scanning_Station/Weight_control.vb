@@ -164,10 +164,13 @@ Public Class Weight_control
 #Region "Установка дефорлта для весов"  ' условия для возврата в окно настроек
     Private Sub TB_AutoSetSNin_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_AutoSetSNin.KeyDown
         If e.KeyCode = Keys.Enter And TB_AutoSetSNin.TextLength = LenSN Then
+            'Dim Ref_Wght = 150
             Dim Ref_Wght = GetWeight()
             If Ref_Wght > 0 Then
                 MaxW = Ref_Wght + Num_Deviation.Value
+                LB_MaxW.Text = MaxW
                 MinW = Ref_Wght - Num_Deviation.Value
+                LB_MinW.Text = MinW
                 PrintLabel(LB_defoltWht, $"Этолонная масса установлена!{ vbCrLf }MinW: {MinW}; MaxW: {MaxW}", 10, 280, Color.Green)
                 'Запуск программы
                 '___________________________________________________________
@@ -213,7 +216,6 @@ Public Class Weight_control
         'Return 45
     End Function
 #End Region
-
 #Region "Обработка окна ввода серийного номера" 'окно ввода серийного номера платы 
     Dim SNID As Integer
     Private Sub SerialTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SerialTextBox.KeyDown
@@ -226,6 +228,7 @@ Public Class Weight_control
                     PrintLabel(Controllabel, SerialTextBox.Text & " не не был зарегистрирован на FAS Start!", 12, 234, Color.Red)
                     Return
                 ElseIf _stepArr.Count > 0 And _stepArr(4) = 25 And _stepArr(5) = 2 And _stepArr(0) IsNot DBNull.Value Then
+                    'CurW = 120
                     CurW = GetWeight()
                     If CurW >= MinW And CurW <= MaxW Then
                         Msg = $"{SerialTextBox.Text}  взвешен,{vbCrLf}Масса приемника {CurW} грамм."
@@ -244,6 +247,7 @@ Public Class Weight_control
                     SerialTextBox.Clear()
                 ElseIf _stepArr.Count > 0 And _stepArr(4) = 37 And _stepArr(5) = 2 And _stepArr(0) IsNot DBNull.Value Then
                     If MsgBox("Повторить взвешивание?", MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+                        'CurW = 180
                         CurW = GetWeight()
                         If CurW >= MinW And CurW <= MaxW Then
                             Msg = $"{SerialTextBox.Text}  взвешен, {vbCrLf}Масса приемника {CurW} грамм."
@@ -272,10 +276,9 @@ Public Class Weight_control
                 BT_Pause.Focus()
             End If
         End If
-
     End Sub
 #End Region
-#Region "'1. Определение формата номера"
+#Region "Определение формата номера"
     Public Function GetFTSN() As Boolean
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()

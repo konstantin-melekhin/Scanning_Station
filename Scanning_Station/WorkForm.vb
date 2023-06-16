@@ -23,7 +23,7 @@ Public Class WorkForm
         Me.LOTID = LOTIDWF
         Me.IDApp = IDApp
     End Sub
-    Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub WF_for_FAS_SN_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
         If ApplicationDeployment.IsNetworkDeployed Then
             myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
@@ -35,7 +35,7 @@ Public Class WorkForm
         'получение данных о станции
         LoadGridFromDB(DG_StepList, "USE FAS SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
         PCInfo = GetPCInfo(IDApp) 'PCInfo = GetPCInfo(47)
-        LabelAppName.Text = PCInfo(1) 
+        LabelAppName.Text = PCInfo(1)
         Label_StationName.Text = PCInfo(5)
         LB_CurrentStep.Text = PCInfo(7)
         Lebel_StationLine.Text = PCInfo(3)
@@ -313,16 +313,41 @@ Public Class WorkForm
         'прерка таблицы лазер
         Dim PCBID As Integer
         If LOTInfo(2) = True Then 'And LOTInfo(20) = 44
+            PCBID = SelectInt($"use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{PCBSN}'")
+            If PCBID = 0 And LOTID = 20201 Then
+                PCBID = SelectInt($"use SMDCOMPONETS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
+            End If
+        ElseIf (LOTInfo(2) = False And LOTInfo(7) = True) Or (LOTInfo(7) = True And LOTInfo(20) = 44) Then
             PCBID = SelectInt($"use FAS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
+            If PCBID = 0 Then
+                PCBID = SelectInt($"use FAS insert into [FAS].[dbo].[Ct_FASSN_reg] 
+                ([SN],[LOTID],[UserID],[AppID],[LineID],[RegDate])values
+                ('{PCBSN}',{LOTID}, {1},26,{PCInfo(2)},CURRENT_TIMESTAMP)
+                SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
+            End If
         End If
         If PCBID = 0 Then
-            PrintLabel(Controllabel, "Устройство " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
+            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
             PCBRes.Add(False)
-            PCBRes.Add("Устройство не зарегистрирована в базе!")
-            CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
-        Else
+            PCBRes.Add("Плата не зарегистрирована в базе!")
+            'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
+        ElseIf LOTInfo(2) = True And LOTInfo(20) <> 44 Then
+            'Проверка ТНТ старт
+            If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
+                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") And LOTID <> 20201 Then
+                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
+                SerialTextBox.Enabled = False
+                BT_Pause.Focus()
+                PCBRes.Add(False)
+                PCBRes.Add("Плата не прошла THT Start!")
+            Else
+                PCBRes.Add(True)
+                PCBRes.Add(PCBID)
+                PCBRes.Add(PCBSN)
+            End If
+        ElseIf (LOTInfo(2) = False And LOTInfo(7) = True) Or (LOTInfo(7) = True And LOTInfo(20) = 44) Then
             PCBRes.Add(True)
             PCBRes.Add(PCBID)
             PCBRes.Add(PCBSN)
@@ -340,8 +365,16 @@ Public Class WorkForm
                 tt.StepID,tt.TestResultID, tt.StepDate ,tt.SNID
                 from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
                 FROM [FAS].[dbo].[Ct_OperLog] 
-                where SNID  ={PCBCheckRes(1)}) tt
+                where PCBID  ={PCBCheckRes(1)}) tt
                 where  tt.num = 1"))
+        'If LOTID = 20201 Or LOTInfo(20) = 44 Then
+        '    PCBStepRes = New ArrayList(SelectListString($"Use FAS Select
+        '        tt.StepID, tt.TestResultID, tt.StepDate, tt.SNID
+        '        from(SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
+        '        From [FAS].[dbo].[Ct_OperLog] 
+        '        Where SNID = {PCBCheckRes(1)}) tt
+        '        where  tt.num = 1"))
+        'End If
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
             SelectAction()

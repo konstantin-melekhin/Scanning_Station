@@ -23,7 +23,7 @@ Public Class WF_for_FAS_SN
         Me.LOTID = LOTIDWF
         Me.IDApp = IDApp
     End Sub
-    Private Sub WF_for_FAS_SN_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub WorkForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim myVersion As Version
         If ApplicationDeployment.IsNetworkDeployed Then
             myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
@@ -270,14 +270,7 @@ Public Class WF_for_FAS_SN
 #Region "1. Определение формата номера"
     Public Sub GetFTSN(SNArrFormat As String)
         SNFormat = New ArrayList()
-        For i = 0 To SNArrFormat.Split(";").Count - 1
-            If LOTInfo(19).Split(";")(i) <> "" Then
-                SNFormat = GetPCBSNFormat(LOTInfo(19).Split(";")(i), SerialTextBox.Text)
-                If SNFormat(0) = True Then
-                    Exit For
-                End If
-            End If
-        Next
+        SNFormat = GetSTBSNFormat(LOTInfo(8), SerialTextBox.Text)
         If SNFormat(0) = False Then
             PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
@@ -296,9 +289,6 @@ Public Class WF_for_FAS_SN
             If Mess.Count <> 0 Then
                 CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, Mess(0), "", Mess(1))
                 PrintLabel(Controllabel, Mess(1), 12, 193, Mess(2))
-                If LOTID = 20189 Then
-                    Print(GetLabelContent(SerialTextBox.Text, 0, 0))
-                End If
             End If
             'Если плата не прошла этапы АОИ и ТНТ Старт
         Else
@@ -310,48 +300,10 @@ Public Class WF_for_FAS_SN
 #Region "Проверка регистрации платы на THT Start и на гравировщике"
     Private Function CheckPCB(PCBSN As String) As ArrayList
         Dim PCBRes As New ArrayList()
-        'прерка таблицы лазер
         Dim PCBID As Integer
-        If LOTInfo(2) = True Then 'And LOTInfo(20) = 44
-            PCBID = SelectInt($"use SMDCOMPONETS SELECT [IDLaser] FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{PCBSN}'")
-            If PCBID = 0 And LOTID = 20201 Then
-                PCBID = SelectInt($"use SMDCOMPONETS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
-            End If
-        ElseIf (LOTInfo(2) = False And LOTInfo(7) = True) Or (LOTInfo(7) = True And LOTInfo(20) = 44) Then
-            PCBID = SelectInt($"use FAS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
-            If PCBID = 0 Then
-                PCBID = SelectInt($"use FAS insert into [FAS].[dbo].[Ct_FASSN_reg] 
-                ([SN],[LOTID],[UserID],[AppID],[LineID],[RegDate])values
-                ('{PCBSN}',{LOTID}, {1},26,{PCInfo(2)},CURRENT_TIMESTAMP)
-                SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{PCBSN}'")
-            End If
-        End If
-        If PCBID = 0 Then
-            PrintLabel(Controllabel, "Плата " & PCBSN & " не зарегистрирована в базе!", 12, 193, Color.Red)
-            SerialTextBox.Enabled = False
-            BT_Pause.Focus()
-            PCBRes.Add(False)
-            PCBRes.Add("Плата не зарегистрирована в базе!")
-            'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
-        ElseIf LOTInfo(2) = True And LOTInfo(20) <> 44 Then
-            'Проверка ТНТ старт
-            If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
-                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") And LOTID <> 20201 Then
-                PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
-                SerialTextBox.Enabled = False
-                BT_Pause.Focus()
-                PCBRes.Add(False)
-                PCBRes.Add("Плата не прошла THT Start!")
-            Else
-                PCBRes.Add(True)
-                PCBRes.Add(PCBID)
-                PCBRes.Add(PCBSN)
-            End If
-        ElseIf (LOTInfo(2) = False And LOTInfo(7) = True) Or (LOTInfo(7) = True And LOTInfo(20) = 44) Then
-            PCBRes.Add(True)
-            PCBRes.Add(PCBID)
+        PCBRes.Add(True)
+            PCBRes.Add(SNFormat(3))
             PCBRes.Add(PCBSN)
-        End If
         Return PCBRes
     End Function
 #End Region
@@ -362,19 +314,14 @@ Public Class WF_for_FAS_SN
         Dim Mess As New ArrayList()
         ' В аргументах PCBID = PCBCheckRes(1) и PCBSN = PCBCheckRes(2), CurrentStepID = PCInfo(6) и CurrentStep = PCInfo(7)
         Dim PCBStepRes As New ArrayList(SelectListString($"Use FAS select 
-                tt.StepID,tt.TestResultID, tt.StepDate ,tt.SNID
+                tt.StepID,tt.TestResultID, tt.StepDate ,tt.PCBID,tt.SNID
                 from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
                 FROM [FAS].[dbo].[Ct_OperLog] 
-                where PCBID  ={PCBCheckRes(1)}) tt
+                where SNID  ={PCBCheckRes(1)}) tt
                 where  tt.num = 1"))
-        'If LOTID = 20201 Or LOTInfo(20) = 44 Then
-        '    PCBStepRes = New ArrayList(SelectListString($"Use FAS Select
-        '        tt.StepID, tt.TestResultID, tt.StepDate, tt.SNID
-        '        from(SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
-        '        From [FAS].[dbo].[Ct_OperLog] 
-        '        Where SNID = {PCBCheckRes(1)}) tt
-        '        where  tt.num = 1"))
-        'End If
+        If PCBStepRes.Count > 0 Then
+            PCBCheckRes.Add(PCBStepRes(3))
+        End If
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
             SelectAction()
@@ -422,7 +369,7 @@ Public Class WF_for_FAS_SN
             TB_GetPCPInfo.Text = PCBCheckRes(2)
             GetLogInfo()
             Mess.AddRange(New ArrayList() From {"Ошибка", "Плата " & PCBCheckRes(2) & " имеет не верный предыдыдущий шаг! ", Color.Red, False})
-            UpdateStepRes(PCInfo(6), 5, PCBCheckRes(1))
+            UpdateStepRes(PCInfo(6), 5, PCBCheckRes(3), PCBCheckRes(1))
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
         End If
@@ -446,7 +393,7 @@ Public Class WF_for_FAS_SN
     End Sub
 #End Region
 #Region "Функция обноления результата тестирования для Pass/Fail"
-    Private Sub UpdateStepRes(StepID As Integer, StepRes As Integer, PcbID As Integer)
+    Private Sub UpdateStepRes(StepID As Integer, StepRes As Integer, PcbID As Integer, SNID As Integer)
         Dim Message As String
         Dim MesColor As Color
         Dim ErrCode As New ArrayList()
@@ -511,11 +458,12 @@ Public Class WF_for_FAS_SN
                     {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
             Else
                 RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],
-                    [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
+                    [StepByID],[LineID],[ErrorCodeID],[Descriptions],[SNID])values
                     ({PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
                     {UserInfo(0)},{PCInfo(2)},
                     {If(StepRes = 3, ErrCode(0), "Null")},
-                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") })")
+                    {If(StepRes = 3, If(TB_Description.Text = "", "Null", "'" & TB_Description.Text & "'"), "Null") },
+                    {SNID})")
             End If
             CB_GoldSample.Checked = False
         ElseIf CB_Quality.Checked = False And (LOTInfo(2) = False And LOTInfo(7) = True) Then 'Or (LOTInfo(2) = True And LOTInfo(7) = True) Then 'And LOTInfo(20) = 44
@@ -583,7 +531,7 @@ Public Class WF_for_FAS_SN
     Private Sub ResultAction(sender As Object, e As EventArgs, res As Boolean)
         If UserInfo.Count <> 0 And res = True Then
             ShiftCounter(2, RepeatStep)
-            UpdateStepRes(PCInfo(6), 2, PCBCheckRes(1))
+            UpdateStepRes(PCInfo(6), 2, PCBCheckRes(3), PCBCheckRes(1))
             BT_CleareSN_Click(sender, e)
             LB_CurrentErrCode.Text = ""
         ElseIf UserInfo.Count <> 0 And res = False Then
@@ -602,7 +550,7 @@ Public Class WF_for_FAS_SN
             MsgBox("Укажите код ошибки")
         Else
             ShiftCounter(3, RepeatStep)
-            UpdateStepRes(PCInfo(6), 3, PCBCheckRes(1))
+            UpdateStepRes(PCInfo(6), 3, PCBCheckRes(3), PCBCheckRes(1))
             CB_ErrorCode.Text = ""
             BT_CleareSN_Click(sender, e)
         End If

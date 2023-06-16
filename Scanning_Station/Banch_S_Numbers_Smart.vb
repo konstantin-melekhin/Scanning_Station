@@ -257,6 +257,7 @@ Public Class Banch_S_Numbers_Smart
                 End If
         End Select
     End Function
+
 #End Region
 #Region "6. Проверка связки SN ТОР ВОТ"
     Private Function CheckBunch(formatIndex As Integer, snid As Integer)
@@ -284,19 +285,22 @@ Public Class Banch_S_Numbers_Smart
                       insert into [FAS].[dbo].[FAS_Bunch_Decode] ([PCBIDTOP],[Date],[UserID],[LOTID])values
                       ({snid},CURRENT_TIMESTAMP,{UserInfo(0)},{LOTID})")
                     tempArr = SelectListString($"SELECT PCBIDTOP,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where PCBIDTOP =  {snid}")
+                    'ElseIf
                 End If
             ElseIf SNFormat(1) = 3 Then
                 tempArr = SelectListString($"SELECT PCBIDTOP,PCBIDBOT,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where FASSNID =  {snid}")
             End If
             If tempArr.Count > 0 Then
-                If IsDBNull(tempArr(1)) Then
+                'SNBufer
+                If IsDBNull(tempArr(2)) Then
                     SNBufer(formatIndex - 1) = snid
                     SNBufer(formatIndex + 2) = SerialTextBox.Text
                     Return True
-                ElseIf tempArr(2) <> 0 Then
+                ElseIf tempArr(0) <> 0 And tempArr(2) <> 0 Then
                     Dim fasSN As String = SelectString($"SELECT [SN] FROM [FAS].[dbo].[Ct_FASSN_reg] where  LOTID = {LOTID} And ID = {tempArr(2)}")
                     Dim topSN As String = SelectString($"select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser = {tempArr(0)}")
-                    PrintLabel(Controllabel, $"Номер {If(formatIndex = 2, $"TOP {topSN}", $"FAS {fasSN}")} уже был связан с номером {If(formatIndex = 2, $"FAS {fasSN}", $"TOP {topSN}")}. {vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ", 12, 193, Color.Red)
+                    PrintLabel(Controllabel, $"Номер {If(formatIndex = 2, $"TOP {topSN}", $"FAS {fasSN}")} уже был связан с номером {If(formatIndex = 2, $"FAS {fasSN}", $"TOP {topSN}")}. {vbCrLf}Выполните сброс и повторите сканирование номеров ТОР и ВОТ{vbCrLf}Или произведите отвязку номеров.", 12, 193, Color.Red)
+                    BT_DisAssemble.Visible = True
                     Return False
                 End If
             Else
@@ -314,6 +318,19 @@ Public Class Banch_S_Numbers_Smart
             Return False
         End If
     End Function
+    Private Sub BT_DisAssemble_Click(sender As Object, e As EventArgs) Handles BT_DisAssemble.Click
+        Dim SNarr As New ArrayList(SelectListString($"use fas   Select PCBIDTOP,FASSNID,(Select Content from SMDCOMPONETS.dbo.LazerBase where IDLaser =PCBIDTOP),
+                        (select SN from Ct_FASSN_reg where id = FASSNID) 
+                        FROM [FAS].[dbo].[FAS_Bunch_Decode]B where PCBIDTOP = {SNFormat(3)} or [FASSNID] = {SNFormat(3)}  "))
+        RunCommand($"use fas
+          Update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = NULL where PCBIDTOP = {SNarr(0)} And LOTID = {LOTID}
+          insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
+            ({SNarr(0)},{LOTID},48,2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNarr(1)})")
+        BT_DisAssemble.Visible = False
+        BT_ClearSN_Click(sender, e)
+        PrintLabel(Controllabel, $"Номер {If(SNFormat(1) = 2, $"TOP {SNarr(2)}", $"FAS {SNarr(3)}")} успешно отвязан от номера {If(SNFormat(1) = 2, $"FAS {SNarr(3)}", $"TOP {SNarr(2)}")}!", 12, 193, Color.Green)
+
+    End Sub
 #End Region
 #Region "3. Запись в базу"
     Private Sub WriteToDB()
@@ -363,7 +380,8 @@ Public Class Banch_S_Numbers_Smart
                     Return True
                     Exit For
                 ElseIf newArr(4) = 48 Then
-
+                    Return True
+                    Exit For
                 Else
                     Return False
                 End If

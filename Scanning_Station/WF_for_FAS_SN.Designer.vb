@@ -116,10 +116,11 @@ Partial Class WF_for_FAS_SN
         Me.GB_ScanMode = New System.Windows.Forms.GroupBox()
         Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_UserData.SuspendLayout()
@@ -136,9 +137,9 @@ Partial Class WF_for_FAS_SN
         Me.GroupBox1.SuspendLayout()
         Me.GB_WorkAria.SuspendLayout()
         Me.GB_ScanMode.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.GB_PCBInfoMode.SuspendLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'BT_LOGInClose
@@ -739,6 +740,7 @@ Partial Class WF_for_FAS_SN
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Button1)
         Me.GroupBox4.Controls.Add(Me.CB_Quality)
         Me.GroupBox4.Controls.Add(Me.CB_GoldSample)
         Me.GroupBox4.Controls.Add(Me.LB_SW_Wers)
@@ -1053,6 +1055,19 @@ Partial Class WF_for_FAS_SN
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Строка ввода серийного номера"
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
+        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.GroupBox5.Location = New System.Drawing.Point(928, 44)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
+        Me.GroupBox5.TabIndex = 24
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Время"
+        '
         'GB_PCBInfoMode
         '
         Me.GB_PCBInfoMode.Controls.Add(Me.DG_PCB_Steps)
@@ -1114,18 +1129,14 @@ Partial Class WF_for_FAS_SN
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
         '
-        'GroupBox5
+        'Button1
         '
-        Me.GroupBox5.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBox5.Controls.Add(Me.CurrrentTimeLabel)
-        Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GroupBox5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.GroupBox5.Location = New System.Drawing.Point(928, 44)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(219, 55)
-        Me.GroupBox5.TabIndex = 24
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Время"
+        Me.Button1.Location = New System.Drawing.Point(415, 149)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 35
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'WF_for_FAS_SN
         '
@@ -1164,11 +1175,11 @@ Partial Class WF_for_FAS_SN
         Me.GB_WorkAria.PerformLayout()
         Me.GB_ScanMode.ResumeLayout(False)
         Me.GB_ScanMode.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.GB_PCBInfoMode.ResumeLayout(False)
         Me.GB_PCBInfoMode.PerformLayout()
         CType(Me.DG_PCB_Steps, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1262,4 +1273,5 @@ Partial Class WF_for_FAS_SN
     Friend WithEvents GB_PCBInfoMode As GroupBox
     Friend WithEvents DG_PCB_Steps As DataGridView
     Friend WithEvents TB_GetPCPInfo As TextBox
+    Friend WithEvents Button1 As Button
 End Class

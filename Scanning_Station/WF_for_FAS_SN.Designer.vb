@@ -90,6 +90,7 @@ Partial Class WF_for_FAS_SN
         Me.CB_GoldSample = New System.Windows.Forms.CheckBox()
         Me.BT_OpenSettings = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.CB_User_Input = New System.Windows.Forms.CheckBox()
         Me.LB_CurrentStep = New System.Windows.Forms.Label()
         Me.LabelAppName = New System.Windows.Forms.Label()
@@ -120,7 +121,7 @@ Partial Class WF_for_FAS_SN
         Me.GB_PCBInfoMode = New System.Windows.Forms.GroupBox()
         Me.DG_PCB_Steps = New System.Windows.Forms.DataGridView()
         Me.TB_GetPCPInfo = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label23 = New System.Windows.Forms.Label()
         CType(Me.DG_UpLog, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_ErrorCodes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GB_UserData.SuspendLayout()
@@ -740,6 +741,7 @@ Partial Class WF_for_FAS_SN
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.Button1)
         Me.GroupBox4.Controls.Add(Me.CB_Quality)
         Me.GroupBox4.Controls.Add(Me.CB_GoldSample)
@@ -767,6 +769,15 @@ Partial Class WF_for_FAS_SN
         Me.GroupBox4.TabIndex = 10
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Информация о ЛОТе и станции"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(415, 149)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 35
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'CB_User_Input
         '
@@ -1129,20 +1140,21 @@ Partial Class WF_for_FAS_SN
         Me.TB_GetPCPInfo.Size = New System.Drawing.Size(508, 31)
         Me.TB_GetPCPInfo.TabIndex = 1
         '
-        'Button1
+        'Label23
         '
-        Me.Button1.Location = New System.Drawing.Point(415, 149)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 35
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label23.Location = New System.Drawing.Point(460, 18)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(30, 13)
+        Me.Label23.TabIndex = 36
+        Me.Label23.Text = "FAS"
         '
         'WF_for_FAS_SN
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1984, 1061)
+        Me.ClientSize = New System.Drawing.Size(1924, 1061)
         Me.Controls.Add(Me.GB_UserData)
         Me.Controls.Add(Me.GB_ErrorCode)
         Me.Controls.Add(Me.GB_PCBInfoMode)
@@ -1274,4 +1286,5 @@ Partial Class WF_for_FAS_SN
     Friend WithEvents DG_PCB_Steps As DataGridView
     Friend WithEvents TB_GetPCPInfo As TextBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents Label23 As Label
 End Class

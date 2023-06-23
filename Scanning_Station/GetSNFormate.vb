@@ -41,7 +41,7 @@ Public Module GetSNFormate
                 Else
                     Dim MascBase As String = Mid(SNBase, 1, Coordinats(0)) + Mid(SNBase, Coordinats(0) + Coordinats(1) + 1, Coordinats(2))
                     Dim MascSN As String = Mid(SN, 1, Coordinats(0)) + Mid(SN, Coordinats(0) + Coordinats(1) + 1, Coordinats(2))
-                    If (MascBase = MascSN) = True Then
+                    If (MascBase = MascSN) = True And Len(SNBase) - 6 = Len(SN) Then
                         Res.Add(True) 'Res(0)
                         Res.Add(i) 'Res(1)
                         'VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))

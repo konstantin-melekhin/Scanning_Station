@@ -180,6 +180,7 @@ Public Class Banch_S_Numbers_Smart
 #End Region
 #Region "Кнопка очистки поля ввода номера"
     Private Sub BT_ClearSN_Click(sender As Object, e As EventArgs) Handles BT_ClearSN.Click
+        BT_DisAssemble.Visible = False
         If SerialTextBox.Text = "" Then
             LB_CurrentErrCode.Text = ""
             Controllabel.Text = ""
@@ -204,9 +205,16 @@ Public Class Banch_S_Numbers_Smart
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
         SNFormat = GetScanSNFormat(LOTInfo(19).Split(";")(0), LOTInfo(19).Split(";")(1), LOTInfo(19).Split(";")(2), SerialTextBox.Text, PCInfo(6))
-        SNID = If(SNFormat(1) = 1 Or SNFormat(1) = 2,
-                SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'"),
-                SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'"))
+        If (SNFormat(1) = 1) Or (SNFormat(1) = 2) Then
+            SNID = SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'")
+        ElseIf SNFormat(1) = 3 Then
+            SNID = SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
+            If SNID = 0 Then
+                SNID = SelectString($"insert into [FAS].[dbo].[Ct_FASSN_reg] ([SN],[LOTID],[UserID],[AppID],[LineID],[RegDate]) values
+                            ('{SerialTextBox.Text}',{LOTID},11,11,11,CURRENT_TIMESTAMP)
+                            Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
+            End If
+        End If
         If SNID > 0 Then
             If CheckSNBufer(SNFormat(1), SNID) = True Then
                 Mess = SNFormat(4)

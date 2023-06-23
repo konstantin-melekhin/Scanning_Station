@@ -193,6 +193,7 @@ Public Class Weight_control
         Dim sender As Object, e As EventArgs
         Dim ResHex, ResHexOut, ResText As String, intSize As Integer
         Dim arrBuffer() As Byte = New Byte(1024) {}
+        ResText = ""
         WeightSerialPort.Open()
         For i = 1 To 3
             WeightSerialPort.Write("000000" & vbCr)
@@ -203,7 +204,7 @@ Public Class Weight_control
             ResHex += System.BitConverter.ToString(arrBuffer, 0, intSize) '/ Читаем ответ приемника из СОМ порта. Переводим массив в текст
             ResHex = Replace(ResHex, "-", "") '/ Удаляем лишние символы (бит конвертер добавляет в текст символ "-")
             If InStr(ResHex, "0D1E") = 43 And i < 4 Then
-                ResHexOut = Mid(ResHex, 29, 6) '/ выбираем из полученного ответа символы соответствующие SCID в HEX 
+                ResHexOut = Mid(ResHex, 25, 12) '/ выбираем из полученного ответа символы соответствующие SCID в HEX 
                 For x = 0 To ResHexOut.Length - 1 Step 2 '/ Цикл чтения по два символа из выделенной строки
                     ResText &= ChrW(CInt("&H" & ResHexOut.Substring(x, 2))) '/ Перевод значения TextHex в Text
                 Next
@@ -212,7 +213,8 @@ Public Class Weight_control
             End If
         Next
         WeightSerialPort.Close()
-        Return If(ResText = Nothing, 0, Int32.Parse(ResText))
+        Dim ress As Integer = If(ResText = Nothing, 0, Int32.Parse(Mid(ResText, 1, 1) + Mid(ResText, 3)))
+        Return ress
         'Return 45
     End Function
 #End Region
@@ -282,15 +284,13 @@ Public Class Weight_control
     Public Function GetFTSN() As Boolean
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
-        SNFormat = GetSNFormat(LOTInfo(3), LOTInfo(8), LOTInfo(19), SerialTextBox.Text, LOTInfo(18), LOTInfo(2), LOTInfo(7))
+        SNFormat = GetSNFASFormat(LOTInfo(8), SerialTextBox.Text, LOTInfo(18), LOTInfo(7))
         Res = SNFormat(0)
         Mess = SNFormat(3)
         col = If(Res = False, Color.Red, Color.Green)
         PrintLabel(Controllabel, Mess, 12, 193, col)
         SerialTextBox.Enabled = Res
-        SNID = If(SNFormat(1) = 2,
-                SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'"),
-                SelectInt($"USE FAS SELECT [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where LOTID = {LOTID} and right (SN, 7) = '{CInt("&H" & Mid(SerialTextBox.Text, 7, 6))}'"))
+        SNID = SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
         Return Res
     End Function
 #End Region

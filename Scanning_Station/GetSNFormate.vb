@@ -226,7 +226,11 @@ Public Module GetSNFormate
                     If (MascBase = MascSN) = True Then
                         Res.Add(True) 'Res(0)
                         Res.Add(i) 'Res(1)
-                        VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))
+                        Try
+                            VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)))
+                        Catch ex As Exception
+                            VarSN = Convert.ToInt32(Mid(SN, Coordinats(0) + 1, Coordinats(1)), 16)
+                        End Try
                         Res.Add(VarSN) 'Res(2)
                         Exit For
                     End If

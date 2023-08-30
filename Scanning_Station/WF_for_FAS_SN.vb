@@ -318,7 +318,8 @@ Public Class WF_for_FAS_SN
                 from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num 
                 FROM [FAS].[dbo].[Ct_OperLog] 
                 where SNID  ={PCBCheckRes(1)}) tt
-                where  tt.num = 1"))
+                where  tt.num = 1
+                order by StepDate desc"))
         If PCBStepRes.Count > 0 Then
             PCBCheckRes.Add(PCBStepRes(3))
         End If
@@ -467,7 +468,14 @@ Public Class WF_for_FAS_SN
             End If
             CB_GoldSample.Checked = False
         ElseIf CB_Quality.Checked = False And (LOTInfo(2) = False And LOTInfo(7) = True) Then 'Or (LOTInfo(2) = True And LOTInfo(7) = True) Then 'And LOTInfo(20) = 44
-            Dim pcbsn As String = SelectString($"select  PCBID FROM [FAS].[dbo].[Ct_OperLog] where snid = {PcbID}")
+            Dim pcbsn As String
+            If PcbID <> 0 And LOTInfo(12) = False Then
+                pcbsn = SelectString($"select  PCBID FROM [FAS].[dbo].[Ct_OperLog] where snid = {PcbID}")
+            Else
+                PcbID = SNID
+                pcbsn = "Null"
+            End If
+
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[SNID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     ({pcbsn},{PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,
@@ -531,7 +539,7 @@ Public Class WF_for_FAS_SN
     Private Sub ResultAction(sender As Object, e As EventArgs, res As Boolean)
         If UserInfo.Count <> 0 And res = True Then
             ShiftCounter(2, RepeatStep)
-            UpdateStepRes(PCInfo(6), 2, PCBCheckRes(3), PCBCheckRes(1))
+            UpdateStepRes(PCInfo(6), 2, If(LOTInfo(12) = False, PCBCheckRes(3), 0), PCBCheckRes(1))
             BT_CleareSN_Click(sender, e)
             LB_CurrentErrCode.Text = ""
         ElseIf UserInfo.Count <> 0 And res = False Then

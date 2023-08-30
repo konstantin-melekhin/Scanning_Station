@@ -335,8 +335,10 @@ Public Class WorkForm
             'CurrentLogUpdate(Label_ShiftCounter.Text, SerialTextBox.Text, "Error", "", "Плата не зарегистрирована в базе!")
         ElseIf LOTInfo(2) = True And LOTInfo(20) <> 44 Then
             'Проверка ТНТ старт
-            If PCBSN <> SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
-                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1") And LOTID <> 20201 Then
+
+            Dim sn As String = SelectString("use SMDCOMPONETS SELECT top 1 [PCBserial] FROM [SMDCOMPONETS].[dbo].[THTStart] as THT
+                                        where PCBserial = '" & PCBSN & "' and PCBResult = 1")
+            If PCBSN <> sn And LOTID <> 20201 Then
                 PrintLabel(Controllabel, "Плата " & PCBSN & " не прошла THT Start!", 12, 193, Color.Red)
                 SerialTextBox.Enabled = False
                 BT_Pause.Focus()
@@ -400,7 +402,7 @@ Public Class WorkForm
         ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And (PCInfo(6) = 8 Or PCInfo(6) = 29) Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()
 
-        ElseIf (PCBStepRes(0) = 40 Or PCBStepRes(0) = 61) And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта /19.04.23 добавлен новый шаг, подтверждение ремонта (61  ОТК - после ремонта)
+        ElseIf (PCBStepRes(0) = 40 Or PCBStepRes(0) = 61 Or PCBStepRes(0) = 42) And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта /19.04.23 добавлен новый шаг, подтверждение ремонта (61  ОТК - после ремонта)
             'If PCInfo(6) <> 29 Then
 
             'End If

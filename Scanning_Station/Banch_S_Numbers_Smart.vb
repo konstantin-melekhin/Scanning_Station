@@ -164,7 +164,7 @@ Public Class Banch_S_Numbers_Smart
         If e.KeyCode = Keys.Enter Then
             Dim _stepArr As ArrayList
             If GetFTSN() = True Then
-                If (SNBufer(2) <> 0) And SNBufer(1) <> 0 Then
+                If (SNBufer(2) <> 0) And (SNBufer(0) <> 0 Or SNBufer(1) <> 0) Then
                     Dim ResStep As Boolean = GetPreStep(SNBufer, PCInfo(6))
                     If ResStep = True Then
                         WriteToDB()
@@ -239,7 +239,7 @@ Public Class Banch_S_Numbers_Smart
 #Region "5. Проверка буффера SN"
     Private Function CheckSNBufer(format As Integer, snid As Integer) As Boolean
         Select Case format
-            Case 2
+            Case 2, 1
                 If SNBufer(0) = 0 Then
                     Return CheckBunchFAS(format, snid)
                 ElseIf SNBufer(0) <> 0 And SNBufer(1) = 0 Then
@@ -286,13 +286,13 @@ Public Class Banch_S_Numbers_Smart
     Private Function CheckBunchFAS(formatIndex As Integer, snid As Integer)
         If SNBufer(formatIndex - 1) = 0 Then
             Dim tempArr As New ArrayList()
-            If SNFormat(1) = 2 Then
+            If SNFormat(1) = 2 Or SNFormat(1) = 1 Then
                 tempArr = SelectListString($"SELECT PCBIDTOP,PCBIDBOT,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where PCBIDTOP =  {snid}")
                 If tempArr.Count = 0 Then
                     RunCommand($"use fas
                       insert into [FAS].[dbo].[FAS_Bunch_Decode] ([PCBIDTOP],[Date],[UserID],[LOTID])values
                       ({snid},CURRENT_TIMESTAMP,{UserInfo(0)},{LOTID})")
-                    tempArr = SelectListString($"SELECT PCBIDTOP,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where PCBIDTOP =  {snid}")
+                    tempArr = SelectListString($"SELECT PCBIDTOP,PCBIDBOT,FASSNID FROM [FAS].[dbo].[FAS_Bunch_Decode] where PCBIDTOP =  {snid}")
                     'ElseIf
                 End If
             ElseIf SNFormat(1) = 3 Then
@@ -344,13 +344,13 @@ Public Class Banch_S_Numbers_Smart
     Private Sub WriteToDB()
 
         RunCommand($"use fas
-            update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {SNBufer(1)} and LOTID = {LOTID}
+            update [FAS].[dbo].[FAS_Bunch_Decode] set FASSNID = {SNBufer(2)} where PCBIDTOP = {If(SNBufer(1) = 0, SNBufer(0), SNBufer(1))} and LOTID = {LOTID}
             insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[LOTID],[StepID],[TestResultID],[StepDate],[StepByID],[LineID], SNID)values
-            ({SNBufer(1)},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})
-            update [FAS].[dbo].[CT_Aquarius] set PCBID = {SNBufer(1)} where SN = (select sn from Ct_FASSN_reg where id = {SNBufer(2)})")
+            ({If(SNBufer(1) = 0, SNBufer(0), SNBufer(1))},{LOTID},{PCInfo(6)},2,CURRENT_TIMESTAMP,{UserInfo(0)},{PCInfo(2)},{SNBufer(2)})
+            update [FAS].[dbo].[CT_Aquarius] set PCBID = {If(SNBufer(1) = 0, SNBufer(0), SNBufer(1))} where SN = (select sn from Ct_FASSN_reg where id = {SNBufer(2)})")
 
         PrintLabel(Controllabel, $"Номера FAS и ТОР определены и записаны в базу!", 12, 193, Color.Green)
-        CurrentLogUpdate(ShiftCounter(), SNBufer(5), SNBufer(4))
+        CurrentLogUpdate(ShiftCounter(), SNBufer(5), If(SNBufer(4) = "", SNBufer(3), SNBufer(4)))
         SNBufer = New ArrayList From {0, 0, 0, "", "", ""}
     End Sub
 #End Region
@@ -381,7 +381,7 @@ Public Class Banch_S_Numbers_Smart
             tt.SNID, 
             (select SN from Ct_FASSN_reg Rg where ID =  tt.SNID),
             tt.StepID,tt.TestResultID, tt.StepDate 
-            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where  PCBID  = {_snbuf(i)}) tt
+            from  (SELECT *, ROW_NUMBER() over(partition by pcbid order by stepdate desc) num FROM [FAS].[dbo].[Ct_OperLog] where  PCBID  = {If(_snbuf(1) = 0, _snbuf(0), _snbuf(1))}) tt
             where  tt.num = 1 "))
             If newArr.Count > 0 Then
                 If newArr(4) = PreStepID Then
@@ -391,6 +391,9 @@ Public Class Banch_S_Numbers_Smart
                     Return True
                     Exit For
                 Else
+                    Dim preSt As String = SelectString($"SELECT [StepName]  FROM [FAS].[dbo].[Ct_StepScan] where id = {newArr(4)}")
+                    PrintLabel(Controllabel, $"Номер ТОР {newArr(1)} имеет не верный предыдущий шаг ""{preSt}""{vbCrLf}Предыдущий шаг должен быть ""{PreStep}""!", 12, 193, Color.Red)
+                    SerialTextBox.Enabled = False
                     Return False
                 End If
             End If

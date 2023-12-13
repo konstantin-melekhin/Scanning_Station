@@ -87,11 +87,11 @@ Partial Class Weight_control
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
         Me.BT_Pause = New System.Windows.Forms.Button()
         Me.DG_UpLog = New System.Windows.Forms.DataGridView()
-        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.Num = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CASIDTab = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BT_CleareSN = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -207,7 +207,7 @@ Partial Class Weight_control
         Me.LB_CurrentStep.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.LB_CurrentStep.Location = New System.Drawing.Point(187, 64)
         Me.LB_CurrentStep.Name = "LB_CurrentStep"
-        Me.LB_CurrentStep.Size = New System.Drawing.Size(55, 16)
+        Me.LB_CurrentStep.Size = New System.Drawing.Size(54, 16)
         Me.LB_CurrentStep.TabIndex = 20
         Me.LB_CurrentStep.Text = "fasend"
         '
@@ -217,7 +217,7 @@ Partial Class Weight_control
         Me.LB_SW_Wers.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.LB_SW_Wers.Location = New System.Drawing.Point(187, 29)
         Me.LB_SW_Wers.Name = "LB_SW_Wers"
-        Me.LB_SW_Wers.Size = New System.Drawing.Size(76, 16)
+        Me.LB_SW_Wers.Size = New System.Drawing.Size(75, 16)
         Me.LB_SW_Wers.TabIndex = 20
         Me.LB_SW_Wers.Text = "SW_Wers"
         '
@@ -227,7 +227,7 @@ Partial Class Weight_control
         Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.LabelAppName.Location = New System.Drawing.Point(187, 46)
         Me.LabelAppName.Name = "LabelAppName"
-        Me.LabelAppName.Size = New System.Drawing.Size(55, 16)
+        Me.LabelAppName.Size = New System.Drawing.Size(54, 16)
         Me.LabelAppName.TabIndex = 20
         Me.LabelAppName.Text = "fasend"
         '
@@ -237,7 +237,7 @@ Partial Class Weight_control
         Me.L_UserName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.L_UserName.Location = New System.Drawing.Point(187, 82)
         Me.L_UserName.Name = "L_UserName"
-        Me.L_UserName.Size = New System.Drawing.Size(150, 16)
+        Me.L_UserName.Size = New System.Drawing.Size(149, 16)
         Me.L_UserName.TabIndex = 19
         Me.L_UserName.Text = "Имя пользователя:"
         '
@@ -247,7 +247,7 @@ Partial Class Weight_control
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label1.Location = New System.Drawing.Point(27, 64)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(162, 16)
+        Me.Label1.Size = New System.Drawing.Size(161, 16)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Название операции:"
         '
@@ -257,7 +257,7 @@ Partial Class Weight_control
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label5.Location = New System.Drawing.Point(30, 29)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(159, 16)
+        Me.Label5.Size = New System.Drawing.Size(158, 16)
         Me.Label5.TabIndex = 16
         Me.Label5.Text = "Версия приложения:"
         '
@@ -267,7 +267,7 @@ Partial Class Weight_control
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label6.Location = New System.Drawing.Point(39, 82)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(150, 16)
+        Me.Label6.Size = New System.Drawing.Size(149, 16)
         Me.Label6.TabIndex = 19
         Me.Label6.Text = "Имя пользователя:"
         '
@@ -277,7 +277,7 @@ Partial Class Weight_control
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label7.Location = New System.Drawing.Point(9, 46)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(180, 16)
+        Me.Label7.Size = New System.Drawing.Size(179, 16)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "Название приложения:"
         '
@@ -287,7 +287,7 @@ Partial Class Weight_control
         Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label_StationName.Location = New System.Drawing.Point(187, 100)
         Me.Label_StationName.Name = "Label_StationName"
-        Me.Label_StationName.Size = New System.Drawing.Size(28, 16)
+        Me.Label_StationName.Size = New System.Drawing.Size(27, 16)
         Me.Label_StationName.TabIndex = 16
         Me.Label_StationName.Text = "ПК"
         '
@@ -297,7 +297,7 @@ Partial Class Weight_control
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label11.Location = New System.Drawing.Point(79, 100)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(110, 16)
+        Me.Label11.Size = New System.Drawing.Size(109, 16)
         Me.Label11.TabIndex = 16
         Me.Label11.Text = "Название ПК:"
         '
@@ -307,7 +307,7 @@ Partial Class Weight_control
         Me.LB_MaxW.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.LB_MaxW.Location = New System.Drawing.Point(189, 170)
         Me.LB_MaxW.Name = "LB_MaxW"
-        Me.LB_MaxW.Size = New System.Drawing.Size(39, 16)
+        Me.LB_MaxW.Size = New System.Drawing.Size(38, 16)
         Me.LB_MaxW.TabIndex = 16
         Me.LB_MaxW.Text = "MAX"
         '
@@ -317,7 +317,7 @@ Partial Class Weight_control
         Me.LB_MinW.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.LB_MinW.Location = New System.Drawing.Point(189, 187)
         Me.LB_MinW.Name = "LB_MinW"
-        Me.LB_MinW.Size = New System.Drawing.Size(35, 16)
+        Me.LB_MinW.Size = New System.Drawing.Size(34, 16)
         Me.LB_MinW.TabIndex = 16
         Me.LB_MinW.Text = "MIN"
         '
@@ -327,7 +327,7 @@ Partial Class Weight_control
         Me.L_Model.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.L_Model.Location = New System.Drawing.Point(187, 154)
         Me.L_Model.Name = "L_Model"
-        Me.L_Model.Size = New System.Drawing.Size(51, 16)
+        Me.L_Model.Size = New System.Drawing.Size(50, 16)
         Me.L_Model.TabIndex = 16
         Me.L_Model.Text = "Model"
         '
@@ -337,7 +337,7 @@ Partial Class Weight_control
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label14.Location = New System.Drawing.Point(28, 187)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(161, 16)
+        Me.Label14.Size = New System.Drawing.Size(160, 16)
         Me.Label14.TabIndex = 16
         Me.Label14.Text = "Минимальная масса:"
         '
@@ -347,7 +347,7 @@ Partial Class Weight_control
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label3.Location = New System.Drawing.Point(21, 170)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(168, 16)
+        Me.Label3.Size = New System.Drawing.Size(167, 16)
         Me.Label3.TabIndex = 16
         Me.Label3.Text = "Максимальная масса:"
         '
@@ -357,7 +357,7 @@ Partial Class Weight_control
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label12.Location = New System.Drawing.Point(121, 154)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(68, 16)
+        Me.Label12.Size = New System.Drawing.Size(67, 16)
         Me.Label12.TabIndex = 16
         Me.Label12.Text = "Модель:"
         '
@@ -367,7 +367,7 @@ Partial Class Weight_control
         Me.L_LOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.L_LOT.Location = New System.Drawing.Point(187, 136)
         Me.L_LOT.Name = "L_LOT"
-        Me.L_LOT.Size = New System.Drawing.Size(37, 16)
+        Me.L_LOT.Size = New System.Drawing.Size(36, 16)
         Me.L_LOT.TabIndex = 16
         Me.L_LOT.Text = "LOT"
         '
@@ -377,7 +377,7 @@ Partial Class Weight_control
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label18.Location = New System.Drawing.Point(59, 136)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(130, 16)
+        Me.Label18.Size = New System.Drawing.Size(129, 16)
         Me.Label18.TabIndex = 16
         Me.Label18.Text = "Название ЛОТа:"
         '
@@ -387,7 +387,7 @@ Partial Class Weight_control
         Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Lebel_StationLine.Location = New System.Drawing.Point(187, 118)
         Me.Lebel_StationLine.Name = "Lebel_StationLine"
-        Me.Lebel_StationLine.Size = New System.Drawing.Size(37, 16)
+        Me.Lebel_StationLine.Size = New System.Drawing.Size(36, 16)
         Me.Lebel_StationLine.TabIndex = 16
         Me.Lebel_StationLine.Text = "Line"
         '
@@ -397,7 +397,7 @@ Partial Class Weight_control
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label19.Location = New System.Drawing.Point(132, 118)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(57, 16)
+        Me.Label19.Size = New System.Drawing.Size(56, 16)
         Me.Label19.TabIndex = 16
         Me.Label19.Text = "Линия:"
         '
@@ -762,17 +762,6 @@ Partial Class Weight_control
         Me.DG_UpLog.Size = New System.Drawing.Size(969, 283)
         Me.DG_UpLog.TabIndex = 43
         '
-        'BT_CleareSN
-        '
-        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
-        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
-        Me.BT_CleareSN.Location = New System.Drawing.Point(504, 287)
-        Me.BT_CleareSN.Name = "BT_CleareSN"
-        Me.BT_CleareSN.Size = New System.Drawing.Size(68, 69)
-        Me.BT_CleareSN.TabIndex = 42
-        Me.BT_CleareSN.UseVisualStyleBackColor = True
-        '
         'Num
         '
         Me.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -787,7 +776,7 @@ Partial Class Weight_control
         Me.SNumber.HeaderText = "Серийный номер"
         Me.SNumber.Name = "SNumber"
         Me.SNumber.ReadOnly = True
-        Me.SNumber.Width = 159
+        Me.SNumber.Width = 160
         '
         'Column2
         '
@@ -803,6 +792,17 @@ Partial Class Weight_control
         Me.CASIDTab.Name = "CASIDTab"
         Me.CASIDTab.ReadOnly = True
         Me.CASIDTab.Width = 77
+        '
+        'BT_CleareSN
+        '
+        Me.BT_CleareSN.FlatAppearance.BorderSize = 0
+        Me.BT_CleareSN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BT_CleareSN.Image = Global.Scanning_Station.My.Resources.Resources.edittrash
+        Me.BT_CleareSN.Location = New System.Drawing.Point(504, 287)
+        Me.BT_CleareSN.Name = "BT_CleareSN"
+        Me.BT_CleareSN.Size = New System.Drawing.Size(68, 69)
+        Me.BT_CleareSN.TabIndex = 42
+        Me.BT_CleareSN.UseVisualStyleBackColor = True
         '
         'Weight_control
         '

@@ -399,13 +399,10 @@ Public Class WorkForm
         ElseIf (PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2) Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()
             'Если плата в таблице OperLog имеет шаг совпадающий со станцией ОТК, результат равен 2 
-        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And (PCInfo(6) = 8 Or PCInfo(6) = 29) Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
+        ElseIf PCBStepRes(0) = 4 And PCBStepRes(1) = 2 And (PCInfo(6) = 8 Or PCInfo(6) = 29) Then
+            'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)
             SelectAction()
-
-        ElseIf (PCBStepRes(0) = 40 Or PCBStepRes(0) = 61 Or PCBStepRes(0) = 42) And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта /19.04.23 добавлен новый шаг, подтверждение ремонта (61  ОТК - после ремонта)
-            'If PCInfo(6) <> 29 Then
-
-            'End If
+        ElseIf (PCBStepRes(0) = 40 Or PCBStepRes(0) = 61 Or PCBStepRes(0) = 42 Or PCBStepRes(0) = 62) And PCBStepRes(1) = 2 Then 'Плата вернулась из ремонта /19.04.23 добавлен новый шаг, подтверждение ремонта (61  ОТК - после ремонта)
             RepeatStep = True
             SelectAction()
         ElseIf PCBStepRes(0) = 41 And PCBStepRes(1) = 2 Then 'Повторная проверка эталона
@@ -521,7 +518,7 @@ Public Class WorkForm
             End If
             CB_GoldSample.Checked = False
         ElseIf CB_Quality.Checked = False And (LOTInfo(2) = False And LOTInfo(7) = True) Then 'Or (LOTInfo(2) = True And LOTInfo(7) = True) Then 'And LOTInfo(20) = 44
-            Dim pcbsn As String = SelectString($"select  PCBID FROM [FAS].[dbo].[Ct_OperLog] where snid = {PcbID}")
+            Dim pcbsn As Integer = SelectInt($"select  PCBID FROM [FAS].[dbo].[Ct_OperLog] where snid = {PcbID}")
             RunCommand($"insert into [FAS].[dbo].[Ct_OperLog] ([PCBID],[SNID],[LOTID],[StepID],[TestResultID],[StepDate],
                     [StepByID],[LineID],[ErrorCodeID],[Descriptions])values
                     ({pcbsn},{PcbID},{LOTID},{If(CB_GoldSample.Checked = True, 41, StepID)},{StepRes},CURRENT_TIMESTAMP,

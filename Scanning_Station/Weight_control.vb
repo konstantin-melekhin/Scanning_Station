@@ -8,8 +8,8 @@ Public Class Weight_control
     Dim LOTInfo As New ArrayList() 'LOTInfo = (Model,LOT,SMTRangeChecked,SMTStartRange,SMTEndRange,ParseLog)
     Dim UserInfo As New ArrayList() 'UserInfo = ( UserID, Name, User Group)
     Dim ShiftCounterInfo As New ArrayList() 'ShiftCounterInfo = (ShiftCounterID,ShiftCounter,LOTCounter)
-    Dim LenSN, StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
-    Dim SNFormat As ArrayList
+    Dim StartStepID As Integer, PreStepID As Integer, NextStepID As Integer
+    Dim LenSN, SNFormat As ArrayList
 #End Region
 #Region "Load form"
     Public Sub New(LOTIDWF As Integer, IDApp As Integer)
@@ -55,7 +55,9 @@ Public Class Weight_control
         '"CT_ScanStep = " & PCInfo(7) & vbCrLf 'PCInfo
 #End Region
         LOTInfo = GetCurrentContractLot(LOTID)
-        LenSN = GetLenSN(LOTInfo(8))
+        LenSN = New ArrayList
+        LenSN.Add(GetLenSN(LOTInfo(8)))
+        LenSN.Add(GetLenSN(LOTInfo(19).Split(";")(2)))
 #Region "LOT Info Расшифровка"
         '"Model = " & LOTInfo(0) & vbCrLf &
         '"LOT = " & LOTInfo(1) & vbCrLf &
@@ -163,7 +165,7 @@ Public Class Weight_control
 #End Region
 #Region "Установка дефорлта для весов"  ' условия для возврата в окно настроек
     Private Sub TB_AutoSetSNin_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_AutoSetSNin.KeyDown
-        If e.KeyCode = Keys.Enter And TB_AutoSetSNin.TextLength = LenSN Then
+        If e.KeyCode = Keys.Enter And TB_AutoSetSNin.TextLength = LenSN(0) Or TB_AutoSetSNin.TextLength = LenSN(1) Then
             'Dim Ref_Wght = 150
             Dim Ref_Wght = GetWeight()
             If Ref_Wght > 0 Then
@@ -215,7 +217,7 @@ Public Class Weight_control
         WeightSerialPort.Close()
         Dim ress As Integer = If(ResText = Nothing, 0, Int32.Parse(Mid(ResText, 1, 1) + Mid(ResText, 3)))
         Return ress
-        'Return 45
+        'Return 110
     End Function
 #End Region
 #Region "Обработка окна ввода серийного номера" 'окно ввода серийного номера платы 
@@ -264,7 +266,7 @@ Public Class Weight_control
                         End If
                         PrintLabel(Controllabel, Msg, 12, 180, Coll)
                         ShiftCounter()
-                        CurrentLogUpdate(ShiftCounterInfo(1), SerialTextBox.Text, CurW)
+                        CurrentLogUpdate(ShiftCounterInfo(1), _stepArr(3), CurW)
                         SerialTextBox.Clear()
                     End If
                 Else
@@ -284,13 +286,20 @@ Public Class Weight_control
     Public Function GetFTSN() As Boolean
         Dim col As Color, Mess As String, Res As Boolean
         SNFormat = New ArrayList()
-        SNFormat = GetSNFASFormat(LOTInfo(8), SerialTextBox.Text, LOTInfo(18), LOTInfo(7))
+        SNFormat = GetSNFASFormat(LOTInfo(19).Split(";")(2), SerialTextBox.Text, LOTInfo(18), LOTInfo(7))
+        If SNFormat(0) = False Then
+            SNFormat = GetSNFASFormat(LOTInfo(8), SerialTextBox.Text, LOTInfo(18), LOTInfo(7))
+        End If
+
         Res = SNFormat(0)
         Mess = SNFormat(3)
         col = If(Res = False, Color.Red, Color.Green)
         PrintLabel(Controllabel, Mess, 12, 193, col)
         SerialTextBox.Enabled = Res
-        SNID = SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
+        SNID = SelectInt($"USE FAS 
+                        select id FROM [FAS].[dbo].[Ct_FASSN_reg] 
+                        where sn = (select top (1) sn  FROM [FAS].[dbo].[CT_Aquarius] 
+                        where IMEI = '{SerialTextBox.Text}' or IMEI2 = '{SerialTextBox.Text}' or SN = '{SerialTextBox.Text}')")
         Return Res
     End Function
 #End Region

@@ -270,11 +270,19 @@ Public Class WF_for_FAS_SN
 #Region "1. Определение формата номера"
     Public Sub GetFTSN(SNArrFormat As String)
         SNFormat = New ArrayList()
-        SNFormat = GetSTBSNFormat(LOTInfo(8), SerialTextBox.Text)
+        SNFormat = GetSTBSNFormat(LOTInfo(19).Split(";")(2), SerialTextBox.Text)
+        If SNFormat(0) = False Then
+            SNFormat = GetSTBSNFormat(LOTInfo(8), SerialTextBox.Text)
+        End If
         If SNFormat(0) = False Then
             PrintLabel(Controllabel, "Формат номера не определен!", 12, 193, Color.Red)
             SerialTextBox.Enabled = False
             BT_Pause.Focus()
+        End If
+        If LOTID = 20469 Then
+            SNFormat(3) = SelectInt($"select id FROM [FAS].[dbo].[Ct_FASSN_reg] 
+                        where sn = (select top (1) sn  FROM [FAS].[dbo].[CT_Aquarius] 
+                        where IMEI = '{SerialTextBox.Text}' or IMEI2 = '{SerialTextBox.Text}')")
         End If
     End Sub
 #End Region
@@ -282,6 +290,7 @@ Public Class WF_for_FAS_SN
     Private Sub OperatinWithPCB(sender As Object, e As KeyEventArgs)
         Dim Mess As New ArrayList()
         'проверка регистрации платы на THT Start и на гравировщике
+        PCBCheckRes = New ArrayList
         PCBCheckRes = CheckPCB(SerialTextBox.Text)
         If PCBCheckRes(0) = True Then
             'Если плата прошла этапы АОИ и ТНТ Старт
@@ -322,6 +331,7 @@ Public Class WF_for_FAS_SN
                 order by StepDate desc"))
         If PCBStepRes.Count > 0 Then
             PCBCheckRes.Add(PCBStepRes(3))
+            'PCBCheckRes
         End If
         'Если плата не зарегистрирована в таблице StepResult и номер текущей станции совпадает со стартовым этапом
         If PCBStepRes.Count = 0 And StartStepID = PCInfo(6) Then
@@ -339,7 +349,7 @@ Public Class WF_for_FAS_SN
             'Если плата в таблице StepResult имеет  результат равен 3
         ElseIf PCBStepRes(0) = PCInfo(6) And PCBStepRes(1) = 3 Then 'Плата имеет статус ("текущий шаг"/3)
             PrintLabel(LB_CurrentErrCode, "Плата уже в карантине. Передайте плату в ремонт или обновите статус!", 12, 270, Color.Red)
-            RepeatStep = True
+            'RepeatStep = True
             SelectAction()
             'Если плата в таблице OperLog имеет шаг совпадающий с предыдущей станцией и результат равен 2
         ElseIf (PCBStepRes(0) = PreStepID And PCBStepRes(1) = 2) Then 'And PCInfo(6) = 1 Плата имеет статус Prestep/2 (проверка предыдущего шага)

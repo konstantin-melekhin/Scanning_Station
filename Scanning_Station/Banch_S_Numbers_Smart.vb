@@ -208,11 +208,17 @@ Public Class Banch_S_Numbers_Smart
         If (SNFormat(1) = 1) Or (SNFormat(1) = 2) Then
             SNID = SelectInt($"use SMDCOMPONETS select IDLaser  FROM [SMDCOMPONETS].[dbo].[LazerBase] where Content = '{SerialTextBox.Text}'")
         ElseIf SNFormat(1) = 3 Then
-            SNID = SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
-            If SNID = 0 Then
-                SNID = SelectString($"insert into [FAS].[dbo].[Ct_FASSN_reg] ([SN],[LOTID],[UserID],[AppID],[LineID],[RegDate]) values
+            If LOTID = 20469 Then
+                SNID = SelectInt($"select id FROM [FAS].[dbo].[Ct_FASSN_reg] 
+                        where sn = (select top (1) sn  FROM [FAS].[dbo].[CT_Aquarius] 
+                        where IMEI = '{SerialTextBox.Text}' or IMEI2 = '{SerialTextBox.Text}')")
+            Else
+                SNID = SelectInt($"USE FAS Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
+                If SNID = 0 Then
+                    SNID = SelectString($"insert into [FAS].[dbo].[Ct_FASSN_reg] ([SN],[LOTID],[UserID],[AppID],[LineID],[RegDate]) values
                             ('{SerialTextBox.Text}',{LOTID},11,11,11,CURRENT_TIMESTAMP)
                             Select [ID] FROM [FAS].[dbo].[Ct_FASSN_reg] where SN = '{SerialTextBox.Text}'")
+                End If
             End If
         End If
         If SNID > 0 Then

@@ -169,47 +169,48 @@ Public Class SettingsForm
         'определяем LOTCode и LOTID
         If DG_LOTListPresent.Rows.Count <> 0 Then
             LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
-            If PCInfo(6) = 30 Or PCInfo(6) = 43 Then
+            If PCInfo(6) = 30 Or PCInfo(6) = 43 Then '30_Привязка номеров PCB_STB/43_Привязка номеров TOP_BOT
                 Dim WF As New Bunch_S_Numbers(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 56 Then
+            ElseIf PCInfo(6) = 56 Then '56_Связка номеров TOP/FAS 
                 Dim WF As New Banch_S_Numbers_Smart(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 25 Then
+            ElseIf PCInfo(6) = 25 Then '25_Печать номеров GiftBox
                 Dim WF As New GiftBoxLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 37 Then
+            ElseIf PCInfo(6) = 37 Then '37_Станция взвешивания
                 Dim WF As New Weight_control(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 44 Then
+            ElseIf PCInfo(6) = 44 Then '44_FasErrorCode
                 Dim WF As New FasErrorCode(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 45 Then
+            ElseIf PCInfo(6) = 45 Then '_Печать SN/MAC/IMEI
                 Dim WF As New SilverLabelPrint(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 47 Then
+            ElseIf PCInfo(6) = 47 Then '47_Печать номера платы
                 Dim WF As New PCB_SN_Print(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
-            ElseIf PCInfo(6) = 51 Or PCInfo(6) = 52 Or PCInfo(6) = 53 Then
+            ElseIf PCInfo(6) = 51 Or PCInfo(6) = 52 Or PCInfo(6) = 53 Then '51_PR_Lamp_Bunch/52_PR_Измерение мощности/53_PR_Высоковольтный тест
                 Dim WF As New PR_Lamp(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
                 Me.Close()
             ElseIf PCInfo(6) = 64 Or PCInfo(6) = 66 Or PCInfo(6) = 67 Or PCInfo(6) = 58 Or PCInfo(6) = 68 Or PCInfo(6) = 69 Then
+                '64_Тест смартфона/планшета/66_Прошивка SN/ MAC/ IMEI/67_Прошивка Авроры/58_Калибровка устройства смартфон/68_Проверка герметичности/69_Наклейка дисплея
                 Dim WF As New WF_for_FAS_SN(LOTID, IDApp)
                 WF.Controllabel.Text = ""
                 WF.Show()
